@@ -61,7 +61,7 @@ Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 ## Open Science  
 
-This is a test message.
+This is a test message. Test again.
 
 Everyone can fork this repository. Use this example to journal your lab work and assignments. 
 
