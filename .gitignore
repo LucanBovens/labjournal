@@ -43,3 +43,12 @@
 # Personal folder
 /local/
 
+.DS_Store
+_site.yml
+docs/index.html
+docs/lab1.html
+docs/Week1_AppendixA.html
+Week1_AppendixA.Rmd
+_site.yml
+docs/index.html
+docs/lab1.html

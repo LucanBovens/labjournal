@@ -1,0 +1,92 @@
+---
+title: "Week 1"
+output: html_document
+date: "2024-09-10"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+----
+
+# Week 1 -  Research questions 
+
+In academia, collaboration among scholars has become more and more common over the years. Lone academic wolves are now a rarity, with scholars nowadays forming metaphoric packs. Advantages of scientific collaboration include the access to diverse expertise, sharing of resources and enhanced research productivity (Cheong & Corbitt, 2009; de Miranda Grochocki & Cabello, 2023). Junior scholars or PHD students often seek out senior scholars to aid them with their research, leading to the latter (often) becoming co-authors on the resulting papers. 
+
+However, there exists the possibility that senior scholars may prefer to collaborate primarily with peers at their own level, to retain a sense of elitism or achieved prestige, maintaining their status within the academic hierarchy (Hâncean & Perc, 2016). As such, this would result in a high degree of homophily within their network. In the academic context, the number of citations a scholar accumulates can serve as an indicator of their success, or in other words, their prestige. Following the homophily principle (McPherson, Smith-Lovin & Cook, 2001),  scholars with a higher number of citations might then predominantly collaborate with others who have a similar number of citations, reflecting what is referred to as the prestige effect, elitism in collaboration, or the ‘birds of a feather’ phenomenon, which in turn could lead to clustering.
+
+I believe it would also be interesting to investigate whether and how these dynamics change over time. For instance, if a scholar initially has a relatively low number of citations maintains a diverse network but later accumulates notably more citations —surpassing others in their network— will this increase in citations lead to a shift in their collaborative behavior and subsequently in a change in their network structure? Specifically, would the scholar:
+
+1. Become more insular (return of the academic wolf),
+2. Collaborate only with a select group of highly-cited (similar) peers,
+3. Exhibit no change,
+4. Increase their interactions with other scholars, potentially including junior scholars with the goal to help?
+
+Following all this, below I have formulated two research questions. The first question is descriptive with respect to the network structure. The second is/should be explanatory, examining both causes and consequences of changes in network density, however this question is still a work in progress.
+
+*Descriptive Research Question 1*: To what extent does the number of citations a scholar has influence the **clustering/segregation/density** of their network?
+
+*Descriptive Research Question 2*: To what extent does an increase in a scholar’s citations over time influence changes in the **clustering/density** of their network?
+
+Work in Progress *Explanatory Research Question*: What factors could explain a scholar’s preference for collaboration with others; aspects such as elitism, perceived future benefits, or personal goals such as future citation potential?
+
+*Potential follow-up*: Is this preference influenced more by rational choice, or does it reflect the strength of strong ties rather than the strength of weak ties?
+I thought of some other interesting questions, of which I am not sure whether I can implement them into the final project. Such questions are:
+
+* How could the network be improved? 
+* Which connections that may seem obvious from the data do not yet exist, or barely? 
+* Which authors should, based on the data, collaborate more with each other?
+    + If they have not yet, what underlying reasons exist?
+* Of the total possible connections in the network, how many do actually exist (percentage)?
+
+For my main research questions I have found a few piece of literature.
+
+Possibly the most relevant paper is the one by Hâncean & Perc (*2016*). In their work, the focus on the homophily principle in coauthorship networks of East European sociologists. They find that highly productive authors tend to work together; “*It follows that a personal network, populated by alters exhibiting a superior scientific status vis-à-vis the ego, may be governed by the preferential attachment principle*”. They look at “*whether the (mean of) alters's citations has a positive impact on the number of citations of an ego*”. Jeppesen et al. (*2014*) also direct their attention to the role of, what they call, a "*rich club effect*", demonstrating that prominent nodes direct their ties towards each other.
+
+
+Cheong & Corbitt (*2009*) did research on the co-authorship network of the Pacific Asia Conference on Information Systems from 1993 to 2008. They asked a few questions in which I was also interested, namely (quoting): “*Is the network a random structure or does it display recognisable properties? Is the community highly clustered around a few high profile researchers or is influence spread among a number of researchers? Who are the influential members of this community? What are the weaknesses or strengths of this network?*”. For me, the main focus then lies on the first two questions, in which they investigate whether some scholars are more likely to collaborate with similar scholars. They found that, unlike in Europe, the Pacific Asian scene was not dominated by a couple of key researchers. 
+
+
+**References**:
+
+Cheong, F., & Corbitt, B. (2009). A Social Network Analysis of the Co-Authorship Network of the Pacific Asia Conference on Information System from 1993 to 2008, *PACIS 2009 Proceedings, 23*. Retrieved from https://aisel.aisnet.org/pacis2009/23
+
+De Miranda Grochocki, L., & Cabello, A. (2023). Research collaboration networks in maturing academic environments. *Scientometrics, 128*(4), 2535-3556. https://doi.org/10.1007/s11192-023-04671-z
+
+Hâncean, M., & Perc, M. (2016). Homophily in coauthorship networks of East European sociologists. *Scientific reports, 6*(1), 36152. https://doi.org/10.1038/srep36152
+
+McPherson, M., Smith-Lovin, L., & Cook, J. (2001). Birds of a Feather: Homophily in Social Networks. *Annual Review of Sociology, 27*, 415-444. https://doi.org/10.1146/annurev.soc.27.1.415
+
+Jeppesen, J., Vaarst Andersen, K., Lauto, G., & Valentin, F. (2014). *Big Egos in Big Science*. Paper presented at The DRUID Academy Conference 2014, Aalborg, Denmark. Retrieved from https://www.semanticscholar.org/paper/Big-Egos-in-Big-Science-Andersen-Valentin/a384670034b9ac51a8978e7fd7037eeafaab9a92
+
+----
+
