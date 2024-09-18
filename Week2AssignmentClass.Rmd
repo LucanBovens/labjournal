@@ -1,0 +1,115 @@
+---
+title: "Week 2 - Assignment Class"
+output: html_document
+date: "2024-09-10"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+----
+
+# Week 2 -  Assignment 
+
+Matrix of four by four. 
+
+----
+
+```{r}
+
+library("igraph")
+
+matrixtest <- c(0,0,0,0,
+                0,0,0,0,
+                0,0,0,0,
+                0,0,0,0)
+
+AM1_empty <- matrix(matrixtest, nrow = 4, ncol = 4)
+
+```
+
+```{r}
+
+graph <- graph_from_adjacency_matrix(AM1_empty, mode = c("directed"))
+triad_census(graph)
+
+```
+
+```{r}
+
+matrix_graph <- triad_census(graph)
+matrix_graph
+```
+
+```{r}
+
+matrixtest2 <- c(0,0,0,0,
+                1,0,0,0,
+                0,0,0,0,
+                0,0,0,0)
+
+AM1_empty2 <- matrix(matrixtest2, nrow = 4, ncol = 4)
+
+```
+
+```{r}
+
+graph2 <- graph_from_adjacency_matrix(AM1_empty2, mode = c("directed"))
+triad_census(graph2)
+
+```
+
+```{r}
+
+matrix_graph2 <- triad_census(graph2)
+matrix_graph2
+```
+
+```{r}
+
+library(RSiena)
+
+?s501
+s501
+
+s501chunk <- s501[1:10, 1:10]
+s501chunk
+
+?triad_census
+?RSiena
+
+graphs501chunk <- graph_from_adjacency_matrix(s501chunk, mode = c("directed"))
+triad_census(graphs501chunk)
+
+plot(graphs501chunk)
+
+degree(graphs501chunk)
+
+View(s501chunk)
+```

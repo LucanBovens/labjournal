@@ -53,17 +53,15 @@ But please note, we are not here to make a beautiful website, our intention is j
 # My Lab Journal
 Last compiled on `r format(Sys.time(), '%B, %Y')`  
 
-*Describe lab journal here.*
+*Describe lab journal here. Welcome to my Lab Journal! In this Lab Journal, I ... for the course Social Networks given at the Radboud University. This website consists of xxx and xxx. Please see below how to navigate the website.*
 
 <br>
 
 ----
 
-## Open Science  
+## How to navigate
 
-This is a test message. Test again.
-
-Everyone can fork this repository. Use this example to journal your lab work and assignments. 
+This website has been hosted using Github. To navigate this website, please see the top menu. In the top menu, it is possible to find the different 'chapters' of this Lab Journal. It consists of weekly chapters added to the lab journal, which can be found under the 'my journal' tab. Under the 'concept report' tab, you can (in the future) find my concept report. The same goes for the 'final report' tab, where I will publish my final report on network analysis. 
 
 We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network Analysis For Social Scientists course [@SNASS]. <!--- this is a reference, stored in references.bib. It will be automatically added at the bottom of the page --->
 
@@ -97,6 +95,15 @@ We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network An
 
 Use the top menu to navigate through the journal.
 
+----
+
+# Test sidebar
+
+This is to test the sidebar function.
+
+## Test sidebar thingy
+
+If all went well, the 'test sidebar' should have its own 'test sidebar thingy' now
 
 ----
 
