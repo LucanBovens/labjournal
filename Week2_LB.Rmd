@@ -64,6 +64,22 @@ As such, the following research question is:  \
   *To what extent does an increase in a scholar’s citations over time affect changes in the **clustering ** of their network?*
 
 
+1.Variables:
+
+2. Names; read_html()
+3. AGE!: look up?
+4. Career length: first publication?
+5. Gender; is it needed? if then -> based on names? Based on descriptions on websites of people within networks? E.g. jochem tolsma Radboud website; ‘hij’, ‘zijn’ ‘hij’. E.g. klara raiber: ‘her’. Nella geurts: ‘ze’, ‘haar’, etc.
+6. Number of citations
+7. Affiliation (university); website universites?
+8. Department (sociology/political science?) & faculty
+
+9. First/second/third author?
+10. Which journal?
+
+11. Papers: doi
+
+12. Create a new variable that gives a score based on number of citations x what journal?
 
 
 
