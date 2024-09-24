@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-09-10" />
 
-<title>Week 2 - Assignment Class</title>
+<title>Week 2: Assignment Class</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -350,20 +350,41 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lab1.html">Example page</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="lab1.html">Example plage</a>
+        </li>
+        <li>
+          <a href="Week1_LB.html">Research Questions</a>
+        </li>
+        <li>
+          <a href="Week1_TutorialA.html">Tutorial</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="Week1_AppendixA.html">Appendices page</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week2_LB.html">Introduction</a>
+        </li>
+        <li>
+          <a href="Week2AssignmentClass.html">In-class assignment: Matrixes and measures</a>
+        </li>
+      </ul>
     </li>
-    <li>
-      <a href="Week1_LB.html">Week 1</a>
-    </li>
-    <li>
-      <a href="Week2_LB.html">Week 2</a>
-    </li>
-    <li>
-      <a href="Week1_AppendixA.html">Week 3</a>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction (revised)</a>
+        </li>
+        <li>
+          <a href="Week3AssignmentClass.html">Web-scraping &amp; OpenAlex</a>
+        </li>
+      </ul>
     </li>
     <li>
       <a href="Week1_AppendixA.html">Week 4</a>
@@ -457,7 +478,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Week 2 - Assignment Class</h1>
+<h1 class="title toc-ignore">Week 2: Assignment Class</h1>
 <h4 class="author">Lucan Bovens</h4>
 <h4 class="date">2024-09-10</h4>
 
@@ -468,35 +489,44 @@ div.tocify {
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
-<p>Last compiled on September, 2024</p>
-<p><br></p>
 <hr />
-<div id="week-2---assignment" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Week 2 -
-Assignment</h1>
-<p>Matrix of four by four.</p>
+<div id="week-2---assignment-4x4-matrix-and-triads"
+class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Week 2 - Assignment
+(4x4 matrix and triads)</h1>
 <hr />
-<pre class="r test"><code>library(&quot;igraph&quot;)
+<pre class="r test"><code>require(igraph)
+# require(sna)
+require(RSiena)</code></pre>
+<pre class="r test"><code>emptymatrix &lt;- matrix(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, ncol = 4)
 
-matrixtest &lt;- c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-
-AM1_empty &lt;- matrix(matrixtest, nrow = 4, ncol = 4)</code></pre>
-<pre class="r test"><code>graph &lt;- graph_from_adjacency_matrix(AM1_empty, mode = c(&quot;directed&quot;))
-triad_census(graph)</code></pre>
+print(emptymatrix)</code></pre>
+<pre class="test2"><code>#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]    0    0    0    0
+#&gt; [2,]    0    0    0    0
+#&gt; [3,]    0    0    0    0
+#&gt; [4,]    0    0    0    0</code></pre>
+<pre class="r test"><code>graph1 &lt;- graph_from_adjacency_matrix(emptymatrix, mode = c(&quot;directed&quot;))
+emptymatrix_graph &lt;- triad_census(graph1)
+emptymatrix_graph</code></pre>
 <pre class="test2"><code>#&gt;  [1] 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
-<pre class="r test"><code>matrix_graph &lt;- triad_census(graph)
-matrix_graph</code></pre>
-<pre class="test2"><code>#&gt;  [1] 4 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
-<pre class="r test"><code>matrixtest2 &lt;- c(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+<pre class="r test"><code># insert a tie
 
-AM1_empty2 &lt;- matrix(matrixtest2, nrow = 4, ncol = 4)</code></pre>
-<pre class="r test"><code>graph2 &lt;- graph_from_adjacency_matrix(AM1_empty2, mode = c(&quot;directed&quot;))
-triad_census(graph2)</code></pre>
-<pre class="test2"><code>#&gt;  [1] 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
-<pre class="r test"><code>matrix_graph2 &lt;- triad_census(graph2)
-matrix_graph2</code></pre>
+onetie &lt;- matrix(c(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), nrow = 4, ncol = 4)
+
+print(onetie)</code></pre>
+<pre class="test2"><code>#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]    0    1    0    0
+#&gt; [2,]    0    0    0    0
+#&gt; [3,]    0    0    0    0
+#&gt; [4,]    0    0    0    0</code></pre>
+<pre class="r test"><code>onetiegraph1 &lt;- graph_from_adjacency_matrix(onetie, mode = c(&quot;directed&quot;))
+onetie_graph &lt;- triad_census(onetiegraph1)
+onetie_graph</code></pre>
 <pre class="test2"><code>#&gt;  [1] 2 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
 <pre class="r test"><code>library(RSiena)
+library(sna)
+library(igraph)
 
 `?`(s501)
 s501</code></pre>
@@ -602,6 +632,8 @@ s501</code></pre>
 #&gt; 48   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   1   0
 #&gt; 49   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0
 #&gt; 50   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0</code></pre>
+<pre class="r test"><code>dim(s501)</code></pre>
+<pre class="test2"><code>#&gt; [1] 50 50</code></pre>
 <pre class="r test"><code>s501chunk &lt;- s501[1:10, 1:10]
 s501chunk</code></pre>
 <pre class="test2"><code>#&gt;    V1 V2 V3 V4 V5 V6 V7 V8 V9 V10
@@ -622,14 +654,29 @@ graphs501chunk &lt;- graph_from_adjacency_matrix(s501chunk, mode = c(&quot;direc
 triad_census(graphs501chunk)</code></pre>
 <pre class="test2"><code>#&gt;  [1] 82  0 37  0  0  0  0  0  0  0  0  0  0  0  0  1</code></pre>
 <pre class="r test"><code>plot(graphs501chunk)</code></pre>
-<p><img src="Week2AssignmentClass_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<pre class="r test"><code>degree(graphs501chunk)</code></pre>
+<p><img src="Week2AssignmentClass_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r test"><code>igraph::degree(graphs501chunk)</code></pre>
 <pre class="test2"><code>#&gt;  V1  V2  V3  V4  V5  V6  V7  V8  V9 V10 
 #&gt;   0   2   4   4   0   2   2   2   4   0</code></pre>
 <pre class="r test"><code>View(s501chunk)</code></pre>
+<pre class="r test"><code>densitys501 &lt;- edge_density(graphs501chunk)
+densitys501</code></pre>
+<pre class="test2"><code>#&gt; [1] 0.1111111</code></pre>
+<pre class="r test"><code>degrees501 &lt;- igraph::degree(graphs501chunk, mode = &quot;out&quot;)
+degrees501</code></pre>
+<pre class="test2"><code>#&gt;  V1  V2  V3  V4  V5  V6  V7  V8  V9 V10 
+#&gt;   0   1   2   2   0   1   1   1   2   0</code></pre>
+<pre class="r test"><code>degrees501norm &lt;- igraph::degree(graphs501chunk, mode = &quot;out&quot;, normalized = TRUE)
+degrees501norm</code></pre>
+<pre class="test2"><code>#&gt;        V1        V2        V3        V4        V5        V6        V7        V8        V9       V10 
+#&gt; 0.0000000 0.1111111 0.2222222 0.2222222 0.0000000 0.1111111 0.1111111 0.1111111 0.2222222 0.0000000</code></pre>
+<pre class="r test"><code>degrees501normform &lt;- (degrees501 - min(degrees501))/(max(degrees501)) - min(degrees501)
+degrees501normform</code></pre>
+<pre class="test2"><code>#&gt;  V1  V2  V3  V4  V5  V6  V7  V8  V9 V10 
+#&gt; 0.0 0.5 1.0 1.0 0.0 0.5 0.5 0.5 1.0 0.0</code></pre>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayAyIC0gQXNzaWdubWVudCBDbGFzcyIKb3V0cHV0OiBodG1sX2RvY3VtZW50CmRhdGU6ICIyMDI0LTA5LTEwIgpiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliCmF1dGhvcjogIkx1Y2FuIEJvdmVucyIKLS0tCgpgYGB7ciwgZ2xvYmFsc2V0dGluZ3MsIGVjaG89RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQpsaWJyYXJ5KGtuaXRyKQoKa25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkKb3B0aW9ucyh3aWR0aCA9IDEwMCkKcmdsOjpzZXR1cEtuaXRyKCkKCgoKY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0KCmBgYAoKYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpCiNrbGlwcHk6OmtsaXBweShjb2xvciA9ICdkYXJrcmVkJykKI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQpgYGAKCkxhc3QgY29tcGlsZWQgb24gYHIgZm9ybWF0KFN5cy50aW1lKCksICclQiwgJVknKWAKCjxicj4KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAotLS0tCgojIFdlZWsgMiAtICBBc3NpZ25tZW50IAoKTWF0cml4IG9mIGZvdXIgYnkgZm91ci4gCgotLS0tCgpgYGB7cn0KCmxpYnJhcnkoImlncmFwaCIpCgptYXRyaXh0ZXN0IDwtIGMoMCwwLDAsMCwKICAgICAgICAgICAgICAgIDAsMCwwLDAsCiAgICAgICAgICAgICAgICAwLDAsMCwwLAogICAgICAgICAgICAgICAgMCwwLDAsMCkKCkFNMV9lbXB0eSA8LSBtYXRyaXgobWF0cml4dGVzdCwgbnJvdyA9IDQsIG5jb2wgPSA0KQoKYGBgCgpgYGB7cn0KCmdyYXBoIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChBTTFfZW1wdHksIG1vZGUgPSBjKCJkaXJlY3RlZCIpKQp0cmlhZF9jZW5zdXMoZ3JhcGgpCgpgYGAKCmBgYHtyfQoKbWF0cml4X2dyYXBoIDwtIHRyaWFkX2NlbnN1cyhncmFwaCkKbWF0cml4X2dyYXBoCmBgYAoKYGBge3J9CgptYXRyaXh0ZXN0MiA8LSBjKDAsMCwwLDAsCiAgICAgICAgICAgICAgICAxLDAsMCwwLAogICAgICAgICAgICAgICAgMCwwLDAsMCwKICAgICAgICAgICAgICAgIDAsMCwwLDApCgpBTTFfZW1wdHkyIDwtIG1hdHJpeChtYXRyaXh0ZXN0MiwgbnJvdyA9IDQsIG5jb2wgPSA0KQoKYGBgCgpgYGB7cn0KCmdyYXBoMiA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoQU0xX2VtcHR5MiwgbW9kZSA9IGMoImRpcmVjdGVkIikpCnRyaWFkX2NlbnN1cyhncmFwaDIpCgpgYGAKCmBgYHtyfQoKbWF0cml4X2dyYXBoMiA8LSB0cmlhZF9jZW5zdXMoZ3JhcGgyKQptYXRyaXhfZ3JhcGgyCmBgYAoKYGBge3J9CgpsaWJyYXJ5KFJTaWVuYSkKCj9zNTAxCnM1MDEKCnM1MDFjaHVuayA8LSBzNTAxWzE6MTAsIDE6MTBdCnM1MDFjaHVuawoKP3RyaWFkX2NlbnN1cwo/UlNpZW5hCgpncmFwaHM1MDFjaHVuayA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoczUwMWNodW5rLCBtb2RlID0gYygiZGlyZWN0ZWQiKSkKdHJpYWRfY2Vuc3VzKGdyYXBoczUwMWNodW5rKQoKcGxvdChncmFwaHM1MDFjaHVuaykKCmRlZ3JlZShncmFwaHM1MDFjaHVuaykKClZpZXcoczUwMWNodW5rKQpgYGAK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayAyOiBBc3NpZ25tZW50IENsYXNzIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKZGF0ZTogIjIwMjQtMDktMTAiCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWIKYXV0aG9yOiAiTHVjYW4gQm92ZW5zIgotLS0KCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQpyZ2w6OnNldHVwS25pdHIoKQoKY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0KYGBgCgpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0Ka2xpcHB5OjprbGlwcHkocG9zaXRpb24gPSBjKCd0b3AnLCAncmlnaHQnKSkKI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpCmBgYAoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKYGBgCi0tLS0KCiMgV2VlayAyIC0gIEFzc2lnbm1lbnQgKDR4NCBtYXRyaXggYW5kIHRyaWFkcykKCi0tLS0KCmBgYHtyfQpyZXF1aXJlKGlncmFwaCkKI3JlcXVpcmUoc25hKQpyZXF1aXJlKFJTaWVuYSkKYGBgCgpgYGB7cn0KZW1wdHltYXRyaXggPC0gbWF0cml4KGMoMCwwLDAsMCwKICAgICAgICAgICAgICAgIDAsMCwwLDAsCiAgICAgICAgICAgICAgICAwLDAsMCwwLAogICAgICAgICAgICAgICAgMCwwLDAsMCksIG5yb3cgPSA0LCBuY29sID0gNCkKCnByaW50KGVtcHR5bWF0cml4KQoKZ3JhcGgxIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChlbXB0eW1hdHJpeCwgbW9kZSA9IGMoImRpcmVjdGVkIikpCmVtcHR5bWF0cml4X2dyYXBoIDwtIHRyaWFkX2NlbnN1cyhncmFwaDEpCmVtcHR5bWF0cml4X2dyYXBoCmBgYAoKYGBge3J9CiMgaW5zZXJ0IGEgdGllCgpvbmV0aWUgPC0gbWF0cml4KGMoMCwwLDAsMCwKICAgICAgICAgICAgICAgIDEsMCwwLDAsCiAgICAgICAgICAgICAgICAwLDAsMCwwLAogICAgICAgICAgICAgICAgMCwwLDAsMCksIG5yb3cgPSA0LCBuY29sID0gNCkKCnByaW50KG9uZXRpZSkKCm9uZXRpZWdyYXBoMSA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgob25ldGllLCBtb2RlID0gYygiZGlyZWN0ZWQiKSkKb25ldGllX2dyYXBoIDwtIHRyaWFkX2NlbnN1cyhvbmV0aWVncmFwaDEpCm9uZXRpZV9ncmFwaApgYGAKCmBgYHtyfQpsaWJyYXJ5KFJTaWVuYSkKbGlicmFyeShzbmEpCmxpYnJhcnkoaWdyYXBoKQoKP3M1MDEKczUwMQpkaW0oczUwMSkKCnM1MDFjaHVuayA8LSBzNTAxWzE6MTAsIDE6MTBdCnM1MDFjaHVuawoKP3RyaWFkX2NlbnN1cwo/UlNpZW5hCgpncmFwaHM1MDFjaHVuayA8LSBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoczUwMWNodW5rLCBtb2RlID0gYygiZGlyZWN0ZWQiKSkKdHJpYWRfY2Vuc3VzKGdyYXBoczUwMWNodW5rKQoKcGxvdChncmFwaHM1MDFjaHVuaykKCmlncmFwaDo6ZGVncmVlKGdyYXBoczUwMWNodW5rKQoKVmlldyhzNTAxY2h1bmspCmBgYAoKYGBge3J9CmRlbnNpdHlzNTAxIDwtIGVkZ2VfZGVuc2l0eShncmFwaHM1MDFjaHVuaykKZGVuc2l0eXM1MDEKYGBgCgpgYGB7cn0KZGVncmVlczUwMSA8LSBpZ3JhcGg6OmRlZ3JlZShncmFwaHM1MDFjaHVuaywgbW9kZSA9ICJvdXQiKQpkZWdyZWVzNTAxCgpkZWdyZWVzNTAxbm9ybSA8LSBpZ3JhcGg6OmRlZ3JlZShncmFwaHM1MDFjaHVuaywgbW9kZSA9ICJvdXQiLCBub3JtYWxpemVkID0gVFJVRSkKZGVncmVlczUwMW5vcm0KCmRlZ3JlZXM1MDFub3JtZm9ybSA8LSAoZGVncmVlczUwMSAtIG1pbihkZWdyZWVzNTAxKSkvKG1heChkZWdyZWVzNTAxKSkgLSBtaW4oZGVncmVlczUwMSkKZGVncmVlczUwMW5vcm1mb3JtCmBgYAoK</div>
 
 
 </div>

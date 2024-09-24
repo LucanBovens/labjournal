@@ -12,16 +12,26 @@ navbar:
       href: index.html
     - text: "My journal"
       menu:
-      - text: "Example page"
-        href: lab1.html
-      - text: "Appendices page"
-        href: Week1_AppendixA.html
       - text: "Week 1"
-        href: Week1_LB.html
+        menu:  # Nested menu for Week 1
+        - text: "Example plage"
+          href: lab1.html
+        - text: "Research Questions"
+          href: Week1_LB.html
+        - text: "Tutorial"
+          href: Week1_TutorialA.html
       - text: "Week 2"
-        href: Week2_LB.html
+        menu:  # Nested menu for Week 2
+        - text: "Introduction"
+          href: Week2_LB.html
+        - text: "In-class assignment: Matrixes and measures"
+          href: Week2AssignmentClass.html
       - text: "Week 3"
-        href: Week1_AppendixA.html
+        menu:  # Nested menu for Week 3
+        - text: "Introduction (revised)"
+          href: Week3_LB.html
+        - text: "Web-scraping & OpenAlex"
+          href: Week3AssignmentClass.html          
       - text: "Week 4"
         href: Week1_AppendixA.html
       - text: "Week 5"
@@ -57,7 +67,6 @@ navbar:
       - text: "Appendix"
         href: Week1_AppendixA.html   
         # here, other .Rmds can be added
-
 
   right:
   - icon: fab fa-github

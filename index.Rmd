@@ -1,5 +1,5 @@
 ---
-title: "Lab journal"
+title: "Lucan's Lab journal"
 author: "by: Lucan Bovens"
 bibliography: references.bib
 
@@ -61,9 +61,7 @@ Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 ## How to navigate
 
-This website has been hosted using Github. To navigate this website, please see the top menu. In the top menu, it is possible to find the different 'chapters' of this Lab Journal. It consists of weekly chapters added to the lab journal, which can be found under the 'my journal' tab. Under the 'concept report' tab, you can (in the future) find my concept report. The same goes for the 'final report' tab, where I will publish my final report on network analysis. 
-
-We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network Analysis For Social Scientists course [@SNASS]. <!--- this is a reference, stored in references.bib. It will be automatically added at the bottom of the page --->
+This website has been hosted using Github. To navigate this website, please see the top menu. In the top menu, it is possible to find the different 'chapters' of this Lab Journal. It consists of weekly chapters added to the lab journal, which can be found under the 'my journal' tab. Under the 'concept report' tab, you can (in the future) find my concept report. The same goes for the 'final report' tab, where I will publish my final report on network analysis. This lab journal is for the end product of the course Social Networks. Most is based on the book Social Network Analysis For Social Scientists [@SNASS].
 
 
 :::
@@ -73,22 +71,16 @@ We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network An
 
 
 
-![](images/cover.jpg)
+![](images/thesocialnetworkimagefront.jpg)
 
 
 :::
 ::::
-
+---
 
 ## How to use
 
-1. Fork the repository for this website and follow instructions on `README` to get started [here](https://github.com/JochemTolsma/labjournal).  
 
-2. Journal your work, by editing the .Rmd-files
-
-3. ...
-
-4. Change everything to make it your own!
 
 
 <br>
@@ -104,6 +96,10 @@ This is to test the sidebar function.
 ## Test sidebar thingy
 
 If all went well, the 'test sidebar' should have its own 'test sidebar thingy' now
+
+## Test sidebar thingy 2
+
+If all went well, the 'test sidebar' should have its own 'test sidebar thingy 2' now
 
 ----
 

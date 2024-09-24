@@ -1,0 +1,221 @@
+---
+title: "Week 3: Webscraping assignment"
+output: html_document
+date: "2024-09-18"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+  
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+----
+  
+# Week 3 -  Webscraping assignment
+  
+----
+  
+```{r}
+# start with clean workspace
+rm(list = ls())
+
+require(RSelenium)
+require(scholar)
+require(tidyverse)
+require(openalexR)
+require(jsonlite)
+require(xml2)
+require(rvest)
+require (kableExtra)
+require(devtools)
+```
+
+
+```{r}
+fshowdf <- function(x, ...) {
+  knitr::kable(x, digits = 2, "html", ...) %>%
+    kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+    kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+?RSelenium
+?jsonlite
+??openalexR
+```
+
+
+```{r}
+options(openalexR.mailto = "lucan.bovens@home.nl")  #please Please replace with your own emailadress
+
+url <- "https://api.openalex.org/authors?search=J+Tolsma"
+```
+
+```{r}
+# based on what you have learned so far, you would probably first try:
+jt <- read_html("https://api.openalex.org/authors?search=J+Tolsma") %>%
+  html_text2()
+
+substr(jt, 1, 100)
+
+jt_json <- fromJSON("https://api.openalex.org/authors?search=J+Tolsma", simplifyVector = FALSE)
+glimpse(jt_json, max.level = 1)
+
+jt_json[["results"]][[1]][["display_name"]]
+
+df_jt <- jt_json %>%
+  .$results %>%
+  .[[1]] %>%
+  discard(is_empty)
+
+?oa_fetch
+```
+
+```{r}
+df <- oa_fetch(entity = "author", search = "J Tolsma")
+fshowdf(df)
+```
+
+```{r}
+df_papers <- oa_fetch(entity = "works", author.id = df$id)
+df_papers$author[1]
+```
+
+```{r}
+df_papers <- oa_fetch(entity = "works", author.id = df$id)
+df_papers$author[1]
+```
+
+```{r}
+df_institutions_RU <- oa_fetch(entity = "institutions", search = "Radboud University Nijmegen")
+df_institutions_RU[1]
+
+df_institutions_UVA <- oa_fetch(entity = "institutions", search = "University of Amsterdam")
+df_institutions_UVA[1]
+
+df_institutions_TWU <- oa_fetch(entity = "institutions", search = "University of Twente")
+df_institutions_TWU[1]
+```
+
+```{r}
+df <- oa_fetch(entity = "author", search = "Tom van der Meer")
+fshowdf(df)
+```
+
+```{r}
+JTo <- oa_fetch(entity = "author", search = "Jochem Tolsma", affiliations.institution.id = "I145872427")
+fshowdf(JTo)
+
+TvdMe <- oa_fetch(entity = "author", search = "Tom van der Meer", affiliations.institution.id = "I94624287")
+fshowdf(TvdMe)
+
+MGe <- oa_fetch(entity = "author", search = "Maurice Gesthuizen", affiliations.institution.id = "I145872427")
+fshowdf(MGe)
+
+MSa <- oa_fetch(entity = "author", search = "Michael Savelkoul", affiliations.institution.id = "I145872427")
+fshowdf(MSa)
+```
+
+```{r}
+# All papers Tolsma
+
+oa_fetch (entity = "works", author.id = 'https://openalex.org/A5087380803')
+```
+
+```{r}
+authors <- c(JTo, TvdMe, MGe, MSa)
+authors
+```
+
+
+```{r}
+#create adjaceny matrix for:
+# 1. Jochem Tolsma;
+# 2. Tom van der Meer;
+# 3. Maurice Gesthuizen;
+# 4. Michael Savelkoul
+
+friendsgroup <- rbind(JTo, TvdMe, MGe, MSa)
+friendsgroup
+```
+
+```{r}
+works_JTo <- oa_fetch (entity = "works", author.id = "https://openalex.org/A5087380803")
+
+# Tom van der Meer
+works_TvdMe <- oa_fetch (entity = "works", author.id = "https://openalex.org/A5010780363")
+
+# Maurice Gesthuizen
+works_MGe <- oa_fetch (entity = "works", author.id = "https://openalex.org/A5007673492")
+
+# Michael Savelkoul
+works_MSa <- oa_fetch (entity = "works", author.id = "https://openalex.org/A5048988743")
+
+comb_works <- rbind(works_JTo, works_TvdMe, works_MGe, works_MSa)
+comb_works
+```
+
+```{r}
+# Select date
+#Timepoint 1
+works_t1 <- comb_works %>% filter(publication_year >= 2014 & publication_year <= 2018)
+#Timepoint 2
+works_t2 <- comb_works %>% filter(publication_year >= 2019 & publication_year <= 2023)
+```
+
+```{r}
+matrix_t1 <- matrix(0, nrow = 4, ncol = 4)
+```
+
+```{r}
+rownames(matrix_t1) <- c("https://openalex.org/A5087380803", "https://openalex.org/A5010780363", "https://openalex.org/A5007673492", "https://openalex.org/A5048988743")
+
+colnames(matrix_t1)<- c("https://openalex.org/A5087380803", "https://openalex.org/A5010780363", "https://openalex.org/A5007673492", "https://openalex.org/A5048988743")
+
+print(matrix_t1)
+```
+
+```{r}
+#copied from Vero cuz was unclear in class
+# loop through works
+
+  # row 1: 
+    # works[1,] # in the loop it would be 'i'
+
+  # output shows we want information from column"au_id"
+    works_t1[1,]$author[[1]]$au_id
+```
+
+```{r}
+ego <- works_t1[1,]$author[[1]]$au_id[1]
+alters <- works_t1[1,]$author[[1]]$au_id[-1]
+
+matrix_t1[ego,alters] <- 1
+```
+
+```{r}
+matrix_t2 <- matrix(0, nrow = 4, ncol = 4)
+
+rownames(matrix_t2) <- c("https://openalex.org/A5087380803", "https://openalex.org/A5010780363", "https://openalex.org/A5007673492", "https://openalex.org/A5048988743")
+
+colnames(matrix_t2)<- c("https://openalex.org/A5087380803", "https://openalex.org/A5010780363", "https://openalex.org/A5007673492", "https://openalex.org/A5048988743")
+
+print(matrix_t2)
+```
+
