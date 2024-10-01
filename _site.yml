@@ -31,9 +31,15 @@ navbar:
         - text: "Introduction (revised)"
           href: Week3_LB.html
         - text: "Web-scraping & OpenAlex"
-          href: Week3AssignmentClass.html          
+          href: Week3AssignmentClass.html
       - text: "Week 4"
-        href: Week1_AppendixA.html
+        menu:  # Nested menu for Week 4
+        - text: "Introduction & theory? (revised)"
+          href: Week3_LB.html
+        - text: "In-class assignment: chapter 9"
+          href: Week4AssignmentClass.html
+        - text: "Visualization"
+          href: Week4Visualization.html  
       - text: "Week 5"
         href: Week1_AppendixA.html
       - text: "Week 6"
