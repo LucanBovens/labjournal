@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lucan Bovens" />
+
+<meta name="date" content="2024-10-07" />
+
+<title>Week xxx: Test bestand</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="lab1.html">Example plage</a>
+        </li>
+        <li>
+          <a href="Week1_LB.html">Research Questions</a>
+        </li>
+        <li>
+          <a href="Week1_TutorialA.html">Tutorial</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week2_LB.html">Introduction</a>
+        </li>
+        <li>
+          <a href="Week2AssignmentClass.html">In-class assignment: Matrixes and measures</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction (revised)</a>
+        </li>
+        <li>
+          <a href="Week3AssignmentClass.html">Web-scraping &amp; OpenAlex</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction &amp; theory? (revised)</a>
+        </li>
+        <li>
+          <a href="Week4AssignmentClass.html">In-class assignment: chapter 9</a>
+        </li>
+        <li>
+          <a href="Week4Visualization.html">Visualization</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 5</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week5_RSienaTutorial.html">RSiena Tutorial</a>
+        </li>
+        <li>
+          <a href="Week5_RSienaExample.html">RSiena Example (in-class)</a>
+        </li>
+        <li>
+          <a href="testbestand8oktoberrsienatest.html">RSiena test (SNASS: error)</a>
+        </li>
+        <li>
+          <a href="Testbestand7oktober.html">RSiena own data</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Week 6</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Concept Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Theory</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Data</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Results</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Conclusion</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Appendix</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Theory</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Data</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Results</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Conclusion</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Appendix</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lucanbovens.github.io/labjournal/">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Week xxx: Test bestand</h1>
+<h4 class="author">Lucan Bovens</h4>
+<h4 class="date">2024-10-07</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<hr />
+<div id="week-xxx---test-bestand-7-oktober" class="section level1"
+number="1">
+<h1><span class="header-section-number">1</span> Week xxx - Test bestand
+7 oktober</h1>
+<hr />
+</div>
+<div id="prep" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Prep</h1>
+<p>Start with clean workspace</p>
+<pre class="r test"><code>rm(list = ls())</code></pre>
+</div>
+<div id="functions" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Functions</h1>
+<pre class="r test"><code>fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, file, &quot;_&quot;, datename, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}</code></pre>
+<pre class="r test"><code>fcolnet &lt;- function(data = scholars, university = &quot;RU&quot;, discipline = &quot;sociology&quot;, waves = list(c(2015,
+    2018), c(2019, 2023)), type = c(&quot;first&quot;)) {
+
+    # step 1
+    demographics &lt;- do.call(rbind.data.frame, data$demographics)
+    demographics &lt;- demographics %&gt;%
+        mutate(Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), &quot;&quot;), Universiteit2.22 = replace(Universiteit2.22,
+            is.na(Universiteit2.22), &quot;&quot;), Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24),
+            &quot;&quot;), Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), &quot;&quot;), discipline.22 = replace(discipline.22,
+            is.na(discipline.22), &quot;&quot;), discipline.24 = replace(discipline.24, is.na(discipline.24), &quot;&quot;))
+
+    sample &lt;- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in%
+        university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in%
+        university) &amp; (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+    demographics_soc &lt;- demographics[sample, ]
+    scholars_sel &lt;- lapply(scholars, &quot;[&quot;, sample)
+
+    # step 2
+    ids &lt;- demographics_soc$au_id  #openalex IDs
+    nwaves &lt;- length(waves)
+    nets &lt;- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works &lt;- tibble(works_id = unlist(lapply(scholars_sel$work, function(l) l$id)), works_author = unlist(lapply(scholars_sel$work,
+        function(l) l$author), recursive = FALSE), works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year),
+        recursive = FALSE))
+
+    df_works &lt;- df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == &quot;first&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- df_works_w$works_author[i][[1]]$au_id[1]
+                alters &lt;- df_works_w$works_author[i][[1]]$au_id[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;last&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+                alters &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;all&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos &lt;- df_works_w$works_author[i][[1]]$au_id
+                if (sum(ids %in% egos) &gt; 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] &lt;- 1
+                }
+            }
+        }
+    }
+    output &lt;- list()
+    output$data &lt;- scholars_sel
+    output$nets &lt;- nets
+    return(output)
+}</code></pre>
+<p>#Loading data</p>
+<pre class="r test"><code>packages &lt;- c(&quot;tidyverse&quot;, &quot;scholar&quot;, &quot;openalexR&quot;, &quot;rvest&quot;, &quot;jsonlite&quot;, &quot;RSiena&quot;, &quot;RSelenium&quot;, &quot;rvest&quot;,
+    &quot;lavaan&quot;, &quot;xml2&quot;, &quot;kableExtra&quot;, &quot;devtools&quot;, &quot;igraph&quot;, &quot;network&quot;, &quot;sna&quot;, &quot;ggraph&quot;, &quot;visNetwork&quot;, &quot;threejs&quot;,
+    &quot;networkD3&quot;, &quot;RsienaTwoStep&quot;)
+
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL
+#&gt; 
+#&gt; [[4]]
+#&gt; NULL
+#&gt; 
+#&gt; [[5]]
+#&gt; NULL
+#&gt; 
+#&gt; [[6]]
+#&gt; NULL
+#&gt; 
+#&gt; [[7]]
+#&gt; NULL
+#&gt; 
+#&gt; [[8]]
+#&gt; NULL
+#&gt; 
+#&gt; [[9]]
+#&gt; NULL
+#&gt; 
+#&gt; [[10]]
+#&gt; NULL
+#&gt; 
+#&gt; [[11]]
+#&gt; NULL
+#&gt; 
+#&gt; [[12]]
+#&gt; NULL
+#&gt; 
+#&gt; [[13]]
+#&gt; NULL
+#&gt; 
+#&gt; [[14]]
+#&gt; NULL
+#&gt; 
+#&gt; [[15]]
+#&gt; NULL
+#&gt; 
+#&gt; [[16]]
+#&gt; NULL
+#&gt; 
+#&gt; [[17]]
+#&gt; NULL
+#&gt; 
+#&gt; [[18]]
+#&gt; NULL
+#&gt; 
+#&gt; [[19]]
+#&gt; NULL
+#&gt; 
+#&gt; [[20]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code># make yourself known to openAlex
+options(openalexR.mailto = &quot;lucan.bovens@home.nl&quot;)</code></pre>
+<pre class="r test"><code>scholars &lt;- fload(&quot;./data/processed/scholars_20240924.rda&quot;)</code></pre>
+<pre class="r test"><code># save the output of your function
+socdata &lt;- fcolnet(data = scholars, university = &quot;RU&quot;, discipline = c(&quot;sociology&quot;, &quot;political science&quot;),
+    waves = list(c(2015, 2018), c(2019, 2023)), type = c(&quot;all&quot;))  #choose if first or all?</code></pre>
+<pre class="r test"><code>ts_net1</code></pre>
+<pre class="test2"><code>#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0</code></pre>
+<pre class="r test"><code>net1g &lt;- graph_from_adjacency_matrix(ts_net1, mode = &quot;directed&quot;)
+coords &lt;- layout_(net1g, nicely())  #let us keep the layout
+par(mar = c(0.1, 0.1, 0.1, 0.1))
+{
+    plot.igraph(net1g, layout = coords)
+    graphics::box()
+}</code></pre>
+<p><img src="testbestand8oktoberrsienatest_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r test"><code>set.seed(24553253)
+ego &lt;- ts_select(net = ts_net1, steps = 1)  #in rsienatwostep two actors may make a change together but here not
+ego</code></pre>
+<pre class="test2"><code>#&gt; [1] 4</code></pre>
+<pre class="r test"><code>options &lt;- ts_alternatives_ministep(net = ts_net1, ego = ego)
+# options
+plots &lt;- lapply(options, graph_from_adjacency_matrix, mode = &quot;directed&quot;)
+par(mar = c(0, 0, 0, 0) + 0.1)
+par(mfrow = c(1, 2))
+
+fplot &lt;- function(x) {
+    plot.igraph(x, layout = coords, margin = 0)
+    graphics::box()
+}
+
+lapply(plots, fplot)</code></pre>
+<p><img src="testbestand8oktoberrsienatest_files/figure-html/unnamed-chunk-11-1.png" width="672" /><img src="testbestand8oktoberrsienatest_files/figure-html/unnamed-chunk-11-2.png" width="672" /><img src="testbestand8oktoberrsienatest_files/figure-html/unnamed-chunk-11-3.png" width="672" /><img src="testbestand8oktoberrsienatest_files/figure-html/unnamed-chunk-11-4.png" width="672" /><img src="testbestand8oktoberrsienatest_files/figure-html/unnamed-chunk-11-5.png" width="672" /></p>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL
+#&gt; 
+#&gt; [[4]]
+#&gt; NULL
+#&gt; 
+#&gt; [[5]]
+#&gt; NULL
+#&gt; 
+#&gt; [[6]]
+#&gt; NULL
+#&gt; 
+#&gt; [[7]]
+#&gt; NULL
+#&gt; 
+#&gt; [[8]]
+#&gt; NULL
+#&gt; 
+#&gt; [[9]]
+#&gt; NULL
+#&gt; 
+#&gt; [[10]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code>ts_degree(net = options[[1]], ego = ego)</code></pre>
+<pre class="test2"><code>#&gt; [1] 2</code></pre>
+<pre class="r test"><code># or for all options
+lapply(options, ts_degree, ego = ego)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] 0
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] 2</code></pre>
+<pre class="r test"><code>lapply(options, ts_recip, ego = ego)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] 0
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] 1</code></pre>
+<pre class="r test"><code>option &lt;- 4
+ts_degree(options[[option]], ego = ego) * -1 + ts_recip(options[[option]], ego = ego) * 1.5</code></pre>
+<pre class="test2"><code>#&gt; [1] 0.5</code></pre>
+<pre class="r test"><code>eval &lt;- ts_eval(net = options[[option]], ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+    1.5))
+eval</code></pre>
+<pre class="test2"><code>#&gt; [1] 0.5</code></pre>
+<pre class="r test"><code>eval &lt;- sapply(options, FUN = ts_eval, ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+    1.5))
+eval</code></pre>
+<pre class="test2"><code>#&gt;  [1] -0.5 -0.5 -0.5  0.5 -0.5 -0.5 -0.5 -0.5  0.0 -0.5</code></pre>
+<pre class="r test"><code>print(&quot;network with maximum evaluation score:&quot;)</code></pre>
+<pre class="test2"><code>#&gt; [1] &quot;network with maximum evaluation score:&quot;</code></pre>
+<pre class="r test"><code>which.max(eval)</code></pre>
+<pre class="test2"><code>#&gt; [1] 4</code></pre>
+<pre class="r test"><code>choice &lt;- sample(1:length(eval), size = 1, prob = exp(eval)/sum(exp(eval)))
+print(&quot;choice:&quot;)</code></pre>
+<pre class="test2"><code>#&gt; [1] &quot;choice:&quot;</code></pre>
+<pre class="r test"><code>choice</code></pre>
+<pre class="test2"><code>#&gt; [1] 10</code></pre>
+<pre class="r test"><code># print(&#39;network:&#39;) options[[choice]]</code></pre>
+<pre class="r test"><code>rate &lt;- 2
+degree &lt;- -1
+recip &lt;- 1.5
+ts_sims(nsims = 1, net = ts_net1, startvalues = c(rate, degree, recip), statistics = list(ts_degree,
+    ts_recip), p2step = c(1, 0, 0), chain = FALSE)  #not that rate parameter is automatically included. </code></pre>
+<pre class="test2"><code>#&gt; [1] &quot;nsim: 1&quot;</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    1    1    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    1    0    0    0     0
+#&gt;  [3,]    0    0    0    0    1    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    1    0    0    1     1
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [9,]    1    0    0    1    0    0    0    0    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    0     0</code></pre>
+<pre class="r test"><code># geeft error? hieronder, daarom uitgeschakeld
+
+
+# we do not calculate SE for now. ans &lt;- ts_estim(net1 = s501, net2 = s502, statistics =
+# list(ts_degree, ts_recip), p2step = c(1, 0, 0), conv = 0.01, phase3 = TRUE, itef3 = 50, verbose =
+# TRUE)</code></pre>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayB4eHg6IFRlc3QgYmVzdGFuZCIKb3V0cHV0OiBodG1sX2RvY3VtZW50CmRhdGU6ICIyMDI0LTEwLTA3IgpiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliCmF1dGhvcjogIkx1Y2FuIEJvdmVucyIKLS0tCiAgCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQpyZ2w6OnNldHVwS25pdHIoKQoKY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0KYGBgCgpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0Ka2xpcHB5OjprbGlwcHkocG9zaXRpb24gPSBjKCd0b3AnLCAncmlnaHQnKSkKI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpCmBgYAoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKYGBgCi0tLS0KCiMgV2VlayB4eHggLSAgVGVzdCBiZXN0YW5kIDcgb2t0b2JlcgogIAotLS0tCiAgCiMgUHJlcAoKU3RhcnQgd2l0aCBjbGVhbiB3b3Jrc3BhY2UgCgpgYGB7cn0Kcm0obGlzdD1scygpKQpgYGAKCiMgRnVuY3Rpb25zCgpgYGB7cn0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsKICAgIGxhcHBseShwYWNrYWdlcywgRlVOID0gZnVuY3Rpb24oeCkgewogICAgICAgIGlmICghcmVxdWlyZSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpKSB7CiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkKICAgICAgICAgICAgbGlicmFyeSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpCiAgICAgICAgfQogICAgfSkKfQoKZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgewogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhIiksIGRpci5jcmVhdGUoImRhdGEiKSwgRkFMU0UpCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEvcHJvY2Vzc2VkIiksIGRpci5jcmVhdGUoImRhdGEvcHJvY2Vzc2VkIiksIEZBTFNFKQogICAgaWYgKGlzLm51bGwoZmlsZSkpCiAgICAgICAgZmlsZSA9IGRlcGFyc2Uoc3Vic3RpdHV0ZSh4KSkKICAgIGRhdGVuYW1lIDwtIHN1YnN0cihnc3ViKCJbOi1dIiwgIiIsIFN5cy50aW1lKCkpLCAxLCA4KQogICAgdG90YWxuYW1lIDwtIHBhc3RlKGxvY2F0aW9uLCBmaWxlLCAiXyIsIGRhdGVuYW1lLCAiLnJkYSIsIHNlcCA9ICIiKQogICAgc2F2ZSh4LCBmaWxlID0gdG90YWxuYW1lKSAgI25lZWQgdG8gZml4IGlmIGZpbGUgaXMgcmVsb2FkZWQgYXMgaW5wdXQgbmFtZSwgbm90IGFzIHguIAp9CgpmbG9hZCA8LSBmdW5jdGlvbihmaWxlbmFtZSkgewogICAgbG9hZChmaWxlbmFtZSkKICAgIGdldChscygpW2xzKCkgIT0gImZpbGVuYW1lIl0pCn0KCmZzaG93ZGYgPC0gZnVuY3Rpb24oeCwgLi4uKSB7CiAgICBrbml0cjo6a2FibGUoeCwgZGlnaXRzID0gMiwgImh0bWwiLCAuLi4pICU+JQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQogICAgICAgIGthYmxlRXh0cmE6OnNjcm9sbF9ib3god2lkdGggPSAiMTAwJSIsIGhlaWdodCA9ICIzMDBweCIpCn0KYGBgCgpgYGB7cn0KZmNvbG5ldCA8LSBmdW5jdGlvbihkYXRhID0gc2Nob2xhcnMsIHVuaXZlcnNpdHkgPSAiUlUiLCBkaXNjaXBsaW5lID0gInNvY2lvbG9neSIsIHdhdmVzID0gbGlzdChjKDIwMTUsCiAgICAyMDE4KSwgYygyMDE5LCAyMDIzKSksIHR5cGUgPSBjKCJmaXJzdCIpKSB7CgogICAgIyBzdGVwIDEKICAgIGRlbW9ncmFwaGljcyA8LSBkby5jYWxsKHJiaW5kLmRhdGEuZnJhbWUsIGRhdGEkZGVtb2dyYXBoaWNzKQogICAgZGVtb2dyYXBoaWNzIDwtIGRlbW9ncmFwaGljcyAlPiUKICAgICAgICBtdXRhdGUoVW5pdmVyc2l0ZWl0MS4yMiA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0MS4yMiwgaXMubmEoVW5pdmVyc2l0ZWl0MS4yMiksICIiKSwgVW5pdmVyc2l0ZWl0Mi4yMiA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0Mi4yMiwKICAgICAgICAgICAgaXMubmEoVW5pdmVyc2l0ZWl0Mi4yMiksICIiKSwgVW5pdmVyc2l0ZWl0MS4yNCA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0MS4yNCwgaXMubmEoVW5pdmVyc2l0ZWl0MS4yNCksCiAgICAgICAgICAgICIiKSwgVW5pdmVyc2l0ZWl0Mi4yNCA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0Mi4yNCwgaXMubmEoVW5pdmVyc2l0ZWl0Mi4yNCksICIiKSwgZGlzY2lwbGluZS4yMiA9IHJlcGxhY2UoZGlzY2lwbGluZS4yMiwKICAgICAgICAgICAgaXMubmEoZGlzY2lwbGluZS4yMiksICIiKSwgZGlzY2lwbGluZS4yNCA9IHJlcGxhY2UoZGlzY2lwbGluZS4yNCwgaXMubmEoZGlzY2lwbGluZS4yNCksICIiKSkKCiAgICBzYW1wbGUgPC0gd2hpY2goKGRlbW9ncmFwaGljcyRVbml2ZXJzaXRlaXQxLjIyICVpbiUgdW5pdmVyc2l0eSB8IGRlbW9ncmFwaGljcyRVbml2ZXJzaXRlaXQyLjIyICVpbiUKICAgICAgICB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDEuMjQgJWluJSB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDIuMjQgJWluJQogICAgICAgIHVuaXZlcnNpdHkpICYgKGRlbW9ncmFwaGljcyRkaXNjaXBsaW5lLjIyICVpbiUgZGlzY2lwbGluZSB8IGRlbW9ncmFwaGljcyRkaXNjaXBsaW5lLjI0ICVpbiUgZGlzY2lwbGluZSkpCgogICAgZGVtb2dyYXBoaWNzX3NvYyA8LSBkZW1vZ3JhcGhpY3Nbc2FtcGxlLCBdCiAgICBzY2hvbGFyc19zZWwgPC0gbGFwcGx5KHNjaG9sYXJzLCAiWyIsIHNhbXBsZSkKCiAgICAjIHN0ZXAgMgogICAgaWRzIDwtIGRlbW9ncmFwaGljc19zb2MkYXVfaWQgI29wZW5hbGV4IElEcwogICAgbndhdmVzIDwtIGxlbmd0aCh3YXZlcykKICAgIG5ldHMgPC0gYXJyYXkoMCwgZGltID0gYyhud2F2ZXMsIGxlbmd0aChpZHMpLCBsZW5ndGgoaWRzKSksIGRpbW5hbWVzID0gbGlzdCh3YXZlID0gMTpud2F2ZXMsIGlkcywKICAgICAgICBpZHMpKQogICAgZGltbmFtZXMobmV0cykKCiAgICAjIHN0ZXAgMwogICAgZGZfd29ya3MgPC0gdGliYmxlKHdvcmtzX2lkID0gdW5saXN0KGxhcHBseShzY2hvbGFyc19zZWwkd29yaywgZnVuY3Rpb24obCkgbCRpZCkpLCB3b3Jrc19hdXRob3IgPSB1bmxpc3QobGFwcGx5KHNjaG9sYXJzX3NlbCR3b3JrLAogICAgICAgIGZ1bmN0aW9uKGwpIGwkYXV0aG9yKSwgcmVjdXJzaXZlID0gRkFMU0UpLCB3b3Jrc195ZWFyID0gdW5saXN0KGxhcHBseShzY2hvbGFyc19zZWwkd29yaywgZnVuY3Rpb24obCkgbCRwdWJsaWNhdGlvbl95ZWFyKSwKICAgICAgICByZWN1cnNpdmUgPSBGQUxTRSkpCgogICAgZGZfd29ya3MgPC0gZGZfd29ya3NbIWR1cGxpY2F0ZWQoZGZfd29ya3MpLCBdCiAgICAKICAgICMgc3RlcCA0CiAgICBpZiAodHlwZSA9PSAiZmlyc3QiKSB7CiAgICAgICAgZm9yIChqIGluIDE6bndhdmVzKSB7CiAgICAgICAgICAgIGRmX3dvcmtzX3cgPC0gZGZfd29ya3NbZGZfd29ya3Mkd29ya3NfeWVhciA+PSB3YXZlc1tbal1dWzFdICYgZGZfd29ya3Mkd29ya3NfeWVhciA8PSB3YXZlc1tbal1dWzJdLAogICAgICAgICAgICAgICAgXQogICAgICAgICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7CiAgICAgICAgICAgICAgICBlZ28gPC0gZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZFsxXQogICAgICAgICAgICAgICAgYWx0ZXJzIDwtIGRmX3dvcmtzX3ckd29ya3NfYXV0aG9yW2ldW1sxXV0kYXVfaWRbLTFdCiAgICAgICAgICAgICAgICBpZiAoc3VtKGlkcyAlaW4lIGVnbykgPiAwICYgc3VtKGlkcyAlaW4lIGFsdGVycykgPiAwKSB7CiAgICAgICAgICAgICAgICAgIG5ldHNbaiwgd2hpY2goaWRzICVpbiUgZWdvKSwgd2hpY2goaWRzICVpbiUgYWx0ZXJzKV0gPC0gMQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQoKICAgIGlmICh0eXBlID09ICJsYXN0IikgewogICAgICAgIGZvciAoaiBpbiAxOm53YXZlcykgewogICAgICAgICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwKICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgZm9yIChpIGluIDE6bnJvdyhkZl93b3Jrc193KSkgewogICAgICAgICAgICAgICAgZWdvIDwtIHJldihkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkKVsxXQogICAgICAgICAgICAgICAgYWx0ZXJzIDwtIHJldihkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkKVstMV0KICAgICAgICAgICAgICAgIGlmIChzdW0oaWRzICVpbiUgZWdvKSA+IDAgJiBzdW0oaWRzICVpbiUgYWx0ZXJzKSA+IDApIHsKICAgICAgICAgICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ28pLCB3aGljaChpZHMgJWluJSBhbHRlcnMpXSA8LSAxCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICB9CiAgICB9CgogICAgaWYgKHR5cGUgPT0gImFsbCIpIHsKICAgICAgICBmb3IgKGogaW4gMTpud2F2ZXMpIHsKICAgICAgICAgICAgZGZfd29ya3NfdyA8LSBkZl93b3Jrc1tkZl93b3JrcyR3b3Jrc195ZWFyID49IHdhdmVzW1tqXV1bMV0gJiBkZl93b3JrcyR3b3Jrc195ZWFyIDw9IHdhdmVzW1tqXV1bMl0sCiAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgIGZvciAoaSBpbiAxOm5yb3coZGZfd29ya3NfdykpIHsKICAgICAgICAgICAgICAgIGVnb3MgPC0gZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZAogICAgICAgICAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ29zKSA+IDApIHsKICAgICAgICAgICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ29zKSwgd2hpY2goaWRzICVpbiUgZWdvcyldIDwtIDEKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KICAgIG91dHB1dCA8LSBsaXN0KCkKICAgIG91dHB1dCRkYXRhIDwtIHNjaG9sYXJzX3NlbAogICAgb3V0cHV0JG5ldHMgPC0gbmV0cwogICAgcmV0dXJuKG91dHB1dCkKfQpgYGAKCiNMb2FkaW5nIGRhdGEKCmBgYHtyfQpwYWNrYWdlcyA8LSBjKCJ0aWR5dmVyc2UiLCAic2Nob2xhciIsICJvcGVuYWxleFIiLCAicnZlc3QiLCAianNvbmxpdGUiLCAiUlNpZW5hIiwgIlJTZWxlbml1bSIsICJydmVzdCIsICJsYXZhYW4iLCAieG1sMiIsICJrYWJsZUV4dHJhIiwgImRldnRvb2xzIiwgImlncmFwaCIsICJuZXR3b3JrIiwgInNuYSIsICJnZ3JhcGgiLCAidmlzTmV0d29yayIsICJ0aHJlZWpzIiwgIm5ldHdvcmtEMyIsICJSc2llbmFUd29TdGVwIikKCmZwYWNrYWdlLmNoZWNrKHBhY2thZ2VzKQpgYGAKCmBgYHtyfQojIG1ha2UgeW91cnNlbGYga25vd24gdG8gb3BlbkFsZXgKb3B0aW9ucyhvcGVuYWxleFIubWFpbHRvID0gImx1Y2FuLmJvdmVuc0Bob21lLm5sIikKYGBgCgpgYGB7cn0Kc2Nob2xhcnMgPC0gZmxvYWQoIi4vZGF0YS9wcm9jZXNzZWQvc2Nob2xhcnNfMjAyNDA5MjQucmRhIikKYGBgCgpgYGB7cn0KI3NhdmUgdGhlIG91dHB1dCBvZiB5b3VyIGZ1bmN0aW9uCnNvY2RhdGEgPC0gZmNvbG5ldChkYXRhID0gc2Nob2xhcnMsIAogICAgICAgICAgICAgICAgdW5pdmVyc2l0eSA9ICJSVSIsIAogICAgICAgICAgICAgICAgZGlzY2lwbGluZSA9IGMoInNvY2lvbG9neSIsICJwb2xpdGljYWwgc2NpZW5jZSIpLCAKICAgICAgICAgICAgICAgIHdhdmVzID0gbGlzdChjKDIwMTUsIDIwMTgpLCBjKDIwMTksIDIwMjMpKSwgCiAgICAgICAgICAgICAgICB0eXBlID0gYygiYWxsIikpICNjaG9vc2UgaWYgZmlyc3Qgb3IgYWxsPwpgYGAKCgpgYGB7cn0KdHNfbmV0MQpgYGAKYGBge3J9Cm5ldDFnIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeCh0c19uZXQxLCBtb2RlID0gImRpcmVjdGVkIikKY29vcmRzIDwtIGxheW91dF8obmV0MWcsIG5pY2VseSgpKSAgI2xldCB1cyBrZWVwIHRoZSBsYXlvdXQKcGFyKG1hciA9IGMoMC4xLCAwLjEsIDAuMSwgMC4xKSkKewogICAgcGxvdC5pZ3JhcGgobmV0MWcsIGxheW91dCA9IGNvb3JkcykKICAgIGdyYXBoaWNzOjpib3goKQp9CmBgYAoKYGBge3J9CnNldC5zZWVkKDI0NTUzMjUzKQplZ28gPC0gdHNfc2VsZWN0KG5ldCA9IHRzX25ldDEsIHN0ZXBzID0gMSkgICNpbiByc2llbmF0d29zdGVwIHR3byBhY3RvcnMgbWF5IG1ha2UgYSBjaGFuZ2UgdG9nZXRoZXIgYnV0IGhlcmUgbm90CmVnbwpgYGAKCmBgYHtyfQpvcHRpb25zIDwtIHRzX2FsdGVybmF0aXZlc19taW5pc3RlcChuZXQgPSB0c19uZXQxLCBlZ28gPSBlZ28pCiMgb3B0aW9ucwpwbG90cyA8LSBsYXBwbHkob3B0aW9ucywgZ3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4LCBtb2RlID0gImRpcmVjdGVkIikKcGFyKG1hciA9IGMoMCwgMCwgMCwgMCkgKyAwLjEpCnBhcihtZnJvdyA9IGMoMSwgMikpCgpmcGxvdCA8LSBmdW5jdGlvbih4KSB7CiAgICBwbG90LmlncmFwaCh4LCBsYXlvdXQgPSBjb29yZHMsIG1hcmdpbiA9IDApCiAgICBncmFwaGljczo6Ym94KCkKfQoKbGFwcGx5KHBsb3RzLCBmcGxvdCkKYGBgCgpgYGB7cn0KdHNfZGVncmVlKG5ldCA9IG9wdGlvbnNbWzFdXSwgZWdvID0gZWdvKQojIG9yIGZvciBhbGwgb3B0aW9ucwpsYXBwbHkob3B0aW9ucywgdHNfZGVncmVlLCBlZ28gPSBlZ28pCmBgYApgYGB7cn0KbGFwcGx5KG9wdGlvbnMsIHRzX3JlY2lwLCBlZ28gPSBlZ28pCmBgYAoKYGBge3J9Cm9wdGlvbiA8LSA0CnRzX2RlZ3JlZShvcHRpb25zW1tvcHRpb25dXSwgZWdvID0gZWdvKSAqIC0xICsgdHNfcmVjaXAob3B0aW9uc1tbb3B0aW9uXV0sIGVnbyA9IGVnbykgKiAxLjUKCmV2YWwgPC0gdHNfZXZhbChuZXQgPSBvcHRpb25zW1tvcHRpb25dXSwgZWdvID0gZWdvLCBzdGF0aXN0aWNzID0gbGlzdCh0c19kZWdyZWUsIHRzX3JlY2lwKSwgcGFyYW1ldGVycyA9IGMoLTEsCiAgICAxLjUpKQpldmFsCmBgYAoKYGBge3J9CmV2YWwgPC0gc2FwcGx5KG9wdGlvbnMsIEZVTiA9IHRzX2V2YWwsIGVnbyA9IGVnbywgc3RhdGlzdGljcyA9IGxpc3QodHNfZGVncmVlLCB0c19yZWNpcCksIHBhcmFtZXRlcnMgPSBjKC0xLAogICAgMS41KSkKZXZhbApwcmludCgibmV0d29yayB3aXRoIG1heGltdW0gZXZhbHVhdGlvbiBzY29yZToiKQp3aGljaC5tYXgoZXZhbCkKYGBgCgpgYGB7cn0KY2hvaWNlIDwtIHNhbXBsZSgxOmxlbmd0aChldmFsKSwgc2l6ZSA9IDEsIHByb2IgPSBleHAoZXZhbCkvc3VtKGV4cChldmFsKSkpCnByaW50KCJjaG9pY2U6IikKY2hvaWNlCiMgcHJpbnQoJ25ldHdvcms6Jykgb3B0aW9uc1tbY2hvaWNlXV0KYGBgCgpgYGB7cn0KcmF0ZSA8LSAyCmRlZ3JlZSA8LSAtMQpyZWNpcCA8LSAxLjUKdHNfc2ltcyhuc2ltcyA9IDEsIG5ldCA9IHRzX25ldDEsIHN0YXJ0dmFsdWVzID0gYyhyYXRlLCBkZWdyZWUsIHJlY2lwKSwgc3RhdGlzdGljcyA9IGxpc3QodHNfZGVncmVlLAogICAgdHNfcmVjaXApLCBwMnN0ZXAgPSBjKDEsIDAsIDApLCBjaGFpbiA9IEZBTFNFKSAgI25vdCB0aGF0IHJhdGUgcGFyYW1ldGVyIGlzIGF1dG9tYXRpY2FsbHkgaW5jbHVkZWQuIApgYGAKCmBgYHtyfQoKI2dlZWZ0IGVycm9yPyBoaWVyb25kZXIsIGRhYXJvbSB1aXRnZXNjaGFrZWxkCgoKIyB3ZSBkbyBub3QgY2FsY3VsYXRlIFNFIGZvciBub3cuCiNhbnMgPC0gdHNfZXN0aW0obmV0MSA9IHM1MDEsIG5ldDIgPSBzNTAyLCBzdGF0aXN0aWNzID0gbGlzdCh0c19kZWdyZWUsIHRzX3JlY2lwKSwgcDJzdGVwID0gYygxLCAwLCAwKSwKICAgICNjb252ID0gMC4wMSwgcGhhc2UzID0gVFJVRSwgaXRlZjMgPSA1MCwgdmVyYm9zZSA9IFRSVUUpCmBgYAoK</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("testbestand8oktoberrsienatest.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

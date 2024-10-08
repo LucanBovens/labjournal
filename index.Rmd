@@ -7,8 +7,6 @@ bibliography: references.bib
 ---
 
 
-
-
 ```{r, install remotely, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
 # install.packages("remotes")
 #remotes::install_github("rlesur/klippy")
@@ -33,7 +31,6 @@ klippy::klippy(position = c('top', 'right'))
 #klippy::klippy(color = 'darkred')
 #klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
-
 
 
 

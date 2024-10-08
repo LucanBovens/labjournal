@@ -41,7 +41,15 @@ navbar:
         - text: "Visualization"
           href: Week4Visualization.html  
       - text: "Week 5"
-        href: Week1_AppendixA.html
+        menu:  # Nested menu for Week 4
+        - text: "RSiena Tutorial"
+          href: Week5_RSienaTutorial.html
+        - text: "RSiena Example (in-class)"
+          href: Week5_RSienaExample.html
+        - text: "RSiena test (SNASS: error)"
+          href: testbestand8oktoberrsienatest.html  
+        - text: "RSiena own data"
+          href: Testbestand7oktober.html  
       - text: "Week 6"
         href: Week1_AppendixA.html         
     - text: "Concept Report"
@@ -76,7 +84,7 @@ navbar:
 
   right:
   - icon: fab fa-github
-    href: https://github.com/JochemTolsma/labjournal
+    href: https://lucanbovens.github.io/labjournal/
 output:
   html_document:
     theme: flatly

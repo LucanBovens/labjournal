@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lucan Bovens" />
+
+<meta name="date" content="2024-10-02" />
+
+<title>Week 5: RSiena Tutorial</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="lab1.html">Example plage</a>
+        </li>
+        <li>
+          <a href="Week1_LB.html">Research Questions</a>
+        </li>
+        <li>
+          <a href="Week1_TutorialA.html">Tutorial</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week2_LB.html">Introduction</a>
+        </li>
+        <li>
+          <a href="Week2AssignmentClass.html">In-class assignment: Matrixes and measures</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction (revised)</a>
+        </li>
+        <li>
+          <a href="Week3AssignmentClass.html">Web-scraping &amp; OpenAlex</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction &amp; theory? (revised)</a>
+        </li>
+        <li>
+          <a href="Week4AssignmentClass.html">In-class assignment: chapter 9</a>
+        </li>
+        <li>
+          <a href="Week4Visualization.html">Visualization</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 5</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week5_RSienaTutorial.html">RSiena Tutorial</a>
+        </li>
+        <li>
+          <a href="Week5_RSienaExample.html">RSiena Example (in-class)</a>
+        </li>
+        <li>
+          <a href="testbestand8oktoberrsienatest.html">RSiena test (SNASS: error)</a>
+        </li>
+        <li>
+          <a href="Testbestand7oktober.html">RSiena own data</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Week 6</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Concept Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Theory</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Data</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Results</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Conclusion</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Appendix</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Introduction</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Theory</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Data</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Results</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Conclusion</a>
+    </li>
+    <li>
+      <a href="Week1_AppendixA.html">Appendix</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lucanbovens.github.io/labjournal/">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Week 5: RSiena Tutorial</h1>
+<h4 class="author">Lucan Bovens</h4>
+<h4 class="date">2024-10-02</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<hr />
+<div id="week-5---rsiena-tutorial" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Week 5 - RSiena
+Tutorial</h1>
+<hr />
+</div>
+<div id="test" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Test</h1>
+<p>Start with clean workspace</p>
+<pre class="r test"><code>rm(list = ls())</code></pre>
+<pre class="r test"><code>fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, datename, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}</code></pre>
+<pre class="r test"><code>packages = c(&quot;RSiena&quot;, &quot;devtools&quot;, &quot;igraph&quot;)
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code># devtools::install_github(&#39;JochemTolsma/RsienaTwoStep&#39;, build_vignettes=TRUE)
+packages = c(&quot;RsienaTwoStep&quot;)
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code>ts_net1</code></pre>
+<pre class="test2"><code>#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0</code></pre>
+<pre class="r test"><code>net1g &lt;- graph_from_adjacency_matrix(ts_net1, mode = &quot;directed&quot;)
+coords &lt;- layout_(net1g, nicely())  #let us keep the layout
+par(mar = c(0.1, 0.1, 0.1, 0.1))
+{
+    plot.igraph(net1g, layout = coords)
+    graphics::box()
+}</code></pre>
+<p><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<pre class="r test"><code>set.seed(24553253)
+ego &lt;- ts_select(net = ts_net1, steps = 1)  #in rsienatwostep two actors may make a change together but here not
+ego</code></pre>
+<pre class="test2"><code>#&gt; [1] 4</code></pre>
+<pre class="r test"><code>options &lt;- ts_alternatives_ministep(net = ts_net1, ego = ego)
+# options
+plots &lt;- lapply(options, graph_from_adjacency_matrix, mode = &quot;directed&quot;)
+par(mar = c(0, 0, 0, 0) + 0.1)
+par(mfrow = c(1, 2))
+
+fplot &lt;- function(x) {
+    plot.igraph(x, layout = coords, margin = 0)
+    graphics::box()
+}
+
+lapply(plots, fplot)</code></pre>
+<p><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-7-1.png" width="672" /><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-7-2.png" width="672" /><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-7-3.png" width="672" /><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-7-4.png" width="672" /><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-7-5.png" width="672" /></p>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL
+#&gt; 
+#&gt; [[4]]
+#&gt; NULL
+#&gt; 
+#&gt; [[5]]
+#&gt; NULL
+#&gt; 
+#&gt; [[6]]
+#&gt; NULL
+#&gt; 
+#&gt; [[7]]
+#&gt; NULL
+#&gt; 
+#&gt; [[8]]
+#&gt; NULL
+#&gt; 
+#&gt; [[9]]
+#&gt; NULL
+#&gt; 
+#&gt; [[10]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code>ts_degree(net = options[[1]], ego = ego)</code></pre>
+<pre class="test2"><code>#&gt; [1] 2</code></pre>
+<pre class="r test"><code># or for all options
+lapply(options, ts_degree, ego = ego)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] 2
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] 0
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] 2</code></pre>
+<pre class="r test"><code>lapply(options, ts_recip, ego = ego)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[3]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[4]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[5]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[6]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[7]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[8]]
+#&gt; [1] 1
+#&gt; 
+#&gt; [[9]]
+#&gt; [1] 0
+#&gt; 
+#&gt; [[10]]
+#&gt; [1] 1</code></pre>
+<pre class="r test"><code>option &lt;- 4
+ts_degree(options[[option]], ego = ego) * -1 + ts_recip(options[[option]], ego = ego) * 1.5</code></pre>
+<pre class="test2"><code>#&gt; [1] 0.5</code></pre>
+<pre class="r test"><code>eval &lt;- ts_eval(net = options[[option]], ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+    1.5))
+eval</code></pre>
+<pre class="test2"><code>#&gt; [1] 0.5</code></pre>
+<pre class="r test"><code>eval &lt;- sapply(options, FUN = ts_eval, ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+    1.5))
+eval</code></pre>
+<pre class="test2"><code>#&gt;  [1] -0.5 -0.5 -0.5  0.5 -0.5 -0.5 -0.5 -0.5  0.0 -0.5</code></pre>
+<pre class="r test"><code>print(&quot;network with maximum evaluation score:&quot;)</code></pre>
+<pre class="test2"><code>#&gt; [1] &quot;network with maximum evaluation score:&quot;</code></pre>
+<pre class="r test"><code>which.max(eval)</code></pre>
+<pre class="test2"><code>#&gt; [1] 4</code></pre>
+<pre class="r test"><code>choice &lt;- sample(1:length(eval), size = 1, prob = exp(eval)/sum(exp(eval)))
+print(&quot;choice:&quot;)</code></pre>
+<pre class="test2"><code>#&gt; [1] &quot;choice:&quot;</code></pre>
+<pre class="r test"><code>choice</code></pre>
+<pre class="test2"><code>#&gt; [1] 10</code></pre>
+<pre class="r test"><code># print(&#39;network:&#39;) options[[choice]]</code></pre>
+<pre class="r test"><code>rate &lt;- 2
+degree &lt;- -1
+recip &lt;- 1.5
+ts_sims(nsims = 1, net = ts_net1, startvalues = c(rate, degree, recip), statistics = list(ts_degree,
+    ts_recip), p2step = c(1, 0, 0), chain = FALSE)  #not that rate parameter is automatically included. </code></pre>
+<pre class="test2"><code>#&gt; [1] &quot;nsim: 1&quot;</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    1    1    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    1    0    0    0     0
+#&gt;  [3,]    0    0    0    0    1    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    1    0    0    1     1
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [9,]    1    0    0    1    0    0    0    0    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    0     0</code></pre>
+<pre class="r test"><code># Perform the random selection 1000 times
+n_simulations &lt;- 10000
+choices &lt;- numeric(n_simulations)
+
+for (i in 1:n_simulations) {
+    eval &lt;- sapply(options, FUN = ts_eval, ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+        1.5))
+    choice &lt;- sample(1:length(eval), size = 1, prob = exp(eval)/sum(exp(eval)))
+    choices[i] &lt;- choice
+}
+
+# Create a histogram of the selected networks
+library(ggplot2)
+choice_df &lt;- data.frame(choice = factor(choices))
+
+ggplot(choice_df, aes(x = choice)) + geom_bar(fill = &quot;steelblue&quot;) + theme_minimal() + labs(title = &quot;Distribution of Selected Networks&quot;,
+    x = &quot;Network Choice&quot;, y = &quot;Frequency&quot;)</code></pre>
+<p><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<pre class="r test"><code>n_simulations &lt;- 50000
+choices &lt;- replicate(n_simulations, {
+    eval &lt;- sapply(options, FUN = ts_eval, ego = ego, statistics = list(ts_degree, ts_recip), parameters = c(-1,
+        1.5))
+    sample(1:length(eval), size = 1, prob = exp(eval)/sum(exp(eval)))
+})
+
+hist(choices, breaks = seq(0.5, length(options) + 0.5, by = 1), col = &quot;steelblue&quot;, main = &quot;Distribution of Selected Networks&quot;,
+    xlab = &quot;Network Choice&quot;)</code></pre>
+<p><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<pre class="r test"><code>par(mfrow = c(1, 3))
+
+dist_5 &lt;- rexp(10000, rate = 5)
+hist(dist_5, main = &quot;rate = lambda_i = 5&quot;, freq = FALSE, xlab = &quot;waiting times&quot;, xlim = c(0, 2), ylim = c(0,
+    9))
+abline(v = 1/5, col = &quot;red&quot;)
+
+dist_10 &lt;- rexp(10000, rate = 10)
+hist(dist_10, main = &quot;rate= lambda_j = 10&quot;, freq = FALSE, xlab = &quot;waiting times&quot;, xlim = c(0, 2), ylim = c(0,
+    9))
+abline(v = 1/10, col = &quot;red&quot;)
+
+dist_15 &lt;- rexp(10000, rate = 15)
+hist(dist_10, main = &quot;rate = lambda_k = 15&quot;, freq = FALSE, xlab = &quot;waiting times&quot;, xlim = c(0, 2), ylim = c(0,
+    9))
+abline(v = 1/15, col = &quot;red&quot;)</code></pre>
+<p><img src="Week5_RSienaTutorial_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre class="r test"><code>set.seed(34641)
+waitingtimes &lt;- NA
+waitingtimes[1] &lt;- rexp(1, rate = 5)
+waitingtimes[2] &lt;- rexp(1, rate = 10)
+waitingtimes[3] &lt;- rexp(1, rate = 15)
+print(paste(&quot;waitingtime_&quot;, c(&quot;i: &quot;, &quot;j: &quot;, &quot;k: &quot;), round(waitingtimes, 3), sep = &quot;&quot;))</code></pre>
+<pre class="test2"><code>#&gt; [1] &quot;waitingtime_i: 0.264&quot; &quot;waitingtime_j: 0.414&quot; &quot;waitingtime_k: 0.028&quot;</code></pre>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayA1OiBSU2llbmEgVHV0b3JpYWwiCm91dHB1dDogaHRtbF9kb2N1bWVudApkYXRlOiAiMjAyNC0xMC0wMiIKYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgphdXRob3I6ICJMdWNhbiBCb3ZlbnMiCi0tLQogIApgYGB7ciwgZ2xvYmFsc2V0dGluZ3MsIGVjaG89RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQpsaWJyYXJ5KGtuaXRyKQoKa25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkKb3B0aW9ucyh3aWR0aCA9IDEwMCkKcmdsOjpzZXR1cEtuaXRyKCkKCmNvbG9yaXplIDwtIGZ1bmN0aW9uKHgsIGNvbG9yKSB7c3ByaW50ZigiPHNwYW4gc3R5bGU9J2NvbG9yOiAlczsnPiVzPC9zcGFuPiIsIGNvbG9yLCB4KSB9CmBgYAoKYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpCiNrbGlwcHk6OmtsaXBweShjb2xvciA9ICdkYXJrcmVkJykKI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQpgYGAKCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAotLS0tCiAgCiMgV2VlayA1IC0gIFJTaWVuYSBUdXRvcmlhbAogIAotLS0tCiAgCiMgVGVzdAoKU3RhcnQgd2l0aCBjbGVhbiB3b3Jrc3BhY2UgCgpgYGB7cn0Kcm0obGlzdD1scygpKQpgYGAKCgpgYGB7cn0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsKICAgIGxhcHBseShwYWNrYWdlcywgRlVOID0gZnVuY3Rpb24oeCkgewogICAgICAgIGlmICghcmVxdWlyZSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpKSB7CiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkKICAgICAgICAgICAgbGlicmFyeSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpCiAgICAgICAgfQogICAgfSkKfQoKZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgewogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhIiksIGRpci5jcmVhdGUoImRhdGEiKSwgRkFMU0UpCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEvcHJvY2Vzc2VkIiksIGRpci5jcmVhdGUoImRhdGEvcHJvY2Vzc2VkIiksIEZBTFNFKQogICAgaWYgKGlzLm51bGwoZmlsZSkpCiAgICAgICAgZmlsZSA9IGRlcGFyc2Uoc3Vic3RpdHV0ZSh4KSkKICAgIGRhdGVuYW1lIDwtIHN1YnN0cihnc3ViKCJbOi1dIiwgIiIsIFN5cy50aW1lKCkpLCAxLCA4KQogICAgdG90YWxuYW1lIDwtIHBhc3RlKGxvY2F0aW9uLCBkYXRlbmFtZSwgZmlsZSwgIi5yZGEiLCBzZXAgPSAiIikKICAgIHNhdmUoeCwgZmlsZSA9IHRvdGFsbmFtZSkgICNuZWVkIHRvIGZpeCBpZiBmaWxlIGlzIHJlbG9hZGVkIGFzIGlucHV0IG5hbWUsIG5vdCBhcyB4LiAKfQoKZmxvYWQgPC0gZnVuY3Rpb24oZmlsZW5hbWUpIHsKICAgIGxvYWQoZmlsZW5hbWUpCiAgICBnZXQobHMoKVtscygpICE9ICJmaWxlbmFtZSJdKQp9Cgpmc2hvd2RmIDwtIGZ1bmN0aW9uKHgsIC4uLikgewogICAga25pdHI6OmthYmxlKHgsIGRpZ2l0cyA9IDIsICJodG1sIiwgLi4uKSAlPiUKICAgICAgICBrYWJsZUV4dHJhOjprYWJsZV9zdHlsaW5nKGJvb3RzdHJhcF9vcHRpb25zID0gYygic3RyaXBlZCIsICJob3ZlciIpKSAlPiUKICAgICAgICBrYWJsZUV4dHJhOjpzY3JvbGxfYm94KHdpZHRoID0gIjEwMCUiLCBoZWlnaHQgPSAiMzAwcHgiKQp9CmBgYAoKCmBgYHtyfQpwYWNrYWdlcyA9IGMoIlJTaWVuYSIsICJkZXZ0b29scyIsICJpZ3JhcGgiKQpmcGFja2FnZS5jaGVjayhwYWNrYWdlcykKI2RldnRvb2xzOjppbnN0YWxsX2dpdGh1YignSm9jaGVtVG9sc21hL1JzaWVuYVR3b1N0ZXAnLCBidWlsZF92aWduZXR0ZXM9VFJVRSkKcGFja2FnZXMgPSBjKCJSc2llbmFUd29TdGVwIikKZnBhY2thZ2UuY2hlY2socGFja2FnZXMpCmBgYAoKCmBgYHtyfQp0c19uZXQxCmBgYApgYGB7cn0KbmV0MWcgPC0gZ3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KHRzX25ldDEsIG1vZGUgPSAiZGlyZWN0ZWQiKQpjb29yZHMgPC0gbGF5b3V0XyhuZXQxZywgbmljZWx5KCkpICAjbGV0IHVzIGtlZXAgdGhlIGxheW91dApwYXIobWFyID0gYygwLjEsIDAuMSwgMC4xLCAwLjEpKQp7CiAgICBwbG90LmlncmFwaChuZXQxZywgbGF5b3V0ID0gY29vcmRzKQogICAgZ3JhcGhpY3M6OmJveCgpCn0KYGBgCgpgYGB7cn0Kc2V0LnNlZWQoMjQ1NTMyNTMpCmVnbyA8LSB0c19zZWxlY3QobmV0ID0gdHNfbmV0MSwgc3RlcHMgPSAxKSAgI2luIHJzaWVuYXR3b3N0ZXAgdHdvIGFjdG9ycyBtYXkgbWFrZSBhIGNoYW5nZSB0b2dldGhlciBidXQgaGVyZSBub3QKZWdvCmBgYAoKYGBge3J9Cm9wdGlvbnMgPC0gdHNfYWx0ZXJuYXRpdmVzX21pbmlzdGVwKG5ldCA9IHRzX25ldDEsIGVnbyA9IGVnbykKIyBvcHRpb25zCnBsb3RzIDwtIGxhcHBseShvcHRpb25zLCBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgsIG1vZGUgPSAiZGlyZWN0ZWQiKQpwYXIobWFyID0gYygwLCAwLCAwLCAwKSArIDAuMSkKcGFyKG1mcm93ID0gYygxLCAyKSkKCmZwbG90IDwtIGZ1bmN0aW9uKHgpIHsKICAgIHBsb3QuaWdyYXBoKHgsIGxheW91dCA9IGNvb3JkcywgbWFyZ2luID0gMCkKICAgIGdyYXBoaWNzOjpib3goKQp9CgogbGFwcGx5KHBsb3RzLCBmcGxvdCkKYGBgCgoKYGBge3J9CnRzX2RlZ3JlZShuZXQgPSBvcHRpb25zW1sxXV0sIGVnbyA9IGVnbykKIyBvciBmb3IgYWxsIG9wdGlvbnMKbGFwcGx5KG9wdGlvbnMsIHRzX2RlZ3JlZSwgZWdvID0gZWdvKQpgYGAKCgpgYGB7cn0KbGFwcGx5KG9wdGlvbnMsIHRzX3JlY2lwLCBlZ28gPSBlZ28pCmBgYAoKYGBge3J9Cm9wdGlvbiA8LSA0CnRzX2RlZ3JlZShvcHRpb25zW1tvcHRpb25dXSwgZWdvID0gZWdvKSAqIC0xICsgdHNfcmVjaXAob3B0aW9uc1tbb3B0aW9uXV0sIGVnbyA9IGVnbykgKiAxLjUKYGBgCgpgYGB7cn0KZXZhbCA8LSB0c19ldmFsKG5ldCA9IG9wdGlvbnNbW29wdGlvbl1dLCBlZ28gPSBlZ28sIHN0YXRpc3RpY3MgPSBsaXN0KHRzX2RlZ3JlZSwgdHNfcmVjaXApLCBwYXJhbWV0ZXJzID0gYygtMSwKICAgIDEuNSkpCmV2YWwKYGBgCgpgYGB7cn0KZXZhbCA8LSBzYXBwbHkob3B0aW9ucywgRlVOID0gdHNfZXZhbCwgZWdvID0gZWdvLCBzdGF0aXN0aWNzID0gbGlzdCh0c19kZWdyZWUsIHRzX3JlY2lwKSwgcGFyYW1ldGVycyA9IGMoLTEsCiAgICAxLjUpKQpldmFsCnByaW50KCJuZXR3b3JrIHdpdGggbWF4aW11bSBldmFsdWF0aW9uIHNjb3JlOiIpCndoaWNoLm1heChldmFsKQpgYGAKCmBgYHtyfQpjaG9pY2UgPC0gc2FtcGxlKDE6bGVuZ3RoKGV2YWwpLCBzaXplID0gMSwgcHJvYiA9IGV4cChldmFsKS9zdW0oZXhwKGV2YWwpKSkKcHJpbnQoImNob2ljZToiKQpjaG9pY2UKIyBwcmludCgnbmV0d29yazonKSBvcHRpb25zW1tjaG9pY2VdXQpgYGAKCgpgYGB7cn0KcmF0ZSA8LSAyCmRlZ3JlZSA8LSAtMQpyZWNpcCA8LSAxLjUKdHNfc2ltcyhuc2ltcyA9IDEsIG5ldCA9IHRzX25ldDEsIHN0YXJ0dmFsdWVzID0gYyhyYXRlLCBkZWdyZWUsIHJlY2lwKSwgc3RhdGlzdGljcyA9IGxpc3QodHNfZGVncmVlLAogICAgdHNfcmVjaXApLCBwMnN0ZXAgPSBjKDEsIDAsIDApLCBjaGFpbiA9IEZBTFNFKSAgI25vdCB0aGF0IHJhdGUgcGFyYW1ldGVyIGlzIGF1dG9tYXRpY2FsbHkgaW5jbHVkZWQuIApgYGAKCmBgYHtyfQojIFBlcmZvcm0gdGhlIHJhbmRvbSBzZWxlY3Rpb24gMTAwMCB0aW1lcwpuX3NpbXVsYXRpb25zIDwtIDEwMDAwCmNob2ljZXMgPC0gbnVtZXJpYyhuX3NpbXVsYXRpb25zKQoKZm9yIChpIGluIDE6bl9zaW11bGF0aW9ucykgewogICAgZXZhbCA8LSBzYXBwbHkob3B0aW9ucywgRlVOID0gdHNfZXZhbCwgZWdvID0gZWdvLCBzdGF0aXN0aWNzID0gbGlzdCh0c19kZWdyZWUsIHRzX3JlY2lwKSwgcGFyYW1ldGVycyA9IGMoLTEsIDEuNSkpCiAgICBjaG9pY2UgPC0gc2FtcGxlKDE6bGVuZ3RoKGV2YWwpLCBzaXplID0gMSwgcHJvYiA9IGV4cChldmFsKS9zdW0oZXhwKGV2YWwpKSkKICAgIGNob2ljZXNbaV0gPC0gY2hvaWNlCn0KCiMgQ3JlYXRlIGEgaGlzdG9ncmFtIG9mIHRoZSBzZWxlY3RlZCBuZXR3b3JrcwpsaWJyYXJ5KGdncGxvdDIpCmNob2ljZV9kZiA8LSBkYXRhLmZyYW1lKGNob2ljZSA9IGZhY3RvcihjaG9pY2VzKSkKCmdncGxvdChjaG9pY2VfZGYsIGFlcyh4ID0gY2hvaWNlKSkgKwogICAgZ2VvbV9iYXIoZmlsbCA9ICJzdGVlbGJsdWUiKSArCiAgICB0aGVtZV9taW5pbWFsKCkgKwogICAgbGFicyh0aXRsZSA9ICJEaXN0cmlidXRpb24gb2YgU2VsZWN0ZWQgTmV0d29ya3MiLCB4ID0gIk5ldHdvcmsgQ2hvaWNlIiwgeSA9ICJGcmVxdWVuY3kiKQoKYGBgCgpgYGB7cn0Kbl9zaW11bGF0aW9ucyA8LSA1MDAwMApjaG9pY2VzIDwtIHJlcGxpY2F0ZShuX3NpbXVsYXRpb25zLCB7CiAgICBldmFsIDwtIHNhcHBseShvcHRpb25zLCBGVU4gPSB0c19ldmFsLCBlZ28gPSBlZ28sIHN0YXRpc3RpY3MgPSBsaXN0KHRzX2RlZ3JlZSwgdHNfcmVjaXApLCBwYXJhbWV0ZXJzID0gYygtMSwgMS41KSkKICAgIHNhbXBsZSgxOmxlbmd0aChldmFsKSwgc2l6ZSA9IDEsIHByb2IgPSBleHAoZXZhbCkgLyBzdW0oZXhwKGV2YWwpKSkKfSkKCmhpc3QoY2hvaWNlcywgYnJlYWtzID0gc2VxKDAuNSwgbGVuZ3RoKG9wdGlvbnMpICsgMC41LCBieSA9IDEpLCBjb2wgPSAic3RlZWxibHVlIiwgbWFpbiA9ICJEaXN0cmlidXRpb24gb2YgU2VsZWN0ZWQgTmV0d29ya3MiLCB4bGFiID0gIk5ldHdvcmsgQ2hvaWNlIikKCmBgYAoKYGBge3J9CnBhcihtZnJvdyA9IGMoMSwgMykpCgpkaXN0XzUgPC0gcmV4cCgxMDAwMCwgcmF0ZSA9IDUpCmhpc3QoZGlzdF81LCBtYWluID0gInJhdGUgPSBsYW1iZGFfaSA9IDUiLCBmcmVxID0gRkFMU0UsIHhsYWIgPSAid2FpdGluZyB0aW1lcyIsIHhsaW0gPSBjKDAsIDIpLCB5bGltID0gYygwLAogICAgOSkpCmFibGluZSh2ID0gMS81LCBjb2wgPSAicmVkIikKCmRpc3RfMTAgPC0gcmV4cCgxMDAwMCwgcmF0ZSA9IDEwKQpoaXN0KGRpc3RfMTAsIG1haW4gPSAicmF0ZT0gbGFtYmRhX2ogPSAxMCIsIGZyZXEgPSBGQUxTRSwgeGxhYiA9ICJ3YWl0aW5nIHRpbWVzIiwgeGxpbSA9IGMoMCwgMiksIHlsaW0gPSBjKDAsCiAgICA5KSkKYWJsaW5lKHYgPSAxLzEwLCBjb2wgPSAicmVkIikKCmRpc3RfMTUgPC0gcmV4cCgxMDAwMCwgcmF0ZSA9IDE1KQpoaXN0KGRpc3RfMTAsIG1haW4gPSAicmF0ZSA9IGxhbWJkYV9rID0gMTUiLCBmcmVxID0gRkFMU0UsIHhsYWIgPSAid2FpdGluZyB0aW1lcyIsIHhsaW0gPSBjKDAsIDIpLCB5bGltID0gYygwLAogICAgOSkpCmFibGluZSh2ID0gMS8xNSwgY29sID0gInJlZCIpCmBgYAoKYGBge3J9CnNldC5zZWVkKDM0NjQxKQp3YWl0aW5ndGltZXMgPC0gTkEKd2FpdGluZ3RpbWVzWzFdIDwtIHJleHAoMSwgcmF0ZSA9IDUpCndhaXRpbmd0aW1lc1syXSA8LSByZXhwKDEsIHJhdGUgPSAxMCkKd2FpdGluZ3RpbWVzWzNdIDwtIHJleHAoMSwgcmF0ZSA9IDE1KQpwcmludChwYXN0ZSgid2FpdGluZ3RpbWVfIiwgYygiaTogIiwgImo6ICIsICJrOiAiKSwgcm91bmQod2FpdGluZ3RpbWVzLCAzKSwgc2VwID0gIiIpKQpgYGAKCgoK</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("Week5_RSienaTutorial.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
