@@ -41,7 +41,7 @@ navbar:
         - text: "Visualization"
           href: Week4Visualization.html  
       - text: "Week 5"
-        menu:  # Nested menu for Week 4
+        menu:  # Nested menu for Week 5
         - text: "RSiena Tutorial"
           href: Week5_RSienaTutorial.html
         - text: "RSiena Example (in-class)"
@@ -49,23 +49,33 @@ navbar:
         - text: "RSiena test (SNASS: error)"
           href: testbestand8oktoberrsienatest.html  
         - text: "RSiena own data"
-          href: Testbestand7oktober.html  
+          href: Testbestand7oktober.html
       - text: "Week 6"
+        menu:  # Nested menu for Week 6
+        - text: "Empty"
+          href: Week5_RSienaTutorial.html
+        - text: "Empty"
+          href: Week5_RSienaExample.html
+        - text: "Empty"
+          href: testbestand8oktoberrsienatest.html  
+        - text: "Empty"
+          href: Testbestand7oktober.html  
+      - text: "Misc"
         href: Week1_AppendixA.html         
     - text: "Concept Report"
       menu:
       - text: "Introduction"
-        href: lab1.html
+        href: ConceptIntroduction_LB.html
       - text: "Theory"
-        href: Week1_AppendixA.html
+        href: ConceptTheory_LB.html
       - text: "Data"
-        href: Week1_AppendixA.html
+        href: ConceptData_LB.html
       - text: "Results"
-        href: Week1_AppendixA.html
+        href: ConceptResults_LB.html
       - text: "Conclusion"
-        href: Week1_AppendixA.html
+        href: ConceptConclusion_LB.html
       - text: "Appendix"
-        href: Week1_AppendixA.html
+        href: ConceptAppendix_LB.html
     - text: "Final Report"
       menu:
       - text: "Introduction"

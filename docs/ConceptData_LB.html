@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="by: Lucan Bovens" />
+<meta name="author" content="Lucan Bovens" />
 
-<meta name="date" content="2024-10-16" />
+<meta name="date" content="2024-09-24" />
 
-<title>Lucan’s Lab journal</title>
+<title>Week 3</title>
 
 <script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -75,29 +75,6 @@ if (window.hljs) {
 }
 </style>
 
-<style type="text/css">
-/* for pandoc --citeproc since 2.11 */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="tweaks.css" type="text/css" />
 
@@ -543,89 +520,89 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Lucan’s Lab journal</h1>
-<h4 class="author">by: Lucan Bovens</h4>
-<h4 class="date">2024-10-16</h4>
+<h1 class="title toc-ignore">Week 3</h1>
+<h4 class="author">Lucan Bovens</h4>
+<h4 class="date">2024-09-24</h4>
 
 </div>
 
 
+<style>
+div {
+text-align: justify}
+</style>
 <script>
   addClassKlippyTo("pre.r, pre.markdown");
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
-<hr />
-<!--- This is the best way to write a comment. 
-It also demonstrate, you can add html directly in your rmarkdown file. See: https://www.w3schools.com/html/html_comments.asp --->
-<!--- to use a multi column page we use Pandoc's fenced Div. 
-see here: https://bookdown.org/yihui/rmarkdown-cookbook/multi-column.html 
-But please note, we are not here to make a beautiful website, our intention is just to have a quick lab journal up and running --->
-<div class="columns">
-<div class="column" style="width:50%;">
-<div id="my-lab-journal" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> My Lab Journal</h1>
 <p>Last compiled on October, 2024</p>
-<p><em>Describe lab journal here. Welcome to my Lab Journal! In this Lab
-Journal, I … for the course Social Networks given at the Radboud
-University. This website consists of xxx and xxx. Please see below how
-to navigate the website.</em></p>
 <p><br></p>
 <hr />
-<div id="how-to-navigate" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> How to navigate</h2>
-<p>This website has been hosted using Github. To navigate this website,
-please see the top menu. In the top menu, it is possible to find the
-different ‘chapters’ of this Lab Journal. It consists of weekly chapters
-added to the lab journal, which can be found under the ‘my journal’ tab.
-Under the ‘concept report’ tab, you can (in the future) find my concept
-report. The same goes for the ‘final report’ tab, where I will publish
-my final report on network analysis. This lab journal is for the end
-product of the course Social Networks. Most is based on the book Social
-Network Analysis For Social Scientists <span class="citation">(Tolsma
-and Hofstra 2022)</span>.</p>
+<div id="week-6---data-and-methods-concept" class="section level1"
+number="1">
+<h1><span class="header-section-number">1</span> Week 6 - Data and
+methods (concept)</h1>
+<p>The data used for this research consists of information of all
+scholars employed in the sociology and political science departments of
+all universities in the Netherlands. The data were obtained by means of
+webscraping, using the OpenAlex online database.</p>
+<p>(For now), these ties are undirected.</p>
+<div id="dependent-variable" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Dependent
+variable</h2>
+<p>Starting point was the first and last names of the scholars working
+at the sociology department and political science department of the
+Radboud University. Using openalexR, we got a dataset with the
+publications and co-authorships of each scholar.</p>
+<p>For the dependent variable then, looking whether scholar had
+published with another author within the same department (e.g. sociology
+or political science). There are two waves of co-publication networks,
+which show the co-publication ties of the works the authors have
+published in these years.</p>
+</div>
+<div id="independent-variables" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Independent
+variables</h2>
+<div id="prestige-index" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Prestige-index</h3>
+<p>The independent variable is a variable created to measure the
+prestige of a scholar. This prestige-index is based on the H-index, but
+has been adapted slightly. [explain h-index]. The new prestige-index
+takes into account career age, number of publications, etc. (expand on
+this). To collect these data, the data were scraped from the openalex
+website (and/or API).</p>
+</div>
+<div id="career-age" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> Career-age</h3>
+<p>Possibly as separate variable, possibly only use for the prestige
+index.</p>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
-<p><img src="images/thesocialnetworkimagefront.jpg" /></p>
+<div id="control-variables" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Control
+variables</h2>
+<p>I added multiple control variables, to check whether these variables
+also took part in deciding whether scholars decided to work together.
+The control variables included are: - Gender (sex, male/female; based on
+names using the Meertens namenbank) - Ethnicity (based on the same as
+above; Dutch or not Dutch)? Is it needed? More difficult to scrape -
+Age?</p>
 </div>
-</div>
+<div id="descriptive-statistics" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Descriptive
+statistics</h2>
+<p>Show distribution of variables…</p>
 <hr />
-<div id="how-to-use" class="section level2" number="1.2">
-<h2><span class="header-section-number">1.2</span> How to use</h2>
-<p><br></p>
-<p>Use the top menu to navigate through the journal.</p>
-<hr />
+<p><strong>References</strong>:</p>
 </div>
-<div id="test-sidebar" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> Test sidebar</h1>
-<p>This is to test the sidebar function.</p>
-<div id="test-sidebar-thingy" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Test sidebar
-thingy</h2>
-<p>If all went well, the ‘test sidebar’ should have its own ‘test
-sidebar thingy’ now</p>
-</div>
-<div id="test-sidebar-thingy-2" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Test sidebar thingy
-2</h2>
-<p>If all went well, the ‘test sidebar’ should have its own ‘test
-sidebar thingy 2’ now</p>
-<hr />
-</div>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="unnumbered">References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent"
-entry-spacing="0">
-<div id="ref-SNASS" class="csl-entry">
-Tolsma, Jochem, and Bas Hofstra. 2022. <em>Social Network Analysis for
-Social Scientists</em>. <a
-href="https://jtolsma.nl/SNASS/">https://jtolsma.nl/SNASS/</a>.
-</div>
+<div id="still-gotta-look-at-that-bib-reference-stuff"
+class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> still gotta look at
+that bib reference stuff</h2>
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTHVjYW4ncyBMYWIgam91cm5hbCIKYXV0aG9yOiAiYnk6IEx1Y2FuIEJvdmVucyIKYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgpkYXRlOiAiYHIgU3lzLkRhdGUoKWAiCmZvbnQtZmFtaWx5OiBUaW1lcyBOZXcgUm9tYW4KCgogCi0tLQoKCmBgYHtyLCBpbnN0YWxsIHJlbW90ZWx5LCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CiMgaW5zdGFsbC5wYWNrYWdlcygicmVtb3RlcyIpCiNyZW1vdGVzOjppbnN0YWxsX2dpdGh1Yigicmxlc3VyL2tsaXBweSIpCmBgYCAKCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQpyZ2w6OnNldHVwS25pdHIoKQoKCgpjb2xvcml6ZSA8LSBmdW5jdGlvbih4LCBjb2xvcikge3NwcmludGYoIjxzcGFuIHN0eWxlPSdjb2xvcjogJXM7Jz4lczwvc3Bhbj4iLCBjb2xvciwgeCkgfQoKYGBgCgpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0Ka2xpcHB5OjprbGlwcHkocG9zaXRpb24gPSBjKCd0b3AnLCAncmlnaHQnKSkKI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpCmBgYAoKCgotLS0tCgo8IS0tLSBUaGlzIGlzIHRoZSBiZXN0IHdheSB0byB3cml0ZSBhIGNvbW1lbnQuIApJdCBhbHNvIGRlbW9uc3RyYXRlLCB5b3UgY2FuIGFkZCBodG1sIGRpcmVjdGx5IGluIHlvdXIgcm1hcmtkb3duIGZpbGUuIFNlZTogaHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9odG1sL2h0bWxfY29tbWVudHMuYXNwIC0tLT4gCgoKPCEtLS0gdG8gdXNlIGEgbXVsdGkgY29sdW1uIHBhZ2Ugd2UgdXNlIFBhbmRvYydzIGZlbmNlZCBEaXYuIApzZWUgaGVyZTogaHR0cHM6Ly9ib29rZG93bi5vcmcveWlodWkvcm1hcmtkb3duLWNvb2tib29rL211bHRpLWNvbHVtbi5odG1sIApCdXQgcGxlYXNlIG5vdGUsIHdlIGFyZSBub3QgaGVyZSB0byBtYWtlIGEgYmVhdXRpZnVsIHdlYnNpdGUsIG91ciBpbnRlbnRpb24gaXMganVzdCB0byBoYXZlIGEgcXVpY2sgbGFiIGpvdXJuYWwgdXAgYW5kIHJ1bm5pbmcgLS0tPiAKCjo6Ojogey5jb2x1bW5zfQo6Ojogey5jb2x1bW4gd2lkdGg9IjUwJSJ9CgojIE15IExhYiBKb3VybmFsCkxhc3QgY29tcGlsZWQgb24gYHIgZm9ybWF0KFN5cy50aW1lKCksICclQiwgJVknKWAgIAoKKkRlc2NyaWJlIGxhYiBqb3VybmFsIGhlcmUuIFdlbGNvbWUgdG8gbXkgTGFiIEpvdXJuYWwhIEluIHRoaXMgTGFiIEpvdXJuYWwsIEkgLi4uIGZvciB0aGUgY291cnNlIFNvY2lhbCBOZXR3b3JrcyBnaXZlbiBhdCB0aGUgUmFkYm91ZCBVbml2ZXJzaXR5LiBUaGlzIHdlYnNpdGUgY29uc2lzdHMgb2YgeHh4IGFuZCB4eHguIFBsZWFzZSBzZWUgYmVsb3cgaG93IHRvIG5hdmlnYXRlIHRoZSB3ZWJzaXRlLioKCjxicj4KCi0tLS0KCiMjIEhvdyB0byBuYXZpZ2F0ZQoKVGhpcyB3ZWJzaXRlIGhhcyBiZWVuIGhvc3RlZCB1c2luZyBHaXRodWIuIFRvIG5hdmlnYXRlIHRoaXMgd2Vic2l0ZSwgcGxlYXNlIHNlZSB0aGUgdG9wIG1lbnUuIEluIHRoZSB0b3AgbWVudSwgaXQgaXMgcG9zc2libGUgdG8gZmluZCB0aGUgZGlmZmVyZW50ICdjaGFwdGVycycgb2YgdGhpcyBMYWIgSm91cm5hbC4gSXQgY29uc2lzdHMgb2Ygd2Vla2x5IGNoYXB0ZXJzIGFkZGVkIHRvIHRoZSBsYWIgam91cm5hbCwgd2hpY2ggY2FuIGJlIGZvdW5kIHVuZGVyIHRoZSAnbXkgam91cm5hbCcgdGFiLiBVbmRlciB0aGUgJ2NvbmNlcHQgcmVwb3J0JyB0YWIsIHlvdSBjYW4gKGluIHRoZSBmdXR1cmUpIGZpbmQgbXkgY29uY2VwdCByZXBvcnQuIFRoZSBzYW1lIGdvZXMgZm9yIHRoZSAnZmluYWwgcmVwb3J0JyB0YWIsIHdoZXJlIEkgd2lsbCBwdWJsaXNoIG15IGZpbmFsIHJlcG9ydCBvbiBuZXR3b3JrIGFuYWx5c2lzLiBUaGlzIGxhYiBqb3VybmFsIGlzIGZvciB0aGUgZW5kIHByb2R1Y3Qgb2YgdGhlIGNvdXJzZSBTb2NpYWwgTmV0d29ya3MuIE1vc3QgaXMgYmFzZWQgb24gdGhlIGJvb2sgU29jaWFsIE5ldHdvcmsgQW5hbHlzaXMgRm9yIFNvY2lhbCBTY2llbnRpc3RzIFtAU05BU1NdLgoKCjo6OgoKOjo6IHsuY29sdW1uIHdpZHRoPSI1MCUifQoKCgoKIVtdKGltYWdlcy90aGVzb2NpYWxuZXR3b3JraW1hZ2Vmcm9udC5qcGcpCgoKOjo6Cjo6OjoKLS0tCgojIyBIb3cgdG8gdXNlCgoKCgo8YnI+CgpVc2UgdGhlIHRvcCBtZW51IHRvIG5hdmlnYXRlIHRocm91Z2ggdGhlIGpvdXJuYWwuCgotLS0tCgojIFRlc3Qgc2lkZWJhcgoKVGhpcyBpcyB0byB0ZXN0IHRoZSBzaWRlYmFyIGZ1bmN0aW9uLgoKIyMgVGVzdCBzaWRlYmFyIHRoaW5neQoKSWYgYWxsIHdlbnQgd2VsbCwgdGhlICd0ZXN0IHNpZGViYXInIHNob3VsZCBoYXZlIGl0cyBvd24gJ3Rlc3Qgc2lkZWJhciB0aGluZ3knIG5vdwoKIyMgVGVzdCBzaWRlYmFyIHRoaW5neSAyCgpJZiBhbGwgd2VudCB3ZWxsLCB0aGUgJ3Rlc3Qgc2lkZWJhcicgc2hvdWxkIGhhdmUgaXRzIG93biAndGVzdCBzaWRlYmFyIHRoaW5neSAyJyBub3cKCi0tLS0KCiMgUmVmZXJlbmNlcwoKCgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayAzIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKZGF0ZTogIjIwMjQtMDktMjQiCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWIKYXV0aG9yOiAiTHVjYW4gQm92ZW5zIgotLS0KCmBgYHs9aHRtbH0KPHN0eWxlPgpkaXYgewp0ZXh0LWFsaWduOiBqdXN0aWZ5fQo8L3N0eWxlPgpgYGAKCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQpyZ2w6OnNldHVwS25pdHIoKQoKCgpjb2xvcml6ZSA8LSBmdW5jdGlvbih4LCBjb2xvcikge3NwcmludGYoIjxzcGFuIHN0eWxlPSdjb2xvcjogJXM7Jz4lczwvc3Bhbj4iLCBjb2xvciwgeCkgfQoKYGBgCgpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0Ka2xpcHB5OjprbGlwcHkocG9zaXRpb24gPSBjKCd0b3AnLCAncmlnaHQnKSkKI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpCmBgYAoKTGFzdCBjb21waWxlZCBvbiBgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVCLCAlWScpYAoKPGJyPgoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKYGBgCgotLS0tCgojIFdlZWsgNiAtICBEYXRhIGFuZCBtZXRob2RzIChjb25jZXB0KQoKVGhlIGRhdGEgdXNlZCBmb3IgdGhpcyByZXNlYXJjaCBjb25zaXN0cyBvZiBpbmZvcm1hdGlvbiBvZiBhbGwgc2Nob2xhcnMgZW1wbG95ZWQgaW4gdGhlIHNvY2lvbG9neSBhbmQgcG9saXRpY2FsIHNjaWVuY2UgZGVwYXJ0bWVudHMgb2YgYWxsIHVuaXZlcnNpdGllcyBpbiB0aGUgTmV0aGVybGFuZHMuIFRoZSBkYXRhIHdlcmUgb2J0YWluZWQgYnkgbWVhbnMgb2Ygd2Vic2NyYXBpbmcsIHVzaW5nIHRoZSBPcGVuQWxleCBvbmxpbmUgZGF0YWJhc2UuIAoKKEZvciBub3cpLCB0aGVzZSB0aWVzIGFyZSB1bmRpcmVjdGVkLiAKCgojIyBEZXBlbmRlbnQgdmFyaWFibGUKClN0YXJ0aW5nIHBvaW50IHdhcyB0aGUgZmlyc3QgYW5kIGxhc3QgbmFtZXMgb2YgdGhlIHNjaG9sYXJzIHdvcmtpbmcgYXQgdGhlIHNvY2lvbG9neSBkZXBhcnRtZW50IGFuZCBwb2xpdGljYWwgc2NpZW5jZSBkZXBhcnRtZW50IG9mIHRoZSBSYWRib3VkIFVuaXZlcnNpdHkuIFVzaW5nIG9wZW5hbGV4Uiwgd2UgZ290IGEgZGF0YXNldCB3aXRoIHRoZSBwdWJsaWNhdGlvbnMgYW5kIGNvLWF1dGhvcnNoaXBzIG9mIGVhY2ggc2Nob2xhci4gCgpGb3IgdGhlIGRlcGVuZGVudCB2YXJpYWJsZSB0aGVuLCBsb29raW5nIHdoZXRoZXIgc2Nob2xhciBoYWQgcHVibGlzaGVkIHdpdGggYW5vdGhlciBhdXRob3Igd2l0aGluIHRoZSBzYW1lIGRlcGFydG1lbnQgKGUuZy4gc29jaW9sb2d5IG9yIHBvbGl0aWNhbCBzY2llbmNlKS4gVGhlcmUgYXJlIHR3byB3YXZlcyBvZiBjby1wdWJsaWNhdGlvbiBuZXR3b3Jrcywgd2hpY2ggc2hvdyB0aGUgY28tcHVibGljYXRpb24gdGllcyBvZiB0aGUgd29ya3MgdGhlIGF1dGhvcnMgaGF2ZSBwdWJsaXNoZWQgaW4gdGhlc2UgeWVhcnMuCgojIyBJbmRlcGVuZGVudCB2YXJpYWJsZXMKCiMjIyBQcmVzdGlnZS1pbmRleAoKVGhlIGluZGVwZW5kZW50IHZhcmlhYmxlIGlzIGEgdmFyaWFibGUgY3JlYXRlZCB0byBtZWFzdXJlIHRoZSBwcmVzdGlnZSBvZiBhIHNjaG9sYXIuIFRoaXMgcHJlc3RpZ2UtaW5kZXggaXMgYmFzZWQgb24gdGhlIEgtaW5kZXgsIGJ1dCBoYXMgYmVlbiBhZGFwdGVkIHNsaWdodGx5LiBbZXhwbGFpbiBoLWluZGV4XS4gVGhlIG5ldyBwcmVzdGlnZS1pbmRleCB0YWtlcyBpbnRvIGFjY291bnQgY2FyZWVyIGFnZSwgbnVtYmVyIG9mIHB1YmxpY2F0aW9ucywgZXRjLiAoZXhwYW5kIG9uIHRoaXMpLiBUbyBjb2xsZWN0IHRoZXNlIGRhdGEsIHRoZSBkYXRhIHdlcmUgc2NyYXBlZCBmcm9tIHRoZSBvcGVuYWxleCB3ZWJzaXRlIChhbmQvb3IgQVBJKS4gCgojIyMgQ2FyZWVyLWFnZQoKUG9zc2libHkgYXMgc2VwYXJhdGUgdmFyaWFibGUsIHBvc3NpYmx5IG9ubHkgdXNlIGZvciB0aGUgcHJlc3RpZ2UgaW5kZXguCgojIyBDb250cm9sIHZhcmlhYmxlcwoKSSBhZGRlZCBtdWx0aXBsZSBjb250cm9sIHZhcmlhYmxlcywgdG8gY2hlY2sgd2hldGhlciB0aGVzZSB2YXJpYWJsZXMgYWxzbyB0b29rIHBhcnQgaW4gZGVjaWRpbmcgd2hldGhlciBzY2hvbGFycyBkZWNpZGVkIHRvIHdvcmsgdG9nZXRoZXIuIApUaGUgY29udHJvbCB2YXJpYWJsZXMgaW5jbHVkZWQgYXJlOgotCUdlbmRlciAoc2V4LCBtYWxlL2ZlbWFsZTsgYmFzZWQgb24gbmFtZXMgdXNpbmcgdGhlIE1lZXJ0ZW5zIG5hbWVuYmFuaykKLQlFdGhuaWNpdHkgKGJhc2VkIG9uIHRoZSBzYW1lIGFzIGFib3ZlOyBEdXRjaCBvciBub3QgRHV0Y2gpPyBJcyBpdCBuZWVkZWQ/IE1vcmUgZGlmZmljdWx0IHRvIHNjcmFwZQotCUFnZT8gCgojIyBEZXNjcmlwdGl2ZSBzdGF0aXN0aWNzCgpTaG93IGRpc3RyaWJ1dGlvbiBvZiB2YXJpYWJsZXMuLi4KCgotLS0tLS0tLS0tLS0tCgoKKipSZWZlcmVuY2VzKio6CgpzdGlsbCBnb3R0YSBsb29rIGF0IHRoYXQgYmliIHJlZmVyZW5jZSBzdHVmZgotLS0tCgo=</div>
 
 
 </div>
@@ -663,7 +640,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("index.Rmd");
+  window.initializeSourceEmbed("ConceptData_LB.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>

@@ -6,7 +6,7 @@ Filename is ./results/rsienatestmodel1.txt.
 
 This file contains primary output for SIENA project <<./results/rsienatestmodel1>>.
 
-Date and time: 09/10/2024 01:40:36 
+Date and time: 09/10/2024 16:41:56 
 
 RSiena version 1.4.19 (03 09 2024)
 
@@ -125,7 +125,7 @@ For the similarity variable calculated from each actor covariate,
 the mean is subtracted.
 These means are:
 Similarity adjusted_career_age      :       0.6596 
-Similarity prestige_h_index         :       0.7785 
+Similarity prestige_h_index         :       0.7786 
 Similarity h_index                  :       0.8138 
 
 

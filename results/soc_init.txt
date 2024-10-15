@@ -6,7 +6,7 @@ Filename is ./results/soc_init.txt.
 
 This file contains primary output for SIENA project <<./results/soc_init>>.
 
-Date and time: 08/10/2024 23:16:14 
+Date and time: 09/10/2024 16:11:21 
 
 RSiena version 1.4.19 (03 09 2024)
 
@@ -83,7 +83,7 @@ gender          0 	( 0.0 %)
 
 Information about covariates:
               minimum  maximum	  mean  centered 
-gender          1.0     2.0      1.600    Y 
+gender          1.0     2.0      1.480    Y 
 The mean value is subtracted from the centered covariate.
 
 
@@ -94,7 +94,7 @@ balance calculations is         0.0300.
 For the similarity variable calculated from each actor covariate,
 the mean is subtracted.
 These means are:
-Similarity gender                   :       0.5102 
+Similarity gender                   :       0.4906 
 
 
 

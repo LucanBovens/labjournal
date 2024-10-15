@@ -2,6 +2,9 @@
 title: "Lucan's Lab journal"
 author: "by: Lucan Bovens"
 bibliography: references.bib
+date: "`r Sys.Date()`"
+font-family: Times New Roman
+
 
  
 ---

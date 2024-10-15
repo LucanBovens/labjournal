@@ -1,0 +1,80 @@
+---
+title: "Week 3"
+output: html_document
+date: "2024-09-24"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+```{=html}
+<style>
+div {
+text-align: justify}
+</style>
+```
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+----
+
+# Week 6 -  Theory (concept)
+
+overall outline: 
+
+look at homophily theory/principle. 'homophily is an importent concept within social network analysis'. it refers to the preference of individuals to form relationships with others who are similar to them (bron xxx). in this academic context, it would mean that scholars are more interested to work with other scholars who have a similar level of prestige. (write that this could lead to clustering?)
+
+write something about hierarchies, hierarchigal nature of academics. -> scholars with high prestige having a central position within networks, which also means they may be more frequently approached by junior scholars -> scale-free network?
+
+based on the above theories, I propose the following hypothesis:
+
+H1: Scholars with similar prestige are more likely to collaborate than scholars with a difference in prestige.
+
+H2: Highly prestigious scholars have central positions within the collaboration networks. 
+
+H3a: Junior scholars are more likely to send out ties than senior scholars.
+H3b: Senior scholars are more likely to receive ties than junior scholars.
+
+ 
+-------------
+
+
+**References**:
+
+Cheong, F., & Corbitt, B. (2009). A Social Network Analysis of the Co-Authorship Network of the Pacific Asia Conference on Information System from 1993 to 2008, *PACIS 2009 Proceedings, 23*. Retrieved from https://aisel.aisnet.org/pacis2009/23
+
+De Miranda Grochocki, L., & Cabello, A. (2023). Research collaboration networks in maturing academic environments. *Scientometrics, 128*(4), 2535-3556. https://doi.org/10.1007/s11192-023-04671-z
+
+Hâncean, M., & Perc, M. (2016). Homophily in coauthorship networks of East European sociologists. *Scientific reports, 6*(1), 36152. https://doi.org/10.1038/srep36152
+
+McPherson, M., Smith-Lovin, L., & Cook, J. (2001). Birds of a Feather: Homophily in Social Networks. *Annual Review of Sociology, 27*, 415-444. https://doi.org/10.1146/annurev.soc.27.1.415
+
+Jeppesen, J., Vaarst Andersen, K., Lauto, G., & Valentin, F. (2014). *Big Egos in Big Science*. Paper presented at The DRUID Academy Conference 2014, Aalborg, Denmark. Retrieved from https://www.semanticscholar.org/paper/Big-Egos-in-Big-Science-Andersen-Valentin/a384670034b9ac51a8978e7fd7037eeafaab9a92
+
+----
+

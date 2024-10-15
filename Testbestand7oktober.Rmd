@@ -28,7 +28,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 ----
 
-# Week xxx -  Final bestand 7/8 oktober
+# Week 5 -  Final bestand 8 oktober (datum laatste aanpassing)
   
 ----
   
@@ -218,9 +218,10 @@ universities_2_2024 <- unique(demographics$Universiteit2.24)
 ```
 
 ```{r}
+
 # Add h-index and i10-index to df_ego dataframe
 df_ego <- df_ego %>%
-  mutate(h_index = NA_real_, i10_index = NA_real_)
+  mutate(h_index = NA_real_, i10_index = NA_real_, works_count = NA_real_, cited_by_count = NA_real_)
 
 # Get H-index and i10-index, using openalex API (see link)
 get_openalex_metrics <- function(openalex_id) {
@@ -539,7 +540,13 @@ print01Report(siena_data, modelname = "./results/rsienatestmodel1")
 ```
 
 ```{r}
-myeff2 <- includeEffects(myeff, isolateNet, inPop, desPlus, inAct, outAct)
+myeff <- getEffects(siena_data)
+
+myeff <- includeEffects(myeff, isolateNet)
+myeff <- includeEffects(myeff, isolateNet, inPop, desPlus, inAct, outAct)
+myeff <- includeEffects(myeff, isolateNet, inPop, desPlus, inAct, outAct)
+myeff <- includeEffects(myeff, isolateNet, inPop, desPlus, inAct, outAct)
+
 ```
 
 ```{r}
@@ -562,5 +569,29 @@ myAlgorithm <- sienaAlgorithmCreate(projname = "rsienatestmodel1")
 anstest1 <- siena07(myAlgorithm, data = siena_data, effects = myeff, returnDeps = TRUE)
 
 anstest1
+```
+
+```{r}
+myeff_test1 <- includeEffects(myeff, density, recip)
+```
+
+```{r}
+anstest2 <- siena07(myAlgorithm, data = siena_data, effects = myeff_test1, returnDeps = TRUE)
+
+anstest2
+```
+
+
+```{r}
+myeff_test2 <- includeEffects(myeff, inPop, recip)
+```
+
+```{r}
+anstest3 <- siena07(myAlgorithm, data = siena_data, effects = myeff_test2, returnDeps = TRUE)
+
+anstest3
+```
+
+```{r}
 ```
 

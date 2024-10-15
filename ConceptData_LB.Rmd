@@ -1,0 +1,89 @@
+---
+title: "Week 3"
+output: html_document
+date: "2024-09-24"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+```{=html}
+<style>
+div {
+text-align: justify}
+</style>
+```
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+----
+
+# Week 6 -  Data and methods (concept)
+
+The data used for this research consists of information of all scholars employed in the sociology and political science departments of all universities in the Netherlands. The data were obtained by means of webscraping, using the OpenAlex online database. 
+
+(For now), these ties are undirected. 
+
+
+## Dependent variable
+
+Starting point was the first and last names of the scholars working at the sociology department and political science department of the Radboud University. Using openalexR, we got a dataset with the publications and co-authorships of each scholar. 
+
+For the dependent variable then, looking whether scholar had published with another author within the same department (e.g. sociology or political science). There are two waves of co-publication networks, which show the co-publication ties of the works the authors have published in these years.
+
+## Independent variables
+
+### Prestige-index
+
+The independent variable is a variable created to measure the prestige of a scholar. This prestige-index is based on the H-index, but has been adapted slightly. [explain h-index]. The new prestige-index takes into account career age, number of publications, etc. (expand on this). To collect these data, the data were scraped from the openalex website (and/or API). 
+
+### Career-age
+
+Possibly as separate variable, possibly only use for the prestige index.
+
+## Control variables
+
+I added multiple control variables, to check whether these variables also took part in deciding whether scholars decided to work together. 
+The control variables included are:
+-	Gender (sex, male/female; based on names using the Meertens namenbank)
+-	Ethnicity (based on the same as above; Dutch or not Dutch)? Is it needed? More difficult to scrape
+-	Age? 
+
+## Descriptive statistics
+
+Show distribution of variables...
+
+
+-------------
+
+
+**References**:
+
+still gotta look at that bib reference stuff
+----
+
