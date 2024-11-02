@@ -1,0 +1,405 @@
+---
+title: "Data and descriptives"
+output: html_document
+date: "2024-10-31"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+```{=html}
+<style>
+div {
+text-align: justify}
+</style>
+```
+
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+----
+
+# Descriptives
+
+Below, I have provided several descriptive statistics to give a quick overview of the data, helping us understand what we are dealing with. First, the code to prepare the data is shown, followed by the code for the descriptives, along with some tables and figures. As mentioned previously, there are two waves in the data, with the total number of scholars in the dataset varying per wave. The overall dataset includes 164 scholars. \
+   	However, as seen in '1.2 Distribution of Scholars', Wave 1 consists of just 152 unique scholars. The University of Groningen has the most scholars in the dataset with 61, followed by Utrecht University with 47, and Radboud University with 44 scholars. There are twelve scholars who were not yet present in Wave 1 but are included in the overall dataset. These are mostly PhD candidates or employees who were not yet working at one of the three universities at that time but joined between 2022 and 2024. In two cases, these were scholars who previously worked at the University of Amsterdam and joined one of the three universities in Wave 2. Wave 2 consists of 141 unique scholars, again with the University of Groningen having the most scholars at 62, followed by Utrecht University with 40 and Radboud University with 39. There are 21 scholars no longer in the dataset in Wave 2. In most cases, these were PhD students who likely completed their PhD. Other cases include guest researchers or postdocs who are simply no longer employed. Two scholars previously worked at one of the three universities but were now affiliated with either the University of Cologne or Tilburg University.\
+   	In terms of prestige across universities, the prestige appears to be somewhat equal, ranging between 4 and 5.5 for both waves. The lowest prestige score observed is 0, at both the University of Groningen and Utrecht University, primarily among junior scholars who have not published much yet. The highest prestige index observed is 36.5 at Utrecht University. The total prestige per wave remains stable, as it is a fixed variable across waves. The histograms show a few outliers regarding the prestige index: most scholars have a prestige index between 1 and 4, with only 18 scholars having a score above 10. One scholar has a score of 18, another 21, and one stands out with a score of 36. The same trend is observed for Wave 2, with changes largely due to scholars no longer working at one of the universities, thus their scores are not included in the histogram. The mean prestige has increased by only 0.059 between the two waves, as shown in the summary statistics. \
+   	Regarding gender, only Radboud University is perfectly balanced in Wave 1, with an equal number of men and women (22 each). At the University of Groningen and Utrecht University, men (34 and 27) outnumber women (27 and 20), respectively. In Wave 2, these proportions shift slightly, with more women than men at Radboud University, but still more men at the other two universities. \
+   	Finally, Figure 1 shows the network at Wave 1, with isolates still included. It is evident that there are many scholars in the data who do not have connections with others in the dataset. It may be the case that these isolates collaborate mostly with scholars from other universities or from other departments not included in the original dataset or in this study. Figure 2 shows the network at Wave 2, again with isolates included. We can immediately observe that the number of isolates has decreased and that more ties have been established. Especially in Wave 2, it stands out that are a few scholars that receive considerably more ties than others. \
+   	Figure 3 displays the same network as Wave 1, but without isolates. As with Figure 1, the collaboration network seems rather sparse, with just a few scholars receiving multiple ties. Figure 4 shows the same network as wave 2, but without isolates. The network appears to be denser than the network at Wave 1. Here it also becomes clear there are a few scholars who receive more ties than others. In the next section, it will be investigated whether prestige plays a role in this observation. \
+----
+  
+## Prep
+
+Cleaning the workspace
+
+```{r}
+rm(list=ls())
+```
+
+Defining the functions
+
+```{r}
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    totalname <- paste(location, file, ".rda", sep = "")
+    save(x, file = totalname)
+}
+
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+```
+
+Loading packages
+
+```{r}
+packages <- c("tidyverse", "scholar", "openalexR", "rvest", "jsonlite", "RSiena", "RSelenium", "rvest", "lavaan", "xml2", "kableExtra", "devtools", "igraph", "network", "sna", "ggraph", "visNetwork", "threejs", "networkD3", "RsienaTwoStep", "dplyr")
+
+
+fpackage.check(packages)
+```
+
+```{r}
+# make yourself known to openAlex
+options(openalexR.mailto = "lucan.bovens@home.nl")
+```
+
+```{r}
+# Load final prepared data
+df_ego <- fload("./data/processed/df_ego_final.rda")
+socdata <- fload("./data/processed/socdata_final.rda")
+dfworks <- fload("./data/processed/df_works_final.rda")
+```
+
+```{r}
+final_scholar_ids <- df_ego$au_id  # Get final scholar IDs from df_ego
+socdata$nets <- socdata$nets[, final_scholar_ids, final_scholar_ids, drop = FALSE]
+dim(socdata$nets)  # Should be 2 (waves) 164, 164)
+```
+
+## Distribution of scholars 
+### Distribution of scholars per university for wave 1 and wave 2
+
+```{r}
+university_distribution <- tibble(
+  original_code = c("RU", "UU", "RUG"),
+  University = c("RU", "UU", "RUG")
+)
+
+df_ego %>%
+  left_join(university_distribution, by = c("Universiteit1.22" = "original_code")) %>%
+  count(University) %>%
+  fshowdf()
+```
+
+
+```{r}
+df_ego %>%
+  left_join(university_distribution, by = c("Universiteit1.24" = "original_code")) %>%
+  count(University) %>%
+  fshowdf()
+
+View(df_ego)
+
+```
+
+```{r}
+df_ego %>% count(Universiteit1.22)
+df_ego %>% count(Universiteit1.24)
+
+```
+
+## Prestige
+
+### Prestige distribution by university and total wave 1
+
+```{r}
+
+# Wave 1: Prestige distribution by university and total
+df_ego %>%
+  group_by(Universiteit1.22) %>%
+  summarise(
+    mean_prestige = mean(prestige_index, na.rm = TRUE),
+    min_prestige = min(prestige_index, na.rm = TRUE),
+    max_prestige = max(prestige_index, na.rm = TRUE),
+    sd_prestige = sd(prestige_index, na.rm = TRUE)
+  ) %>%
+  bind_rows(
+    df_ego %>%
+      summarise(
+        Universiteit1.22 = "Total",
+        mean_prestige = mean(prestige_index, na.rm = TRUE),
+        min_prestige = min(prestige_index, na.rm = TRUE),
+        max_prestige = max(prestige_index, na.rm = TRUE),
+        sd_prestige = sd(prestige_index, na.rm = TRUE)
+      )
+  )
+```
+
+
+### Prestige distribution by university and total wave 2
+
+```{r}
+# Wave 2: Prestige distribution by university and total
+df_ego %>%
+  group_by(Universiteit1.24) %>%
+  summarise(
+    mean_prestige = mean(prestige_index, na.rm = TRUE),
+    min_prestige = min(prestige_index, na.rm = TRUE),
+    max_prestige = max(prestige_index, na.rm = TRUE),
+    sd_prestige = sd(prestige_index, na.rm = TRUE)
+  ) %>%
+  bind_rows(
+    df_ego %>%
+      summarise(
+        Universiteit1.24 = "Total",
+        mean_prestige = mean(prestige_index, na.rm = TRUE),
+        min_prestige = min(prestige_index, na.rm = TRUE),
+        max_prestige = max(prestige_index, na.rm = TRUE),
+        sd_prestige = sd(prestige_index, na.rm = TRUE)
+      )
+  )
+```
+
+### Histogram prestige distribution wave 1
+
+```{r}
+# Histogram of prestige scores for Wave 1
+hist(
+  df_ego$prestige_index[df_ego$Universiteit1.22 %in% c("RU", "UU", "RUG")],
+  breaks = 30,
+  main = "Distribution of Prestige Index - Wave 1",
+  xlab = "Prestige Index",
+  ylab = "Frequency",
+  col = "lightblue"  
+)
+```
+
+### Histogram prestige distribution wave 2
+
+```{r}
+# Histogram of prestige scores for Wave 2
+hist(
+  df_ego$prestige_index[df_ego$Universiteit1.24 %in% c("RU", "UU", "RUG")],
+  breaks = 30,
+  main = "Distribution of Prestige Index - Wave 2",
+  xlab = "Prestige Index",
+  ylab = "Frequency",
+  col = "lightblue"  
+)
+```
+
+### Summary statistics of prestige wave 1
+
+```{r}
+summary(df_ego$prestige_index[df_ego$Universiteit1.22 %in% c("RU", "UU", "RUG")])
+```
+
+### Summary statistics of prestige wave 2
+
+```{r}
+summary(df_ego$prestige_index[df_ego$Universiteit1.24 %in% c("RU", "UU", "RUG")])
+```
+
+## Gender
+
+```{r}
+# Wave 1: Gender count per university
+table(df_ego$Universiteit1.22, df_ego$genderdich)
+
+# Wave 1: Percentage gender per university
+prop.table(table(df_ego$Universiteit1.22, df_ego$genderdich), margin = 1)
+
+# Wave 2: Gender count per university
+table(df_ego$Universiteit1.24, df_ego$genderdich)
+
+# Wave 2: Percentage gender per university
+prop.table(table(df_ego$Universiteit1.24, df_ego$genderdich), margin = 1)
+
+```
+
+
+
+```{r}
+
+network_wave2 <- igraph::graph_from_adjacency_matrix(
+  socdata$nets[2,,], # Second wave
+  mode = "directed",
+  weighted = NULL,
+  diag = FALSE
+)
+
+degree_wave2 <- igraph::degree(network_wave2, mode = "all")  # Calculate degree (in + out)
+
+df_ego$degree_wave2 <- degree_wave2  # Add degree to df_ego
+
+#plot
+hist(df_ego$degree_wave2, breaks = 20, main = "Degree Distribution (Wave 2)", xlab = "Degree")
+
+```
+
+## Plotting
+
+```{r}
+#Wave 1
+
+socdata_w1 <- igraph::graph_from_adjacency_matrix(
+  socdata$nets[1,,], #now, the first wave
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE,
+  add.rownames = NULL,
+  add.colnames = NULL
+)
+
+plot(socdata_w1,
+          main = "Figure 1: Network Visualization - Wave 1",
+     vertex.color = ifelse(df_ego$genderdich == "female", "red", "blue"), 
+     vertex.label = NA,
+     vertex.size = 5, 
+     edge.width = 0.2,
+     edge.arrow.size = 0.2)
+
+legend("topright",
+       legend = c("Female", "Male"),
+       col = c("red", "blue"),
+       pch = 21,         
+       pt.cex = 1,       
+       pt.bg = c("red", "blue"), 
+       bty = "n"         # 
+)
+
+```
+
+```{r}
+#Wave 2
+
+socdata_w2 <- igraph::graph_from_adjacency_matrix(
+  socdata$nets[2,,], #now, the second wave
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE,
+  add.rownames = NULL,
+  add.colnames = NULL
+)
+
+plot(socdata_w2,
+               main = "Figure 2: Network Visualization - Wave 2",
+     vertex.color = ifelse(df_ego$genderdich == "female", "red", "blue"), 
+     vertex.label = NA,
+     vertex.size = 5, 
+     edge.width = 0.2,
+     edge.arrow.size = 0.2)
+
+legend("topright",
+       legend = c("Female", "Male"),
+       col = c("red", "blue"),
+       pch = 21,         
+       pt.cex = 1,       
+       pt.bg = c("red", "blue"), 
+       bty = "n"         # 
+)
+
+```
+
+
+```{r}
+# Wave 1 no isolates
+
+socdata_w1 <- igraph::graph_from_adjacency_matrix(
+  socdata$nets[1,,], 
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE
+)
+
+# Remove isolates
+socdata_w1_no_isolates <- delete_vertices(socdata_w1, igraph::degree(socdata_w1) == 0)
+
+plot(socdata_w1_no_isolates,
+               main = "Figure 3: Network Visualization - Wave 1 - No isolates",
+     vertex.color = ifelse(df_ego$genderdich == "female", "red", "blue"), 
+     vertex.label = NA,
+     vertex.size = 5,    
+     edge.width = 0.2,
+     edge.arrow.size = 0.2)
+
+legend("topright",
+       legend = c("Female", "Male"),
+       col = c("red", "blue"),
+       pch = 21,         
+       pt.cex = 1,       
+       pt.bg = c("red", "blue"), 
+       bty = "n"         # 
+)
+
+```
+
+```{r}
+# Wave 2 no isolates
+
+socdata_w2 <- igraph::graph_from_adjacency_matrix(
+  socdata$nets[2,,], 
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE
+)
+
+socdata_w2_no_isolates <- delete_vertices(socdata_w2, igraph::degree(socdata_w2) == 0)
+
+plot(socdata_w2_no_isolates,
+               main = "Figure 4: Network Visualization - Wave 2 - No isolates",
+     vertex.color = ifelse(df_ego$genderdich == "female", "red", "blue"), 
+     vertex.label = NA,
+     vertex.size = 5, 
+     edge.width = 0.2,
+     edge.arrow.size = 0.2)
+
+legend("topright",
+       legend = c("Female", "Male"),
+       col = c("red", "blue"),
+       pch = 21,         
+       pt.cex = 1,       
+       pt.bg = c("red", "blue"), 
+       bty = "n"         # 
+)
+
+```

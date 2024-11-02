@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lucan Bovens" />
+
+<meta name="date" content="2024-11-01" />
+
+<title>Final theory</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="lab1.html">Example plage</a>
+        </li>
+        <li>
+          <a href="Week1_LB.html">Research Questions</a>
+        </li>
+        <li>
+          <a href="Week1_TutorialA.html">Tutorial</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week2_LB.html">Introduction</a>
+        </li>
+        <li>
+          <a href="Week2AssignmentClass.html">In-class assignment: Matrixes and measures</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction (revised)</a>
+        </li>
+        <li>
+          <a href="Week3AssignmentClass.html">Web-scraping &amp; OpenAlex</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction &amp; theory? (revised)</a>
+        </li>
+        <li>
+          <a href="Week4AssignmentClass.html">In-class assignment: chapter 9</a>
+        </li>
+        <li>
+          <a href="Week4Visualization.html">Visualization</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 5</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week5_RSienaTutorial.html">RSiena Tutorial</a>
+        </li>
+        <li>
+          <a href="Week5_RSienaExample.html">RSiena Example (in-class)</a>
+        </li>
+        <li>
+          <a href="testbestand8oktoberrsienatest.html">RSiena test (SNASS: error)</a>
+        </li>
+        <li>
+          <a href="Testbestand7oktober.html">RSiena own data</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Concept Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ConceptIntroduction_LB.html">Introduction</a>
+    </li>
+    <li>
+      <a href="ConceptTheory_LB.html">Theory</a>
+    </li>
+    <li>
+      <a href="ConceptData_LB.html">Data</a>
+    </li>
+    <li class="dropdown-header">Results</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="FinalIntroduction_LB.html">Introduction</a>
+    </li>
+    <li>
+      <a href="FinalTheory_LB.html">Theory</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="FinalDataMethods_LB.html">Methods</a>
+        </li>
+        <li>
+          <a href="FinalDataPreparation_LB.html">Data preparation</a>
+        </li>
+        <li>
+          <a href="FinalDataDescriptives_LB.html">Data descriptives</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Results</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="FinalResultsDescriptives_LB.html">Results descriptives</a>
+        </li>
+        <li>
+          <a href="FinalRSienaModels_LB.html">RSiena models</a>
+        </li>
+        <li>
+          <a href="FinalRSienaGOF_LB.html">RSiena goodness of fit</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="FinalConclusion_LB.html">Conclusion</a>
+    </li>
+    <li>
+      <a href="FinalReferences_LB.html">References</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lucanbovens.github.io/labjournal/">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Final theory</h1>
+<h4 class="author">Lucan Bovens</h4>
+<h4 class="date">2024-11-01</h4>
+
+</div>
+
+
+<style>
+div {
+text-align: justify}
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<p>Last compiled on November, 2024</p>
+<p><br></p>
+<hr />
+<div id="theory" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Theory</h1>
+<p>The academic world consists of many highly qualified individuals, and
+it is difficult to reach the top of the academic world. Since academia
+remains largely a meritocracy, prestige plays a crucial role in
+obtaining higher positions and building a valuable network. Although
+prestige is not visible at first and can transcend other, more visible,
+person characteristics, it is commonly known within the academic which
+scholars have the most prestige. This prestige is usually determined by
+factors such as the number of citations or the number of co-authorship
+ties. Most often it is the scholars who hold the highest academic title
+and who have had the longest career age. For simplicity, I will refer to
+these high-prestige individuals as ‘senior scholars’ and to those with
+lower prestige as ‘junior scholars.’ With these distinctions in mind, I
+expect prestige to be a key determinant in whether scholars tend to work
+together.<br />
+  One of the key mechanisms that can potentially play a role in forming
+the structure of scientific collaboration networks is the concept of
+homophily. Homophily is the concept that refers to the preference of
+individuals to form relationships with others that are similar to them
+(McPherson, Smith-Lovin &amp; Cook, 2001; Wang &amp; Zhu, 2014). In the
+academic context then, it could mean that scholars are more likely, or
+rather more interested, to work with other scholars who have a similar
+level of prestige, while being more reluctant or refusing to work with
+others who have a different level of prestige. Evans, Lambiotte and
+Panzarasa (2011 xx) have found that researchers indeed prefer to
+collaborate with researchers who have a similar level of prestige. In
+this case, it would most likely be the scholars with the highest levels
+of prestige who tend to work together, as they would want to maintain
+their status, which is also known as a <em>birds of a feather</em>
+effect (Hancean xxx). Previous research by Jeppesen, Vaarts Andersen,
+Lauto and Valentin (2014) refers to this as the <em>rich club
+effect</em>, meaning that prominent individuals direct their ties
+towards each other. Resulting from that, clusters of scholars with high
+levels of prestige would occur within the network, since they would
+prefer to work with each other. As such, the first hypotheses I propose
+are:<br />
+</p>
+<p>  <em>H1: Scholars with similar prestige are more likely to
+collaborate than scholars with a difference in prestige.</em> </p>
+<p>  <em>H2: Clusters of scholars with high prestige occur within
+collaboration networks.</em> </p>
+<p>  Collaboration dynamics can also be entirely different.
+Collaboration networks tend to follow a hierarchical structure, with
+scholars of a higher prestige potentially serving as mentors to scholars
+with lower prestige. Horta, Feng and Santos (2022) argue that
+collaboration between researchers with different levels of prestige
+offers benefits to junior and senior scholars alike, as well as to the
+university and the whole scientific field. As such, lower-prestige
+scholars would prefer to work with scholars of a higher prestige, so
+that they themselves can get a higher prestige as well, or so that the
+process of writing the paper goes more smoothly (xxx zie bronnen st,
+zoals li et al, perc 2010). This then follows the concept of a
+scale-free network, where it would mean that scholars with a high
+prestige hold important central position within the network. In a
+scale-free network then, these highly prestigious scholars function as
+hubs with the most connections. This leads to a second hypothesis:<br />
+</p>
+<p>  <em>H3: Highly prestigious scholars occupy central positions within
+collaboration networks.</em> </p>
+<p>  The above hypotheses are conflicting, which makes it clear that the
+exact mechanisms of prestige can work differently. This makes the
+concept of prestige as a determinant for network structures very
+complex, as there may be conflicting preferences in the above scenarios;
+scholars with a lower prestige aim to work with scholars with a higher
+prestige, while scholars with a higher prestige prefer to work only with
+other higher-prestige scholars. It may be the case that senior scholars
+themselves recognize that they are expected to help out scholars with
+lower prestige, and as such are willing to guide other’s careers as well
+when asked. This would mean that senior scholars are often approached to
+collaborate on a paper. This has been found in previous studies as well,
+with Sekara et al. (2018) finding that senior scholars are indeed more
+likely to collaborate with junior scholars, so that the latter can have
+a solid start for their career. Bornmann et al. (2020) also find that
+scholars with a higher h-index are seen as more prestigious and are thus
+more likely to be asked to collaborate. Hancean and Perc also find that
+scholars prefer to collaborate with other scholars they perceive to be
+prestigious. As such, the scenario I then find most likely is that
+(junior) scholars prefer to collaborate with scholars who have a higher
+prestige. Resulting from this, I propose the following hypothesis:<br />
+</p>
+<p>  <em>H4: Scholars are more likely to initiate ties with scholars who
+have a high level of prestige.</em> </p>
+<p>  The above theoretical framework has shown that prestige is a
+complex concept in the forming of academic collaboration networks. There
+are multiple dynamics that can potentially be at play in forming a
+social network in the context of prestige. Understanding how these
+dynamics work is then crucial in finding out how these networks form.
+The next section will outline the specific network data needed to test
+the above hypotheses.<br />
+</p>
+<hr />
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWwgdGhlb3J5IgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKZGF0ZTogIjIwMjQtMTEtMDEiCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWIKYXV0aG9yOiAiTHVjYW4gQm92ZW5zIgotLS0KCmBgYHs9aHRtbH0KPHN0eWxlPgpkaXYgewp0ZXh0LWFsaWduOiBqdXN0aWZ5fQo8L3N0eWxlPgpgYGAKCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQpyZ2w6OnNldHVwS25pdHIoKQoKCgpjb2xvcml6ZSA8LSBmdW5jdGlvbih4LCBjb2xvcikge3NwcmludGYoIjxzcGFuIHN0eWxlPSdjb2xvcjogJXM7Jz4lczwvc3Bhbj4iLCBjb2xvciwgeCkgfQoKYGBgCgpgYGB7ciBrbGlwcHksIGVjaG89RkFMU0UsIGluY2x1ZGU9VFJVRX0Ka2xpcHB5OjprbGlwcHkocG9zaXRpb24gPSBjKCd0b3AnLCAncmlnaHQnKSkKI2tsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQoja2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpCmBgYAoKTGFzdCBjb21waWxlZCBvbiBgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVCLCAlWScpYAoKPGJyPgoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKYGBgCgotLS0tCgojIFRoZW9yeQoKVGhlIGFjYWRlbWljIHdvcmxkIGNvbnNpc3RzIG9mIG1hbnkgaGlnaGx5IHF1YWxpZmllZCBpbmRpdmlkdWFscywgYW5kIGl0IGlzIGRpZmZpY3VsdCB0byByZWFjaCB0aGUgdG9wIG9mIHRoZSBhY2FkZW1pYyB3b3JsZC4gU2luY2UgYWNhZGVtaWEgcmVtYWlucyBsYXJnZWx5IGEgbWVyaXRvY3JhY3ksIHByZXN0aWdlIHBsYXlzIGEgY3J1Y2lhbCByb2xlIGluIG9idGFpbmluZyBoaWdoZXIgcG9zaXRpb25zIGFuZCBidWlsZGluZyBhIHZhbHVhYmxlIG5ldHdvcmsuIEFsdGhvdWdoIHByZXN0aWdlIGlzIG5vdCB2aXNpYmxlIGF0IGZpcnN0IGFuZCBjYW4gdHJhbnNjZW5kIG90aGVyLCBtb3JlIHZpc2libGUsIHBlcnNvbiBjaGFyYWN0ZXJpc3RpY3MsIGl0IGlzIGNvbW1vbmx5IGtub3duIHdpdGhpbiB0aGUgYWNhZGVtaWMgd2hpY2ggc2Nob2xhcnMgaGF2ZSB0aGUgbW9zdCBwcmVzdGlnZS4gVGhpcyBwcmVzdGlnZSBpcyB1c3VhbGx5IGRldGVybWluZWQgYnkgZmFjdG9ycyBzdWNoIGFzIHRoZSBudW1iZXIgb2YgY2l0YXRpb25zIG9yIHRoZSBudW1iZXIgb2YgY28tYXV0aG9yc2hpcCB0aWVzLiBNb3N0IG9mdGVuIGl0IGlzIHRoZSBzY2hvbGFycyB3aG8gaG9sZCB0aGUgaGlnaGVzdCBhY2FkZW1pYyB0aXRsZSBhbmQgd2hvIGhhdmUgaGFkIHRoZSBsb25nZXN0IGNhcmVlciBhZ2UuIEZvciBzaW1wbGljaXR5LCBJIHdpbGwgcmVmZXIgdG8gdGhlc2UgaGlnaC1wcmVzdGlnZSBpbmRpdmlkdWFscyBhcyAnc2VuaW9yIHNjaG9sYXJzJyBhbmQgdG8gdGhvc2Ugd2l0aCBsb3dlciBwcmVzdGlnZSBhcyAnanVuaW9yIHNjaG9sYXJzLicgV2l0aCB0aGVzZSBkaXN0aW5jdGlvbnMgaW4gbWluZCwgSSBleHBlY3QgcHJlc3RpZ2UgdG8gYmUgYSBrZXkgZGV0ZXJtaW5hbnQgaW4gd2hldGhlciBzY2hvbGFycyB0ZW5kIHRvIHdvcmsgdG9nZXRoZXIuIFwK4oCDICAgT25lIG9mIHRoZSBrZXkgbWVjaGFuaXNtcyB0aGF0IGNhbiBwb3RlbnRpYWxseSBwbGF5IGEgcm9sZSBpbiBmb3JtaW5nIHRoZSBzdHJ1Y3R1cmUgb2Ygc2NpZW50aWZpYyBjb2xsYWJvcmF0aW9uIG5ldHdvcmtzIGlzIHRoZSBjb25jZXB0IG9mIGhvbW9waGlseS4gSG9tb3BoaWx5IGlzIHRoZSBjb25jZXB0IHRoYXQgcmVmZXJzIHRvIHRoZSBwcmVmZXJlbmNlIG9mIGluZGl2aWR1YWxzIHRvIGZvcm0gcmVsYXRpb25zaGlwcyB3aXRoIG90aGVycyB0aGF0IGFyZSBzaW1pbGFyIHRvIHRoZW0gKE1jUGhlcnNvbiwgU21pdGgtTG92aW4gJiBDb29rLCAyMDAxOyBXYW5nICYgWmh1LCAyMDE0KS4gSW4gdGhlIGFjYWRlbWljIGNvbnRleHQgdGhlbiwgaXQgY291bGQgbWVhbiB0aGF0IHNjaG9sYXJzIGFyZSBtb3JlIGxpa2VseSwgb3IgcmF0aGVyIG1vcmUgaW50ZXJlc3RlZCwgdG8gd29yayB3aXRoIG90aGVyIHNjaG9sYXJzIHdobyBoYXZlIGEgc2ltaWxhciBsZXZlbCBvZiBwcmVzdGlnZSwgd2hpbGUgYmVpbmcgbW9yZSByZWx1Y3RhbnQgb3IgcmVmdXNpbmcgdG8gd29yayB3aXRoIG90aGVycyB3aG8gaGF2ZSBhIGRpZmZlcmVudCBsZXZlbCBvZiBwcmVzdGlnZS4gRXZhbnMsIExhbWJpb3R0ZSBhbmQgUGFuemFyYXNhICgyMDExIHh4KSBoYXZlIGZvdW5kIHRoYXQgcmVzZWFyY2hlcnMgaW5kZWVkIHByZWZlciB0byBjb2xsYWJvcmF0ZSB3aXRoIHJlc2VhcmNoZXJzIHdobyBoYXZlIGEgc2ltaWxhciBsZXZlbCBvZiBwcmVzdGlnZS4gSW4gdGhpcyBjYXNlLCBpdCB3b3VsZCBtb3N0IGxpa2VseSBiZSB0aGUgc2Nob2xhcnMgd2l0aCB0aGUgaGlnaGVzdCBsZXZlbHMgb2YgcHJlc3RpZ2Ugd2hvIHRlbmQgdG8gd29yayB0b2dldGhlciwgYXMgdGhleSB3b3VsZCB3YW50IHRvIG1haW50YWluIHRoZWlyIHN0YXR1cywgd2hpY2ggaXMgYWxzbyBrbm93biBhcyBhIF9iaXJkcyBvZiBhIGZlYXRoZXJfIGVmZmVjdCAoSGFuY2VhbiB4eHgpLiBQcmV2aW91cyByZXNlYXJjaCBieSBKZXBwZXNlbiwgVmFhcnRzIEFuZGVyc2VuLCBMYXV0byBhbmQgVmFsZW50aW4gKDIwMTQpIHJlZmVycyB0byB0aGlzIGFzIHRoZSBfcmljaCBjbHViIGVmZmVjdF8sIG1lYW5pbmcgdGhhdCBwcm9taW5lbnQgaW5kaXZpZHVhbHMgZGlyZWN0IHRoZWlyIHRpZXMgdG93YXJkcyBlYWNoIG90aGVyLiBSZXN1bHRpbmcgZnJvbSB0aGF0LCBjbHVzdGVycyBvZiBzY2hvbGFycyB3aXRoIGhpZ2ggbGV2ZWxzIG9mIHByZXN0aWdlIHdvdWxkIG9jY3VyIHdpdGhpbiB0aGUgbmV0d29yaywgc2luY2UgdGhleSB3b3VsZCBwcmVmZXIgdG8gd29yayB3aXRoIGVhY2ggb3RoZXIuIEFzIHN1Y2gsIHRoZSBmaXJzdCBoeXBvdGhlc2VzIEkgcHJvcG9zZSBhcmU6IFwKCuKAgyAqSDE6IFNjaG9sYXJzIHdpdGggc2ltaWxhciBwcmVzdGlnZSBhcmUgbW9yZSBsaWtlbHkgdG8gY29sbGFib3JhdGUgdGhhbiBzY2hvbGFycyB3aXRoIGEgZGlmZmVyZW5jZSBpbiBwcmVzdGlnZS4qXCAKCuKAgyAqSDI6IENsdXN0ZXJzIG9mIHNjaG9sYXJzIHdpdGggaGlnaCBwcmVzdGlnZSBvY2N1ciB3aXRoaW4gY29sbGFib3JhdGlvbiBuZXR3b3Jrcy4qXCAKCuKAgyAgIENvbGxhYm9yYXRpb24gZHluYW1pY3MgY2FuIGFsc28gYmUgZW50aXJlbHkgZGlmZmVyZW50LiBDb2xsYWJvcmF0aW9uIG5ldHdvcmtzIHRlbmQgdG8gZm9sbG93IGEgaGllcmFyY2hpY2FsIHN0cnVjdHVyZSwgd2l0aCBzY2hvbGFycyBvZiBhIGhpZ2hlciBwcmVzdGlnZSBwb3RlbnRpYWxseSBzZXJ2aW5nIGFzIG1lbnRvcnMgdG8gc2Nob2xhcnMgd2l0aCBsb3dlciBwcmVzdGlnZS4gSG9ydGEsIEZlbmcgYW5kIFNhbnRvcyAoMjAyMikgYXJndWUgdGhhdCBjb2xsYWJvcmF0aW9uIGJldHdlZW4gcmVzZWFyY2hlcnMgd2l0aCBkaWZmZXJlbnQgbGV2ZWxzIG9mIHByZXN0aWdlIG9mZmVycyBiZW5lZml0cyB0byBqdW5pb3IgYW5kIHNlbmlvciBzY2hvbGFycyBhbGlrZSwgYXMgd2VsbCBhcyB0byB0aGUgdW5pdmVyc2l0eSBhbmQgdGhlIHdob2xlIHNjaWVudGlmaWMgZmllbGQuIEFzIHN1Y2gsIGxvd2VyLXByZXN0aWdlIHNjaG9sYXJzIHdvdWxkIHByZWZlciB0byB3b3JrIHdpdGggc2Nob2xhcnMgb2YgYSBoaWdoZXIgcHJlc3RpZ2UsIHNvIHRoYXQgdGhleSB0aGVtc2VsdmVzIGNhbiBnZXQgYSBoaWdoZXIgcHJlc3RpZ2UgYXMgd2VsbCwgb3Igc28gdGhhdCB0aGUgcHJvY2VzcyBvZiB3cml0aW5nIHRoZSBwYXBlciBnb2VzIG1vcmUgc21vb3RobHkgKHh4eCB6aWUgYnJvbm5lbiBzdCwgem9hbHMgbGkgZXQgYWwsIHBlcmMgMjAxMCkuIFRoaXMgdGhlbiBmb2xsb3dzIHRoZSBjb25jZXB0IG9mIGEgc2NhbGUtZnJlZSBuZXR3b3JrLCB3aGVyZSBpdCB3b3VsZCBtZWFuIHRoYXQgc2Nob2xhcnMgd2l0aCBhIGhpZ2ggcHJlc3RpZ2UgaG9sZCBpbXBvcnRhbnQgY2VudHJhbCBwb3NpdGlvbiB3aXRoaW4gdGhlIG5ldHdvcmsuIEluIGEgc2NhbGUtZnJlZSBuZXR3b3JrIHRoZW4sIHRoZXNlIGhpZ2hseSBwcmVzdGlnaW91cyBzY2hvbGFycyBmdW5jdGlvbiBhcyBodWJzIHdpdGggdGhlIG1vc3QgY29ubmVjdGlvbnMuIFRoaXMgbGVhZHMgdG8gYSBzZWNvbmQgaHlwb3RoZXNpczogXAoK4oCDICpIMzogSGlnaGx5IHByZXN0aWdpb3VzIHNjaG9sYXJzIG9jY3VweSBjZW50cmFsIHBvc2l0aW9ucyB3aXRoaW4gY29sbGFib3JhdGlvbiBuZXR3b3Jrcy4qXCAKCuKAgyAgIFRoZSBhYm92ZSBoeXBvdGhlc2VzIGFyZSBjb25mbGljdGluZywgd2hpY2ggbWFrZXMgaXQgY2xlYXIgdGhhdCB0aGUgZXhhY3QgbWVjaGFuaXNtcyBvZiBwcmVzdGlnZSBjYW4gd29yayBkaWZmZXJlbnRseS4gVGhpcyBtYWtlcyB0aGUgY29uY2VwdCBvZiBwcmVzdGlnZSBhcyBhIGRldGVybWluYW50IGZvciBuZXR3b3JrIHN0cnVjdHVyZXMgdmVyeSBjb21wbGV4LCBhcyB0aGVyZSBtYXkgYmUgY29uZmxpY3RpbmcgcHJlZmVyZW5jZXMgaW4gdGhlIGFib3ZlIHNjZW5hcmlvczsgc2Nob2xhcnMgd2l0aCBhIGxvd2VyIHByZXN0aWdlIGFpbSB0byB3b3JrIHdpdGggc2Nob2xhcnMgd2l0aCBhIGhpZ2hlciBwcmVzdGlnZSwgd2hpbGUgc2Nob2xhcnMgd2l0aCBhIGhpZ2hlciBwcmVzdGlnZSBwcmVmZXIgdG8gd29yayBvbmx5IHdpdGggb3RoZXIgaGlnaGVyLXByZXN0aWdlIHNjaG9sYXJzLiBJdCBtYXkgIGJlIHRoZSBjYXNlIHRoYXQgc2VuaW9yIHNjaG9sYXJzIHRoZW1zZWx2ZXMgcmVjb2duaXplIHRoYXQgdGhleSBhcmUgZXhwZWN0ZWQgdG8gaGVscCBvdXQgc2Nob2xhcnMgd2l0aCBsb3dlciBwcmVzdGlnZSwgYW5kIGFzIHN1Y2ggYXJlIHdpbGxpbmcgdG8gZ3VpZGUgb3RoZXIncyBjYXJlZXJzIGFzIHdlbGwgd2hlbiBhc2tlZC4gVGhpcyB3b3VsZCBtZWFuIHRoYXQgc2VuaW9yIHNjaG9sYXJzIGFyZSBvZnRlbiBhcHByb2FjaGVkIHRvIGNvbGxhYm9yYXRlIG9uIGEgcGFwZXIuIFRoaXMgaGFzIGJlZW4gZm91bmQgaW4gcHJldmlvdXMgc3R1ZGllcyBhcyB3ZWxsLCB3aXRoIFNla2FyYSBldCBhbC4gKDIwMTgpIGZpbmRpbmcgdGhhdCBzZW5pb3Igc2Nob2xhcnMgYXJlIGluZGVlZCBtb3JlIGxpa2VseSB0byBjb2xsYWJvcmF0ZSB3aXRoIGp1bmlvciBzY2hvbGFycywgc28gdGhhdCB0aGUgbGF0dGVyIGNhbiBoYXZlIGEgc29saWQgc3RhcnQgZm9yIHRoZWlyIGNhcmVlci4gQm9ybm1hbm4gZXQgYWwuICgyMDIwKSBhbHNvIGZpbmQgdGhhdCBzY2hvbGFycyB3aXRoIGEgaGlnaGVyIGgtaW5kZXggYXJlIHNlZW4gYXMgbW9yZSBwcmVzdGlnaW91cyBhbmQgYXJlIHRodXMgbW9yZSBsaWtlbHkgdG8gYmUgYXNrZWQgdG8gY29sbGFib3JhdGUuIEhhbmNlYW4gYW5kIFBlcmMgYWxzbyBmaW5kIHRoYXQgc2Nob2xhcnMgcHJlZmVyIHRvIGNvbGxhYm9yYXRlIHdpdGggb3RoZXIgc2Nob2xhcnMgdGhleSBwZXJjZWl2ZSB0byBiZSBwcmVzdGlnaW91cy4gQXMgc3VjaCwgdGhlIHNjZW5hcmlvIEkgdGhlbiBmaW5kIG1vc3QgbGlrZWx5IGlzIHRoYXQgKGp1bmlvcikgc2Nob2xhcnMgcHJlZmVyIHRvIGNvbGxhYm9yYXRlIHdpdGggc2Nob2xhcnMgd2hvIGhhdmUgYSBoaWdoZXIgcHJlc3RpZ2UuIFJlc3VsdGluZyBmcm9tIHRoaXMsIEkgcHJvcG9zZSB0aGUgZm9sbG93aW5nIGh5cG90aGVzaXM6IFwKCuKAgyAqSDQ6IFNjaG9sYXJzIGFyZSBtb3JlIGxpa2VseSB0byBpbml0aWF0ZSB0aWVzIHdpdGggc2Nob2xhcnMgd2hvIGhhdmUgYSBoaWdoIGxldmVsIG9mIHByZXN0aWdlLipcIAoK4oCDIFRoZSBhYm92ZSB0aGVvcmV0aWNhbCBmcmFtZXdvcmsgaGFzIHNob3duIHRoYXQgcHJlc3RpZ2UgaXMgYSBjb21wbGV4IGNvbmNlcHQgaW4gdGhlIGZvcm1pbmcgb2YgYWNhZGVtaWMgY29sbGFib3JhdGlvbiBuZXR3b3Jrcy4gVGhlcmUgYXJlIG11bHRpcGxlIGR5bmFtaWNzIHRoYXQgY2FuIHBvdGVudGlhbGx5IGJlIGF0IHBsYXkgaW4gZm9ybWluZyBhIHNvY2lhbCBuZXR3b3JrIGluIHRoZSBjb250ZXh0IG9mIHByZXN0aWdlLiBVbmRlcnN0YW5kaW5nIGhvdyB0aGVzZSBkeW5hbWljcyB3b3JrIGlzIHRoZW4gY3J1Y2lhbCBpbiBmaW5kaW5nIG91dCBob3cgdGhlc2UgbmV0d29ya3MgZm9ybS4gVGhlIG5leHQgc2VjdGlvbiB3aWxsIG91dGxpbmUgdGhlIHNwZWNpZmljIG5ldHdvcmsgZGF0YSBuZWVkZWQgdG8gdGVzdCB0aGUgYWJvdmUgaHlwb3RoZXNlcy4gXAoKLS0tLS0tLS0tLS0tLQo=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("FinalTheory_LB.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

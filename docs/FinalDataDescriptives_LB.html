@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lucan Bovens" />
+
+<meta name="date" content="2024-10-31" />
+
+<title>Data and descriptives</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="lab1.html">Example plage</a>
+        </li>
+        <li>
+          <a href="Week1_LB.html">Research Questions</a>
+        </li>
+        <li>
+          <a href="Week1_TutorialA.html">Tutorial</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week2_LB.html">Introduction</a>
+        </li>
+        <li>
+          <a href="Week2AssignmentClass.html">In-class assignment: Matrixes and measures</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction (revised)</a>
+        </li>
+        <li>
+          <a href="Week3AssignmentClass.html">Web-scraping &amp; OpenAlex</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction &amp; theory? (revised)</a>
+        </li>
+        <li>
+          <a href="Week4AssignmentClass.html">In-class assignment: chapter 9</a>
+        </li>
+        <li>
+          <a href="Week4Visualization.html">Visualization</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 5</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week5_RSienaTutorial.html">RSiena Tutorial</a>
+        </li>
+        <li>
+          <a href="Week5_RSienaExample.html">RSiena Example (in-class)</a>
+        </li>
+        <li>
+          <a href="testbestand8oktoberrsienatest.html">RSiena test (SNASS: error)</a>
+        </li>
+        <li>
+          <a href="Testbestand7oktober.html">RSiena own data</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Concept Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ConceptIntroduction_LB.html">Introduction</a>
+    </li>
+    <li>
+      <a href="ConceptTheory_LB.html">Theory</a>
+    </li>
+    <li>
+      <a href="ConceptData_LB.html">Data</a>
+    </li>
+    <li class="dropdown-header">Results</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="FinalIntroduction_LB.html">Introduction</a>
+    </li>
+    <li>
+      <a href="FinalTheory_LB.html">Theory</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="FinalDataMethods_LB.html">Methods</a>
+        </li>
+        <li>
+          <a href="FinalDataPreparation_LB.html">Data preparation</a>
+        </li>
+        <li>
+          <a href="FinalDataDescriptives_LB.html">Data descriptives</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Results</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="FinalResultsDescriptives_LB.html">Results descriptives</a>
+        </li>
+        <li>
+          <a href="FinalRSienaModels_LB.html">RSiena models</a>
+        </li>
+        <li>
+          <a href="FinalRSienaGOF_LB.html">RSiena goodness of fit</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="FinalConclusion_LB.html">Conclusion</a>
+    </li>
+    <li>
+      <a href="FinalReferences_LB.html">References</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lucanbovens.github.io/labjournal/">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Data and descriptives</h1>
+<h4 class="author">Lucan Bovens</h4>
+<h4 class="date">2024-10-31</h4>
+
+</div>
+
+
+<style>
+div {
+text-align: justify}
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<hr />
+<div id="descriptives" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Descriptives</h1>
+<p>Below, I have provided several descriptive statistics to give a quick
+overview of the data, helping us understand what we are dealing with.
+First, the code to prepare the data is shown, followed by the code for
+the descriptives, along with some tables and figures. As mentioned
+previously, there are two waves in the data, with the total number of
+scholars in the dataset varying per wave. The overall dataset includes
+164 scholars.<br />
+  However, as seen in ‘1.2 Distribution of Scholars’, Wave 1 consists of
+just 152 unique scholars. The University of Groningen has the most
+scholars in the dataset with 61, followed by Utrecht University with 47,
+and Radboud University with 44 scholars. There are twelve scholars who
+were not yet present in Wave 1 but are included in the overall dataset.
+These are mostly PhD candidates or employees who were not yet working at
+one of the three universities at that time but joined between 2022 and
+2024. In two cases, these were scholars who previously worked at the
+University of Amsterdam and joined one of the three universities in Wave
+2. Wave 2 consists of 141 unique scholars, again with the University of
+Groningen having the most scholars at 62, followed by Utrecht University
+with 40 and Radboud University with 39. There are 21 scholars no longer
+in the dataset in Wave 2. In most cases, these were PhD students who
+likely completed their PhD. Other cases include guest researchers or
+postdocs who are simply no longer employed. Two scholars previously
+worked at one of the three universities but were now affiliated with
+either the University of Cologne or Tilburg University.<br />
+  In terms of prestige across universities, the prestige appears to be
+somewhat equal, ranging between 4 and 5.5 for both waves. The lowest
+prestige score observed is 0, at both the University of Groningen and
+Utrecht University, primarily among junior scholars who have not
+published much yet. The highest prestige index observed is 36.5 at
+Utrecht University. The total prestige per wave remains stable, as it is
+a fixed variable across waves. The histograms show a few outliers
+regarding the prestige index: most scholars have a prestige index
+between 1 and 4, with only 18 scholars having a score above 10. One
+scholar has a score of 18, another 21, and one stands out with a score
+of 36. The same trend is observed for Wave 2, with changes largely due
+to scholars no longer working at one of the universities, thus their
+scores are not included in the histogram. The mean prestige has
+increased by only 0.059 between the two waves, as shown in the summary
+statistics.<br />
+  Regarding gender, only Radboud University is perfectly balanced in
+Wave 1, with an equal number of men and women (22 each). At the
+University of Groningen and Utrecht University, men (34 and 27)
+outnumber women (27 and 20), respectively. In Wave 2, these proportions
+shift slightly, with more women than men at Radboud University, but
+still more men at the other two universities.<br />
+  Finally, Figure 1 shows the network at Wave 1, with isolates still
+included. It is evident that there are many scholars in the data who do
+not have connections with others in the dataset. It may be the case that
+these isolates collaborate mostly with scholars from other universities
+or from other departments not included in the original dataset or in
+this study. Figure 2 shows the network at Wave 2, again with isolates
+included. We can immediately observe that the number of isolates has
+decreased and that more ties have been established. Especially in Wave
+2, it stands out that are a few scholars that receive considerably more
+ties than others.<br />
+  Figure 3 displays the same network as Wave 1, but without isolates. As
+with Figure 1, the collaboration network seems rather sparse, with just
+a few scholars receiving multiple ties. Figure 4 shows the same network
+as wave 2, but without isolates. The network appears to be denser than
+the network at Wave 1. Here it also becomes clear there are a few
+scholars who receive more ties than others. In the next section, it will
+be investigated whether prestige plays a role in this observation.<br />
+—-</p>
+<div id="prep" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Prep</h2>
+<p>Cleaning the workspace</p>
+<pre class="r test"><code>rm(list = ls())</code></pre>
+<p>Defining the functions</p>
+<pre class="r test"><code>fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    totalname &lt;- paste(location, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)
+}
+
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}</code></pre>
+<p>Loading packages</p>
+<pre class="r test"><code>packages &lt;- c(&quot;tidyverse&quot;, &quot;scholar&quot;, &quot;openalexR&quot;, &quot;rvest&quot;, &quot;jsonlite&quot;, &quot;RSiena&quot;, &quot;RSelenium&quot;, &quot;rvest&quot;,
+    &quot;lavaan&quot;, &quot;xml2&quot;, &quot;kableExtra&quot;, &quot;devtools&quot;, &quot;igraph&quot;, &quot;network&quot;, &quot;sna&quot;, &quot;ggraph&quot;, &quot;visNetwork&quot;, &quot;threejs&quot;,
+    &quot;networkD3&quot;, &quot;RsienaTwoStep&quot;, &quot;dplyr&quot;)
+
+
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL
+#&gt; 
+#&gt; [[4]]
+#&gt; NULL
+#&gt; 
+#&gt; [[5]]
+#&gt; NULL
+#&gt; 
+#&gt; [[6]]
+#&gt; NULL
+#&gt; 
+#&gt; [[7]]
+#&gt; NULL
+#&gt; 
+#&gt; [[8]]
+#&gt; NULL
+#&gt; 
+#&gt; [[9]]
+#&gt; NULL
+#&gt; 
+#&gt; [[10]]
+#&gt; NULL
+#&gt; 
+#&gt; [[11]]
+#&gt; NULL
+#&gt; 
+#&gt; [[12]]
+#&gt; NULL
+#&gt; 
+#&gt; [[13]]
+#&gt; NULL
+#&gt; 
+#&gt; [[14]]
+#&gt; NULL
+#&gt; 
+#&gt; [[15]]
+#&gt; NULL
+#&gt; 
+#&gt; [[16]]
+#&gt; NULL
+#&gt; 
+#&gt; [[17]]
+#&gt; NULL
+#&gt; 
+#&gt; [[18]]
+#&gt; NULL
+#&gt; 
+#&gt; [[19]]
+#&gt; NULL
+#&gt; 
+#&gt; [[20]]
+#&gt; NULL
+#&gt; 
+#&gt; [[21]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code># make yourself known to openAlex
+options(openalexR.mailto = &quot;lucan.bovens@home.nl&quot;)</code></pre>
+<pre class="r test"><code># Load final prepared data
+df_ego &lt;- fload(&quot;./data/processed/df_ego_final.rda&quot;)
+socdata &lt;- fload(&quot;./data/processed/socdata_final.rda&quot;)
+dfworks &lt;- fload(&quot;./data/processed/df_works_final.rda&quot;)</code></pre>
+<pre class="r test"><code>final_scholar_ids &lt;- df_ego$au_id  # Get final scholar IDs from df_ego
+socdata$nets &lt;- socdata$nets[, final_scholar_ids, final_scholar_ids, drop = FALSE]
+dim(socdata$nets)  # Should be 2 (waves) 164, 164)</code></pre>
+<pre class="test2"><code>#&gt; [1]   2 164 164</code></pre>
+</div>
+<div id="distribution-of-scholars" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Distribution of
+scholars</h2>
+<div id="distribution-of-scholars-per-university-for-wave-1-and-wave-2"
+class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> Distribution of
+scholars per university for wave 1 and wave 2</h3>
+<pre class="r test"><code>university_distribution &lt;- tibble(original_code = c(&quot;RU&quot;, &quot;UU&quot;, &quot;RUG&quot;), University = c(&quot;RU&quot;, &quot;UU&quot;, &quot;RUG&quot;))
+
+df_ego %&gt;%
+    left_join(university_distribution, by = c(Universiteit1.22 = &quot;original_code&quot;)) %&gt;%
+    count(University) %&gt;%
+    fshowdf()</code></pre>
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+University
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+RU
+</td>
+<td style="text-align:right;">
+44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RUG
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+UU
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r test"><code>df_ego %&gt;%
+    left_join(university_distribution, by = c(Universiteit1.24 = &quot;original_code&quot;)) %&gt;%
+    count(University) %&gt;%
+    fshowdf()</code></pre>
+<div
+style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:300px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+University
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+RU
+</td>
+<td style="text-align:right;">
+39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RUG
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+UU
+</td>
+<td style="text-align:right;">
+40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre class="r test"><code>View(df_ego)</code></pre>
+<pre class="r test"><code>df_ego %&gt;%
+    count(Universiteit1.22)</code></pre>
+<pre class="test2"><code>#&gt; # A tibble: 5 × 2
+#&gt;   Universiteit1.22     n
+#&gt;   &lt;chr&gt;            &lt;int&gt;
+#&gt; 1 &quot;&quot;                  10
+#&gt; 2 &quot;RU&quot;                44
+#&gt; 3 &quot;RUG&quot;               61
+#&gt; 4 &quot;UU&quot;                47
+#&gt; 5 &quot;UvA&quot;                2</code></pre>
+<pre class="r test"><code>df_ego %&gt;%
+    count(Universiteit1.24)</code></pre>
+<pre class="test2"><code>#&gt; # A tibble: 6 × 2
+#&gt;   Universiteit1.24            n
+#&gt;   &lt;chr&gt;                   &lt;int&gt;
+#&gt; 1 &quot;&quot;                         21
+#&gt; 2 &quot;RU&quot;                       39
+#&gt; 3 &quot;RUG&quot;                      62
+#&gt; 4 &quot;UU&quot;                       40
+#&gt; 5 &quot;University of Cologne&quot;     1
+#&gt; 6 &quot;UvT&quot;                       1</code></pre>
+</div>
+</div>
+<div id="prestige" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Prestige</h2>
+<div id="prestige-distribution-by-university-and-total-wave-1"
+class="section level3" number="1.3.1">
+<h3><span class="header-section-number">1.3.1</span> Prestige
+distribution by university and total wave 1</h3>
+<pre class="r test"><code># Wave 1: Prestige distribution by university and total
+df_ego %&gt;%
+    group_by(Universiteit1.22) %&gt;%
+    summarise(mean_prestige = mean(prestige_index, na.rm = TRUE), min_prestige = min(prestige_index,
+        na.rm = TRUE), max_prestige = max(prestige_index, na.rm = TRUE), sd_prestige = sd(prestige_index,
+        na.rm = TRUE)) %&gt;%
+    bind_rows(df_ego %&gt;%
+        summarise(Universiteit1.22 = &quot;Total&quot;, mean_prestige = mean(prestige_index, na.rm = TRUE), min_prestige = min(prestige_index,
+            na.rm = TRUE), max_prestige = max(prestige_index, na.rm = TRUE), sd_prestige = sd(prestige_index,
+            na.rm = TRUE)))</code></pre>
+<pre class="test2"><code>#&gt; # A tibble: 6 × 5
+#&gt;   Universiteit1.22 mean_prestige min_prestige max_prestige sd_prestige
+#&gt;   &lt;chr&gt;                    &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+#&gt; 1 &quot;&quot;                        3.21        1.34          8.44       2.18 
+#&gt; 2 &quot;RU&quot;                      4.09        0.284        14.2        2.90 
+#&gt; 3 &quot;RUG&quot;                     4.85        0            21.5        4.84 
+#&gt; 4 &quot;UU&quot;                      5.33        0            36.5        5.97 
+#&gt; 5 &quot;UvA&quot;                     2.54        2.20          2.89       0.483
+#&gt; 6 &quot;Total&quot;                   4.66        0            36.5        4.64</code></pre>
+</div>
+<div id="prestige-distribution-by-university-and-total-wave-2"
+class="section level3" number="1.3.2">
+<h3><span class="header-section-number">1.3.2</span> Prestige
+distribution by university and total wave 2</h3>
+<pre class="r test"><code># Wave 2: Prestige distribution by university and total
+df_ego %&gt;%
+    group_by(Universiteit1.24) %&gt;%
+    summarise(mean_prestige = mean(prestige_index, na.rm = TRUE), min_prestige = min(prestige_index,
+        na.rm = TRUE), max_prestige = max(prestige_index, na.rm = TRUE), sd_prestige = sd(prestige_index,
+        na.rm = TRUE)) %&gt;%
+    bind_rows(df_ego %&gt;%
+        summarise(Universiteit1.24 = &quot;Total&quot;, mean_prestige = mean(prestige_index, na.rm = TRUE), min_prestige = min(prestige_index,
+            na.rm = TRUE), max_prestige = max(prestige_index, na.rm = TRUE), sd_prestige = sd(prestige_index,
+            na.rm = TRUE)))</code></pre>
+<pre class="test2"><code>#&gt; # A tibble: 7 × 5
+#&gt;   Universiteit1.24        mean_prestige min_prestige max_prestige sd_prestige
+#&gt;   &lt;chr&gt;                           &lt;dbl&gt;        &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+#&gt; 1 &quot;&quot;                               2.98        0.284        10.7         2.38
+#&gt; 2 &quot;RU&quot;                             4.36        0.514        14.2         3.00
+#&gt; 3 &quot;RUG&quot;                            4.83        0            21.5         4.76
+#&gt; 4 &quot;UU&quot;                             5.31        0            36.5         6.20
+#&gt; 5 &quot;University of Cologne&quot;          4.35        4.35          4.35       NA   
+#&gt; 6 &quot;UvT&quot;                           14.6        14.6          14.6        NA   
+#&gt; 7 &quot;Total&quot;                          4.66        0            36.5         4.64</code></pre>
+</div>
+<div id="histogram-prestige-distribution-wave-1" class="section level3"
+number="1.3.3">
+<h3><span class="header-section-number">1.3.3</span> Histogram prestige
+distribution wave 1</h3>
+<pre class="r test"><code># Histogram of prestige scores for Wave 1
+hist(df_ego$prestige_index[df_ego$Universiteit1.22 %in% c(&quot;RU&quot;, &quot;UU&quot;, &quot;RUG&quot;)], breaks = 30, main = &quot;Distribution of Prestige Index - Wave 1&quot;,
+    xlab = &quot;Prestige Index&quot;, ylab = &quot;Frequency&quot;, col = &quot;lightblue&quot;)</code></pre>
+<p><img src="FinalDataDescriptives_LB_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="histogram-prestige-distribution-wave-2" class="section level3"
+number="1.3.4">
+<h3><span class="header-section-number">1.3.4</span> Histogram prestige
+distribution wave 2</h3>
+<pre class="r test"><code># Histogram of prestige scores for Wave 2
+hist(df_ego$prestige_index[df_ego$Universiteit1.24 %in% c(&quot;RU&quot;, &quot;UU&quot;, &quot;RUG&quot;)], breaks = 30, main = &quot;Distribution of Prestige Index - Wave 2&quot;,
+    xlab = &quot;Prestige Index&quot;, ylab = &quot;Frequency&quot;, col = &quot;lightblue&quot;)</code></pre>
+<p><img src="FinalDataDescriptives_LB_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+</div>
+<div id="summary-statistics-of-prestige-wave-1" class="section level3"
+number="1.3.5">
+<h3><span class="header-section-number">1.3.5</span> Summary statistics
+of prestige wave 1</h3>
+<pre class="r test"><code>summary(df_ego$prestige_index[df_ego$Universiteit1.22 %in% c(&quot;RU&quot;, &quot;UU&quot;, &quot;RUG&quot;)])</code></pre>
+<pre class="test2"><code>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   0.000   1.784   3.233   4.779   6.853  36.515</code></pre>
+</div>
+<div id="summary-statistics-of-prestige-wave-2" class="section level3"
+number="1.3.6">
+<h3><span class="header-section-number">1.3.6</span> Summary statistics
+of prestige wave 2</h3>
+<pre class="r test"><code>summary(df_ego$prestige_index[df_ego$Universiteit1.24 %in% c(&quot;RU&quot;, &quot;UU&quot;, &quot;RUG&quot;)])</code></pre>
+<pre class="test2"><code>#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+#&gt;   0.000   1.846   3.219   4.838   6.853  36.515</code></pre>
+</div>
+</div>
+<div id="gender" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> Gender</h2>
+<pre class="r test"><code># Wave 1: Gender count per university
+table(df_ego$Universiteit1.22, df_ego$genderdich)</code></pre>
+<pre class="test2"><code>#&gt;      
+#&gt;       female male
+#&gt;            4    6
+#&gt;   RU      22   22
+#&gt;   RUG     27   34
+#&gt;   UU      20   27
+#&gt;   UvA      0    2</code></pre>
+<pre class="r test"><code># Wave 1: Percentage gender per university
+prop.table(table(df_ego$Universiteit1.22, df_ego$genderdich), margin = 1)</code></pre>
+<pre class="test2"><code>#&gt;      
+#&gt;          female      male
+#&gt;       0.4000000 0.6000000
+#&gt;   RU  0.5000000 0.5000000
+#&gt;   RUG 0.4426230 0.5573770
+#&gt;   UU  0.4255319 0.5744681
+#&gt;   UvA 0.0000000 1.0000000</code></pre>
+<pre class="r test"><code># Wave 2: Gender count per university
+table(df_ego$Universiteit1.24, df_ego$genderdich)</code></pre>
+<pre class="test2"><code>#&gt;                        
+#&gt;                         female male
+#&gt;                              9   12
+#&gt;   RU                        20   19
+#&gt;   RUG                       26   36
+#&gt;   University of Cologne      0    1
+#&gt;   UU                        18   22
+#&gt;   UvT                        0    1</code></pre>
+<pre class="r test"><code># Wave 2: Percentage gender per university
+prop.table(table(df_ego$Universiteit1.24, df_ego$genderdich), margin = 1)</code></pre>
+<pre class="test2"><code>#&gt;                        
+#&gt;                            female      male
+#&gt;                         0.4285714 0.5714286
+#&gt;   RU                    0.5128205 0.4871795
+#&gt;   RUG                   0.4193548 0.5806452
+#&gt;   University of Cologne 0.0000000 1.0000000
+#&gt;   UU                    0.4500000 0.5500000
+#&gt;   UvT                   0.0000000 1.0000000</code></pre>
+<pre class="r test"><code>network_wave2 &lt;- igraph::graph_from_adjacency_matrix(
+  socdata$nets[2,,], # Second wave
+  mode = &quot;directed&quot;,
+  weighted = NULL,
+  diag = FALSE
+)
+
+degree_wave2 &lt;- igraph::degree(network_wave2, mode = &quot;all&quot;)  # Calculate degree (in + out)
+
+df_ego$degree_wave2 &lt;- degree_wave2  # Add degree to df_ego
+
+#plot
+hist(df_ego$degree_wave2, breaks = 20, main = &quot;Degree Distribution (Wave 2)&quot;, xlab = &quot;Degree&quot;)</code></pre>
+<p><img src="FinalDataDescriptives_LB_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+</div>
+<div id="plotting" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Plotting</h2>
+<pre class="r test"><code>#Wave 1
+
+socdata_w1 &lt;- igraph::graph_from_adjacency_matrix(
+  socdata$nets[1,,], #now, the first wave
+  mode = c(&quot;directed&quot;),
+  weighted = NULL,
+  diag = FALSE,
+  add.rownames = NULL,
+  add.colnames = NULL
+)
+
+plot(socdata_w1,
+          main = &quot;Figure 1: Network Visualization - Wave 1&quot;,
+     vertex.color = ifelse(df_ego$genderdich == &quot;female&quot;, &quot;red&quot;, &quot;blue&quot;), 
+     vertex.label = NA,
+     vertex.size = 5, 
+     edge.width = 0.2,
+     edge.arrow.size = 0.2)
+
+legend(&quot;topright&quot;,
+       legend = c(&quot;Female&quot;, &quot;Male&quot;),
+       col = c(&quot;red&quot;, &quot;blue&quot;),
+       pch = 21,         
+       pt.cex = 1,       
+       pt.bg = c(&quot;red&quot;, &quot;blue&quot;), 
+       bty = &quot;n&quot;         # 
+)</code></pre>
+<p><img src="FinalDataDescriptives_LB_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre class="r test"><code>#Wave 2
+
+socdata_w2 &lt;- igraph::graph_from_adjacency_matrix(
+  socdata$nets[2,,], #now, the second wave
+  mode = c(&quot;directed&quot;),
+  weighted = NULL,
+  diag = FALSE,
+  add.rownames = NULL,
+  add.colnames = NULL
+)
+
+plot(socdata_w2,
+               main = &quot;Figure 2: Network Visualization - Wave 2&quot;,
+     vertex.color = ifelse(df_ego$genderdich == &quot;female&quot;, &quot;red&quot;, &quot;blue&quot;), 
+     vertex.label = NA,
+     vertex.size = 5, 
+     edge.width = 0.2,
+     edge.arrow.size = 0.2)
+
+legend(&quot;topright&quot;,
+       legend = c(&quot;Female&quot;, &quot;Male&quot;),
+       col = c(&quot;red&quot;, &quot;blue&quot;),
+       pch = 21,         
+       pt.cex = 1,       
+       pt.bg = c(&quot;red&quot;, &quot;blue&quot;), 
+       bty = &quot;n&quot;         # 
+)</code></pre>
+<p><img src="FinalDataDescriptives_LB_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r test"><code># Wave 1 no isolates
+
+socdata_w1 &lt;- igraph::graph_from_adjacency_matrix(socdata$nets[1, , ], mode = c(&quot;directed&quot;), weighted = NULL,
+    diag = FALSE)
+
+# Remove isolates
+socdata_w1_no_isolates &lt;- delete_vertices(socdata_w1, igraph::degree(socdata_w1) == 0)
+
+plot(socdata_w1_no_isolates, main = &quot;Figure 3: Network Visualization - Wave 1 - No isolates&quot;, vertex.color = ifelse(df_ego$genderdich ==
+    &quot;female&quot;, &quot;red&quot;, &quot;blue&quot;), vertex.label = NA, vertex.size = 5, edge.width = 0.2, edge.arrow.size = 0.2)
+
+legend(&quot;topright&quot;, legend = c(&quot;Female&quot;, &quot;Male&quot;), col = c(&quot;red&quot;, &quot;blue&quot;), pch = 21, pt.cex = 1, pt.bg = c(&quot;red&quot;,
+    &quot;blue&quot;), bty = &quot;n&quot;  # 
+)</code></pre>
+<p><img src="FinalDataDescriptives_LB_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<pre class="r test"><code># Wave 2 no isolates
+
+socdata_w2 &lt;- igraph::graph_from_adjacency_matrix(socdata$nets[2, , ], mode = c(&quot;directed&quot;), weighted = NULL,
+    diag = FALSE)
+
+socdata_w2_no_isolates &lt;- delete_vertices(socdata_w2, igraph::degree(socdata_w2) == 0)
+
+plot(socdata_w2_no_isolates, main = &quot;Figure 4: Network Visualization - Wave 2 - No isolates&quot;, vertex.color = ifelse(df_ego$genderdich ==
+    &quot;female&quot;, &quot;red&quot;, &quot;blue&quot;), vertex.label = NA, vertex.size = 5, edge.width = 0.2, edge.arrow.size = 0.2)
+
+legend(&quot;topright&quot;, legend = c(&quot;Female&quot;, &quot;Male&quot;), col = c(&quot;red&quot;, &quot;blue&quot;), pch = 21, pt.cex = 1, pt.bg = c(&quot;red&quot;,
+    &quot;blue&quot;), bty = &quot;n&quot;  # 
+)</code></pre>
+<p><img src="FinalDataDescriptives_LB_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGF0YSBhbmQgZGVzY3JpcHRpdmVzIgpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQKZGF0ZTogIjIwMjQtMTAtMzEiCmJpYmxpb2dyYXBoeTogcmVmZXJlbmNlcy5iaWIKYXV0aG9yOiAiTHVjYW4gQm92ZW5zIgotLS0KCmBgYHs9aHRtbH0KPHN0eWxlPgpkaXYgewp0ZXh0LWFsaWduOiBqdXN0aWZ5fQo8L3N0eWxlPgpgYGAKCgpgYGB7ciwgZ2xvYmFsc2V0dGluZ3MsIGVjaG89RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQpsaWJyYXJ5KGtuaXRyKQoKa25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkKb3B0aW9ucyh3aWR0aCA9IDEwMCkKcmdsOjpzZXR1cEtuaXRyKCkKCmNvbG9yaXplIDwtIGZ1bmN0aW9uKHgsIGNvbG9yKSB7c3ByaW50ZigiPHNwYW4gc3R5bGU9J2NvbG9yOiAlczsnPiVzPC9zcGFuPiIsIGNvbG9yLCB4KSB9CmBgYAoKYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpCiNrbGlwcHk6OmtsaXBweShjb2xvciA9ICdkYXJrcmVkJykKI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQpgYGAKCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAotLS0tCgojIERlc2NyaXB0aXZlcwoKQmVsb3csIEkgaGF2ZSBwcm92aWRlZCBzZXZlcmFsIGRlc2NyaXB0aXZlIHN0YXRpc3RpY3MgdG8gZ2l2ZSBhIHF1aWNrIG92ZXJ2aWV3IG9mIHRoZSBkYXRhLCBoZWxwaW5nIHVzIHVuZGVyc3RhbmQgd2hhdCB3ZSBhcmUgZGVhbGluZyB3aXRoLiBGaXJzdCwgdGhlIGNvZGUgdG8gcHJlcGFyZSB0aGUgZGF0YSBpcyBzaG93biwgZm9sbG93ZWQgYnkgdGhlIGNvZGUgZm9yIHRoZSBkZXNjcmlwdGl2ZXMsIGFsb25nIHdpdGggc29tZSB0YWJsZXMgYW5kIGZpZ3VyZXMuIEFzIG1lbnRpb25lZCBwcmV2aW91c2x5LCB0aGVyZSBhcmUgdHdvIHdhdmVzIGluIHRoZSBkYXRhLCB3aXRoIHRoZSB0b3RhbCBudW1iZXIgb2Ygc2Nob2xhcnMgaW4gdGhlIGRhdGFzZXQgdmFyeWluZyBwZXIgd2F2ZS4gVGhlIG92ZXJhbGwgZGF0YXNldCBpbmNsdWRlcyAxNjQgc2Nob2xhcnMuIFwK4oCDICAJSG93ZXZlciwgYXMgc2VlbiBpbiAnMS4yIERpc3RyaWJ1dGlvbiBvZiBTY2hvbGFycycsIFdhdmUgMSBjb25zaXN0cyBvZiBqdXN0IDE1MiB1bmlxdWUgc2Nob2xhcnMuIFRoZSBVbml2ZXJzaXR5IG9mIEdyb25pbmdlbiBoYXMgdGhlIG1vc3Qgc2Nob2xhcnMgaW4gdGhlIGRhdGFzZXQgd2l0aCA2MSwgZm9sbG93ZWQgYnkgVXRyZWNodCBVbml2ZXJzaXR5IHdpdGggNDcsIGFuZCBSYWRib3VkIFVuaXZlcnNpdHkgd2l0aCA0NCBzY2hvbGFycy4gVGhlcmUgYXJlIHR3ZWx2ZSBzY2hvbGFycyB3aG8gd2VyZSBub3QgeWV0IHByZXNlbnQgaW4gV2F2ZSAxIGJ1dCBhcmUgaW5jbHVkZWQgaW4gdGhlIG92ZXJhbGwgZGF0YXNldC4gVGhlc2UgYXJlIG1vc3RseSBQaEQgY2FuZGlkYXRlcyBvciBlbXBsb3llZXMgd2hvIHdlcmUgbm90IHlldCB3b3JraW5nIGF0IG9uZSBvZiB0aGUgdGhyZWUgdW5pdmVyc2l0aWVzIGF0IHRoYXQgdGltZSBidXQgam9pbmVkIGJldHdlZW4gMjAyMiBhbmQgMjAyNC4gSW4gdHdvIGNhc2VzLCB0aGVzZSB3ZXJlIHNjaG9sYXJzIHdobyBwcmV2aW91c2x5IHdvcmtlZCBhdCB0aGUgVW5pdmVyc2l0eSBvZiBBbXN0ZXJkYW0gYW5kIGpvaW5lZCBvbmUgb2YgdGhlIHRocmVlIHVuaXZlcnNpdGllcyBpbiBXYXZlIDIuIFdhdmUgMiBjb25zaXN0cyBvZiAxNDEgdW5pcXVlIHNjaG9sYXJzLCBhZ2FpbiB3aXRoIHRoZSBVbml2ZXJzaXR5IG9mIEdyb25pbmdlbiBoYXZpbmcgdGhlIG1vc3Qgc2Nob2xhcnMgYXQgNjIsIGZvbGxvd2VkIGJ5IFV0cmVjaHQgVW5pdmVyc2l0eSB3aXRoIDQwIGFuZCBSYWRib3VkIFVuaXZlcnNpdHkgd2l0aCAzOS4gVGhlcmUgYXJlIDIxIHNjaG9sYXJzIG5vIGxvbmdlciBpbiB0aGUgZGF0YXNldCBpbiBXYXZlIDIuIEluIG1vc3QgY2FzZXMsIHRoZXNlIHdlcmUgUGhEIHN0dWRlbnRzIHdobyBsaWtlbHkgY29tcGxldGVkIHRoZWlyIFBoRC4gT3RoZXIgY2FzZXMgaW5jbHVkZSBndWVzdCByZXNlYXJjaGVycyBvciBwb3N0ZG9jcyB3aG8gYXJlIHNpbXBseSBubyBsb25nZXIgZW1wbG95ZWQuIFR3byBzY2hvbGFycyBwcmV2aW91c2x5IHdvcmtlZCBhdCBvbmUgb2YgdGhlIHRocmVlIHVuaXZlcnNpdGllcyBidXQgd2VyZSBub3cgYWZmaWxpYXRlZCB3aXRoIGVpdGhlciB0aGUgVW5pdmVyc2l0eSBvZiBDb2xvZ25lIG9yIFRpbGJ1cmcgVW5pdmVyc2l0eS5cCuKAgyAgCUluIHRlcm1zIG9mIHByZXN0aWdlIGFjcm9zcyB1bml2ZXJzaXRpZXMsIHRoZSBwcmVzdGlnZSBhcHBlYXJzIHRvIGJlIHNvbWV3aGF0IGVxdWFsLCByYW5naW5nIGJldHdlZW4gNCBhbmQgNS41IGZvciBib3RoIHdhdmVzLiBUaGUgbG93ZXN0IHByZXN0aWdlIHNjb3JlIG9ic2VydmVkIGlzIDAsIGF0IGJvdGggdGhlIFVuaXZlcnNpdHkgb2YgR3JvbmluZ2VuIGFuZCBVdHJlY2h0IFVuaXZlcnNpdHksIHByaW1hcmlseSBhbW9uZyBqdW5pb3Igc2Nob2xhcnMgd2hvIGhhdmUgbm90IHB1Ymxpc2hlZCBtdWNoIHlldC4gVGhlIGhpZ2hlc3QgcHJlc3RpZ2UgaW5kZXggb2JzZXJ2ZWQgaXMgMzYuNSBhdCBVdHJlY2h0IFVuaXZlcnNpdHkuIFRoZSB0b3RhbCBwcmVzdGlnZSBwZXIgd2F2ZSByZW1haW5zIHN0YWJsZSwgYXMgaXQgaXMgYSBmaXhlZCB2YXJpYWJsZSBhY3Jvc3Mgd2F2ZXMuIFRoZSBoaXN0b2dyYW1zIHNob3cgYSBmZXcgb3V0bGllcnMgcmVnYXJkaW5nIHRoZSBwcmVzdGlnZSBpbmRleDogbW9zdCBzY2hvbGFycyBoYXZlIGEgcHJlc3RpZ2UgaW5kZXggYmV0d2VlbiAxIGFuZCA0LCB3aXRoIG9ubHkgMTggc2Nob2xhcnMgaGF2aW5nIGEgc2NvcmUgYWJvdmUgMTAuIE9uZSBzY2hvbGFyIGhhcyBhIHNjb3JlIG9mIDE4LCBhbm90aGVyIDIxLCBhbmQgb25lIHN0YW5kcyBvdXQgd2l0aCBhIHNjb3JlIG9mIDM2LiBUaGUgc2FtZSB0cmVuZCBpcyBvYnNlcnZlZCBmb3IgV2F2ZSAyLCB3aXRoIGNoYW5nZXMgbGFyZ2VseSBkdWUgdG8gc2Nob2xhcnMgbm8gbG9uZ2VyIHdvcmtpbmcgYXQgb25lIG9mIHRoZSB1bml2ZXJzaXRpZXMsIHRodXMgdGhlaXIgc2NvcmVzIGFyZSBub3QgaW5jbHVkZWQgaW4gdGhlIGhpc3RvZ3JhbS4gVGhlIG1lYW4gcHJlc3RpZ2UgaGFzIGluY3JlYXNlZCBieSBvbmx5IDAuMDU5IGJldHdlZW4gdGhlIHR3byB3YXZlcywgYXMgc2hvd24gaW4gdGhlIHN1bW1hcnkgc3RhdGlzdGljcy4gXArigIMgIAlSZWdhcmRpbmcgZ2VuZGVyLCBvbmx5IFJhZGJvdWQgVW5pdmVyc2l0eSBpcyBwZXJmZWN0bHkgYmFsYW5jZWQgaW4gV2F2ZSAxLCB3aXRoIGFuIGVxdWFsIG51bWJlciBvZiBtZW4gYW5kIHdvbWVuICgyMiBlYWNoKS4gQXQgdGhlIFVuaXZlcnNpdHkgb2YgR3JvbmluZ2VuIGFuZCBVdHJlY2h0IFVuaXZlcnNpdHksIG1lbiAoMzQgYW5kIDI3KSBvdXRudW1iZXIgd29tZW4gKDI3IGFuZCAyMCksIHJlc3BlY3RpdmVseS4gSW4gV2F2ZSAyLCB0aGVzZSBwcm9wb3J0aW9ucyBzaGlmdCBzbGlnaHRseSwgd2l0aCBtb3JlIHdvbWVuIHRoYW4gbWVuIGF0IFJhZGJvdWQgVW5pdmVyc2l0eSwgYnV0IHN0aWxsIG1vcmUgbWVuIGF0IHRoZSBvdGhlciB0d28gdW5pdmVyc2l0aWVzLiBcCuKAgyAgCUZpbmFsbHksIEZpZ3VyZSAxIHNob3dzIHRoZSBuZXR3b3JrIGF0IFdhdmUgMSwgd2l0aCBpc29sYXRlcyBzdGlsbCBpbmNsdWRlZC4gSXQgaXMgZXZpZGVudCB0aGF0IHRoZXJlIGFyZSBtYW55IHNjaG9sYXJzIGluIHRoZSBkYXRhIHdobyBkbyBub3QgaGF2ZSBjb25uZWN0aW9ucyB3aXRoIG90aGVycyBpbiB0aGUgZGF0YXNldC4gSXQgbWF5IGJlIHRoZSBjYXNlIHRoYXQgdGhlc2UgaXNvbGF0ZXMgY29sbGFib3JhdGUgbW9zdGx5IHdpdGggc2Nob2xhcnMgZnJvbSBvdGhlciB1bml2ZXJzaXRpZXMgb3IgZnJvbSBvdGhlciBkZXBhcnRtZW50cyBub3QgaW5jbHVkZWQgaW4gdGhlIG9yaWdpbmFsIGRhdGFzZXQgb3IgaW4gdGhpcyBzdHVkeS4gRmlndXJlIDIgc2hvd3MgdGhlIG5ldHdvcmsgYXQgV2F2ZSAyLCBhZ2FpbiB3aXRoIGlzb2xhdGVzIGluY2x1ZGVkLiBXZSBjYW4gaW1tZWRpYXRlbHkgb2JzZXJ2ZSB0aGF0IHRoZSBudW1iZXIgb2YgaXNvbGF0ZXMgaGFzIGRlY3JlYXNlZCBhbmQgdGhhdCBtb3JlIHRpZXMgaGF2ZSBiZWVuIGVzdGFibGlzaGVkLiBFc3BlY2lhbGx5IGluIFdhdmUgMiwgaXQgc3RhbmRzIG91dCB0aGF0IGFyZSBhIGZldyBzY2hvbGFycyB0aGF0IHJlY2VpdmUgY29uc2lkZXJhYmx5IG1vcmUgdGllcyB0aGFuIG90aGVycy4gXArigIMgIAlGaWd1cmUgMyBkaXNwbGF5cyB0aGUgc2FtZSBuZXR3b3JrIGFzIFdhdmUgMSwgYnV0IHdpdGhvdXQgaXNvbGF0ZXMuIEFzIHdpdGggRmlndXJlIDEsIHRoZSBjb2xsYWJvcmF0aW9uIG5ldHdvcmsgc2VlbXMgcmF0aGVyIHNwYXJzZSwgd2l0aCBqdXN0IGEgZmV3IHNjaG9sYXJzIHJlY2VpdmluZyBtdWx0aXBsZSB0aWVzLiBGaWd1cmUgNCBzaG93cyB0aGUgc2FtZSBuZXR3b3JrIGFzIHdhdmUgMiwgYnV0IHdpdGhvdXQgaXNvbGF0ZXMuIFRoZSBuZXR3b3JrIGFwcGVhcnMgdG8gYmUgZGVuc2VyIHRoYW4gdGhlIG5ldHdvcmsgYXQgV2F2ZSAxLiBIZXJlIGl0IGFsc28gYmVjb21lcyBjbGVhciB0aGVyZSBhcmUgYSBmZXcgc2Nob2xhcnMgd2hvIHJlY2VpdmUgbW9yZSB0aWVzIHRoYW4gb3RoZXJzLiBJbiB0aGUgbmV4dCBzZWN0aW9uLCBpdCB3aWxsIGJlIGludmVzdGlnYXRlZCB3aGV0aGVyIHByZXN0aWdlIHBsYXlzIGEgcm9sZSBpbiB0aGlzIG9ic2VydmF0aW9uLiBcCi0tLS0KICAKIyMgUHJlcAoKQ2xlYW5pbmcgdGhlIHdvcmtzcGFjZQoKYGBge3J9CnJtKGxpc3Q9bHMoKSkKYGBgCgpEZWZpbmluZyB0aGUgZnVuY3Rpb25zCgpgYGB7cn0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsKICAgIGxhcHBseShwYWNrYWdlcywgRlVOID0gZnVuY3Rpb24oeCkgewogICAgICAgIGlmICghcmVxdWlyZSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpKSB7CiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkKICAgICAgICAgICAgbGlicmFyeSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpCiAgICAgICAgfQogICAgfSkKfQoKZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgewogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhIiksIGRpci5jcmVhdGUoImRhdGEiKSwgRkFMU0UpCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEvcHJvY2Vzc2VkIiksIGRpci5jcmVhdGUoImRhdGEvcHJvY2Vzc2VkIiksIEZBTFNFKQogICAgaWYgKGlzLm51bGwoZmlsZSkpCiAgICAgICAgZmlsZSA9IGRlcGFyc2Uoc3Vic3RpdHV0ZSh4KSkKICAgIHRvdGFsbmFtZSA8LSBwYXN0ZShsb2NhdGlvbiwgZmlsZSwgIi5yZGEiLCBzZXAgPSAiIikKICAgIHNhdmUoeCwgZmlsZSA9IHRvdGFsbmFtZSkKfQoKCmZsb2FkIDwtIGZ1bmN0aW9uKGZpbGVuYW1lKSB7CiAgICBsb2FkKGZpbGVuYW1lKQogICAgZ2V0KGxzKClbbHMoKSAhPSAiZmlsZW5hbWUiXSkKfQoKZnNob3dkZiA8LSBmdW5jdGlvbih4LCAuLi4pIHsKICAgIGtuaXRyOjprYWJsZSh4LCBkaWdpdHMgPSAyLCAiaHRtbCIsIC4uLikgJT4lCiAgICAgICAga2FibGVFeHRyYTo6a2FibGVfc3R5bGluZyhib290c3RyYXBfb3B0aW9ucyA9IGMoInN0cmlwZWQiLCAiaG92ZXIiKSkgJT4lCiAgICAgICAga2FibGVFeHRyYTo6c2Nyb2xsX2JveCh3aWR0aCA9ICIxMDAlIiwgaGVpZ2h0ID0gIjMwMHB4IikKfQpgYGAKCkxvYWRpbmcgcGFja2FnZXMKCmBgYHtyfQpwYWNrYWdlcyA8LSBjKCJ0aWR5dmVyc2UiLCAic2Nob2xhciIsICJvcGVuYWxleFIiLCAicnZlc3QiLCAianNvbmxpdGUiLCAiUlNpZW5hIiwgIlJTZWxlbml1bSIsICJydmVzdCIsICJsYXZhYW4iLCAieG1sMiIsICJrYWJsZUV4dHJhIiwgImRldnRvb2xzIiwgImlncmFwaCIsICJuZXR3b3JrIiwgInNuYSIsICJnZ3JhcGgiLCAidmlzTmV0d29yayIsICJ0aHJlZWpzIiwgIm5ldHdvcmtEMyIsICJSc2llbmFUd29TdGVwIiwgImRwbHlyIikKCgpmcGFja2FnZS5jaGVjayhwYWNrYWdlcykKYGBgCgpgYGB7cn0KIyBtYWtlIHlvdXJzZWxmIGtub3duIHRvIG9wZW5BbGV4Cm9wdGlvbnMob3BlbmFsZXhSLm1haWx0byA9ICJsdWNhbi5ib3ZlbnNAaG9tZS5ubCIpCmBgYAoKYGBge3J9CiMgTG9hZCBmaW5hbCBwcmVwYXJlZCBkYXRhCmRmX2VnbyA8LSBmbG9hZCgiLi9kYXRhL3Byb2Nlc3NlZC9kZl9lZ29fZmluYWwucmRhIikKc29jZGF0YSA8LSBmbG9hZCgiLi9kYXRhL3Byb2Nlc3NlZC9zb2NkYXRhX2ZpbmFsLnJkYSIpCmRmd29ya3MgPC0gZmxvYWQoIi4vZGF0YS9wcm9jZXNzZWQvZGZfd29ya3NfZmluYWwucmRhIikKYGBgCgpgYGB7cn0KZmluYWxfc2Nob2xhcl9pZHMgPC0gZGZfZWdvJGF1X2lkICAjIEdldCBmaW5hbCBzY2hvbGFyIElEcyBmcm9tIGRmX2Vnbwpzb2NkYXRhJG5ldHMgPC0gc29jZGF0YSRuZXRzWywgZmluYWxfc2Nob2xhcl9pZHMsIGZpbmFsX3NjaG9sYXJfaWRzLCBkcm9wID0gRkFMU0VdCmRpbShzb2NkYXRhJG5ldHMpICAjIFNob3VsZCBiZSAyICh3YXZlcykgMTY0LCAxNjQpCmBgYAoKIyMgRGlzdHJpYnV0aW9uIG9mIHNjaG9sYXJzIAojIyMgRGlzdHJpYnV0aW9uIG9mIHNjaG9sYXJzIHBlciB1bml2ZXJzaXR5IGZvciB3YXZlIDEgYW5kIHdhdmUgMgoKYGBge3J9CnVuaXZlcnNpdHlfZGlzdHJpYnV0aW9uIDwtIHRpYmJsZSgKICBvcmlnaW5hbF9jb2RlID0gYygiUlUiLCAiVVUiLCAiUlVHIiksCiAgVW5pdmVyc2l0eSA9IGMoIlJVIiwgIlVVIiwgIlJVRyIpCikKCmRmX2VnbyAlPiUKICBsZWZ0X2pvaW4odW5pdmVyc2l0eV9kaXN0cmlidXRpb24sIGJ5ID0gYygiVW5pdmVyc2l0ZWl0MS4yMiIgPSAib3JpZ2luYWxfY29kZSIpKSAlPiUKICBjb3VudChVbml2ZXJzaXR5KSAlPiUKICBmc2hvd2RmKCkKYGBgCgoKYGBge3J9CmRmX2VnbyAlPiUKICBsZWZ0X2pvaW4odW5pdmVyc2l0eV9kaXN0cmlidXRpb24sIGJ5ID0gYygiVW5pdmVyc2l0ZWl0MS4yNCIgPSAib3JpZ2luYWxfY29kZSIpKSAlPiUKICBjb3VudChVbml2ZXJzaXR5KSAlPiUKICBmc2hvd2RmKCkKClZpZXcoZGZfZWdvKQoKYGBgCgpgYGB7cn0KZGZfZWdvICU+JSBjb3VudChVbml2ZXJzaXRlaXQxLjIyKQpkZl9lZ28gJT4lIGNvdW50KFVuaXZlcnNpdGVpdDEuMjQpCgpgYGAKCiMjIFByZXN0aWdlCgojIyMgUHJlc3RpZ2UgZGlzdHJpYnV0aW9uIGJ5IHVuaXZlcnNpdHkgYW5kIHRvdGFsIHdhdmUgMQoKYGBge3J9CgojIFdhdmUgMTogUHJlc3RpZ2UgZGlzdHJpYnV0aW9uIGJ5IHVuaXZlcnNpdHkgYW5kIHRvdGFsCmRmX2VnbyAlPiUKICBncm91cF9ieShVbml2ZXJzaXRlaXQxLjIyKSAlPiUKICBzdW1tYXJpc2UoCiAgICBtZWFuX3ByZXN0aWdlID0gbWVhbihwcmVzdGlnZV9pbmRleCwgbmEucm0gPSBUUlVFKSwKICAgIG1pbl9wcmVzdGlnZSA9IG1pbihwcmVzdGlnZV9pbmRleCwgbmEucm0gPSBUUlVFKSwKICAgIG1heF9wcmVzdGlnZSA9IG1heChwcmVzdGlnZV9pbmRleCwgbmEucm0gPSBUUlVFKSwKICAgIHNkX3ByZXN0aWdlID0gc2QocHJlc3RpZ2VfaW5kZXgsIG5hLnJtID0gVFJVRSkKICApICU+JQogIGJpbmRfcm93cygKICAgIGRmX2VnbyAlPiUKICAgICAgc3VtbWFyaXNlKAogICAgICAgIFVuaXZlcnNpdGVpdDEuMjIgPSAiVG90YWwiLAogICAgICAgIG1lYW5fcHJlc3RpZ2UgPSBtZWFuKHByZXN0aWdlX2luZGV4LCBuYS5ybSA9IFRSVUUpLAogICAgICAgIG1pbl9wcmVzdGlnZSA9IG1pbihwcmVzdGlnZV9pbmRleCwgbmEucm0gPSBUUlVFKSwKICAgICAgICBtYXhfcHJlc3RpZ2UgPSBtYXgocHJlc3RpZ2VfaW5kZXgsIG5hLnJtID0gVFJVRSksCiAgICAgICAgc2RfcHJlc3RpZ2UgPSBzZChwcmVzdGlnZV9pbmRleCwgbmEucm0gPSBUUlVFKQogICAgICApCiAgKQpgYGAKCgojIyMgUHJlc3RpZ2UgZGlzdHJpYnV0aW9uIGJ5IHVuaXZlcnNpdHkgYW5kIHRvdGFsIHdhdmUgMgoKYGBge3J9CiMgV2F2ZSAyOiBQcmVzdGlnZSBkaXN0cmlidXRpb24gYnkgdW5pdmVyc2l0eSBhbmQgdG90YWwKZGZfZWdvICU+JQogIGdyb3VwX2J5KFVuaXZlcnNpdGVpdDEuMjQpICU+JQogIHN1bW1hcmlzZSgKICAgIG1lYW5fcHJlc3RpZ2UgPSBtZWFuKHByZXN0aWdlX2luZGV4LCBuYS5ybSA9IFRSVUUpLAogICAgbWluX3ByZXN0aWdlID0gbWluKHByZXN0aWdlX2luZGV4LCBuYS5ybSA9IFRSVUUpLAogICAgbWF4X3ByZXN0aWdlID0gbWF4KHByZXN0aWdlX2luZGV4LCBuYS5ybSA9IFRSVUUpLAogICAgc2RfcHJlc3RpZ2UgPSBzZChwcmVzdGlnZV9pbmRleCwgbmEucm0gPSBUUlVFKQogICkgJT4lCiAgYmluZF9yb3dzKAogICAgZGZfZWdvICU+JQogICAgICBzdW1tYXJpc2UoCiAgICAgICAgVW5pdmVyc2l0ZWl0MS4yNCA9ICJUb3RhbCIsCiAgICAgICAgbWVhbl9wcmVzdGlnZSA9IG1lYW4ocHJlc3RpZ2VfaW5kZXgsIG5hLnJtID0gVFJVRSksCiAgICAgICAgbWluX3ByZXN0aWdlID0gbWluKHByZXN0aWdlX2luZGV4LCBuYS5ybSA9IFRSVUUpLAogICAgICAgIG1heF9wcmVzdGlnZSA9IG1heChwcmVzdGlnZV9pbmRleCwgbmEucm0gPSBUUlVFKSwKICAgICAgICBzZF9wcmVzdGlnZSA9IHNkKHByZXN0aWdlX2luZGV4LCBuYS5ybSA9IFRSVUUpCiAgICAgICkKICApCmBgYAoKIyMjIEhpc3RvZ3JhbSBwcmVzdGlnZSBkaXN0cmlidXRpb24gd2F2ZSAxCgpgYGB7cn0KIyBIaXN0b2dyYW0gb2YgcHJlc3RpZ2Ugc2NvcmVzIGZvciBXYXZlIDEKaGlzdCgKICBkZl9lZ28kcHJlc3RpZ2VfaW5kZXhbZGZfZWdvJFVuaXZlcnNpdGVpdDEuMjIgJWluJSBjKCJSVSIsICJVVSIsICJSVUciKV0sCiAgYnJlYWtzID0gMzAsCiAgbWFpbiA9ICJEaXN0cmlidXRpb24gb2YgUHJlc3RpZ2UgSW5kZXggLSBXYXZlIDEiLAogIHhsYWIgPSAiUHJlc3RpZ2UgSW5kZXgiLAogIHlsYWIgPSAiRnJlcXVlbmN5IiwKICBjb2wgPSAibGlnaHRibHVlIiAgCikKYGBgCgojIyMgSGlzdG9ncmFtIHByZXN0aWdlIGRpc3RyaWJ1dGlvbiB3YXZlIDIKCmBgYHtyfQojIEhpc3RvZ3JhbSBvZiBwcmVzdGlnZSBzY29yZXMgZm9yIFdhdmUgMgpoaXN0KAogIGRmX2VnbyRwcmVzdGlnZV9pbmRleFtkZl9lZ28kVW5pdmVyc2l0ZWl0MS4yNCAlaW4lIGMoIlJVIiwgIlVVIiwgIlJVRyIpXSwKICBicmVha3MgPSAzMCwKICBtYWluID0gIkRpc3RyaWJ1dGlvbiBvZiBQcmVzdGlnZSBJbmRleCAtIFdhdmUgMiIsCiAgeGxhYiA9ICJQcmVzdGlnZSBJbmRleCIsCiAgeWxhYiA9ICJGcmVxdWVuY3kiLAogIGNvbCA9ICJsaWdodGJsdWUiICAKKQpgYGAKCiMjIyBTdW1tYXJ5IHN0YXRpc3RpY3Mgb2YgcHJlc3RpZ2Ugd2F2ZSAxCgpgYGB7cn0Kc3VtbWFyeShkZl9lZ28kcHJlc3RpZ2VfaW5kZXhbZGZfZWdvJFVuaXZlcnNpdGVpdDEuMjIgJWluJSBjKCJSVSIsICJVVSIsICJSVUciKV0pCmBgYAoKIyMjIFN1bW1hcnkgc3RhdGlzdGljcyBvZiBwcmVzdGlnZSB3YXZlIDIKCmBgYHtyfQpzdW1tYXJ5KGRmX2VnbyRwcmVzdGlnZV9pbmRleFtkZl9lZ28kVW5pdmVyc2l0ZWl0MS4yNCAlaW4lIGMoIlJVIiwgIlVVIiwgIlJVRyIpXSkKYGBgCgojIyBHZW5kZXIKCmBgYHtyfQojIFdhdmUgMTogR2VuZGVyIGNvdW50IHBlciB1bml2ZXJzaXR5CnRhYmxlKGRmX2VnbyRVbml2ZXJzaXRlaXQxLjIyLCBkZl9lZ28kZ2VuZGVyZGljaCkKCiMgV2F2ZSAxOiBQZXJjZW50YWdlIGdlbmRlciBwZXIgdW5pdmVyc2l0eQpwcm9wLnRhYmxlKHRhYmxlKGRmX2VnbyRVbml2ZXJzaXRlaXQxLjIyLCBkZl9lZ28kZ2VuZGVyZGljaCksIG1hcmdpbiA9IDEpCgojIFdhdmUgMjogR2VuZGVyIGNvdW50IHBlciB1bml2ZXJzaXR5CnRhYmxlKGRmX2VnbyRVbml2ZXJzaXRlaXQxLjI0LCBkZl9lZ28kZ2VuZGVyZGljaCkKCiMgV2F2ZSAyOiBQZXJjZW50YWdlIGdlbmRlciBwZXIgdW5pdmVyc2l0eQpwcm9wLnRhYmxlKHRhYmxlKGRmX2VnbyRVbml2ZXJzaXRlaXQxLjI0LCBkZl9lZ28kZ2VuZGVyZGljaCksIG1hcmdpbiA9IDEpCgpgYGAKCgoKYGBge3J9CgpuZXR3b3JrX3dhdmUyIDwtIGlncmFwaDo6Z3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KAogIHNvY2RhdGEkbmV0c1syLCxdLCAjIFNlY29uZCB3YXZlCiAgbW9kZSA9ICJkaXJlY3RlZCIsCiAgd2VpZ2h0ZWQgPSBOVUxMLAogIGRpYWcgPSBGQUxTRQopCgpkZWdyZWVfd2F2ZTIgPC0gaWdyYXBoOjpkZWdyZWUobmV0d29ya193YXZlMiwgbW9kZSA9ICJhbGwiKSAgIyBDYWxjdWxhdGUgZGVncmVlIChpbiArIG91dCkKCmRmX2VnbyRkZWdyZWVfd2F2ZTIgPC0gZGVncmVlX3dhdmUyICAjIEFkZCBkZWdyZWUgdG8gZGZfZWdvCgojcGxvdApoaXN0KGRmX2VnbyRkZWdyZWVfd2F2ZTIsIGJyZWFrcyA9IDIwLCBtYWluID0gIkRlZ3JlZSBEaXN0cmlidXRpb24gKFdhdmUgMikiLCB4bGFiID0gIkRlZ3JlZSIpCgpgYGAKCiMjIFBsb3R0aW5nCgpgYGB7cn0KI1dhdmUgMQoKc29jZGF0YV93MSA8LSBpZ3JhcGg6OmdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeCgKICBzb2NkYXRhJG5ldHNbMSwsXSwgI25vdywgdGhlIGZpcnN0IHdhdmUKICBtb2RlID0gYygiZGlyZWN0ZWQiKSwKICB3ZWlnaHRlZCA9IE5VTEwsCiAgZGlhZyA9IEZBTFNFLAogIGFkZC5yb3duYW1lcyA9IE5VTEwsCiAgYWRkLmNvbG5hbWVzID0gTlVMTAopCgpwbG90KHNvY2RhdGFfdzEsCiAgICAgICAgICBtYWluID0gIkZpZ3VyZSAxOiBOZXR3b3JrIFZpc3VhbGl6YXRpb24gLSBXYXZlIDEiLAogICAgIHZlcnRleC5jb2xvciA9IGlmZWxzZShkZl9lZ28kZ2VuZGVyZGljaCA9PSAiZmVtYWxlIiwgInJlZCIsICJibHVlIiksIAogICAgIHZlcnRleC5sYWJlbCA9IE5BLAogICAgIHZlcnRleC5zaXplID0gNSwgCiAgICAgZWRnZS53aWR0aCA9IDAuMiwKICAgICBlZGdlLmFycm93LnNpemUgPSAwLjIpCgpsZWdlbmQoInRvcHJpZ2h0IiwKICAgICAgIGxlZ2VuZCA9IGMoIkZlbWFsZSIsICJNYWxlIiksCiAgICAgICBjb2wgPSBjKCJyZWQiLCAiYmx1ZSIpLAogICAgICAgcGNoID0gMjEsICAgICAgICAgCiAgICAgICBwdC5jZXggPSAxLCAgICAgICAKICAgICAgIHB0LmJnID0gYygicmVkIiwgImJsdWUiKSwgCiAgICAgICBidHkgPSAibiIgICAgICAgICAjIAopCgpgYGAKCmBgYHtyfQojV2F2ZSAyCgpzb2NkYXRhX3cyIDwtIGlncmFwaDo6Z3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KAogIHNvY2RhdGEkbmV0c1syLCxdLCAjbm93LCB0aGUgc2Vjb25kIHdhdmUKICBtb2RlID0gYygiZGlyZWN0ZWQiKSwKICB3ZWlnaHRlZCA9IE5VTEwsCiAgZGlhZyA9IEZBTFNFLAogIGFkZC5yb3duYW1lcyA9IE5VTEwsCiAgYWRkLmNvbG5hbWVzID0gTlVMTAopCgpwbG90KHNvY2RhdGFfdzIsCiAgICAgICAgICAgICAgIG1haW4gPSAiRmlndXJlIDI6IE5ldHdvcmsgVmlzdWFsaXphdGlvbiAtIFdhdmUgMiIsCiAgICAgdmVydGV4LmNvbG9yID0gaWZlbHNlKGRmX2VnbyRnZW5kZXJkaWNoID09ICJmZW1hbGUiLCAicmVkIiwgImJsdWUiKSwgCiAgICAgdmVydGV4LmxhYmVsID0gTkEsCiAgICAgdmVydGV4LnNpemUgPSA1LCAKICAgICBlZGdlLndpZHRoID0gMC4yLAogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMikKCmxlZ2VuZCgidG9wcmlnaHQiLAogICAgICAgbGVnZW5kID0gYygiRmVtYWxlIiwgIk1hbGUiKSwKICAgICAgIGNvbCA9IGMoInJlZCIsICJibHVlIiksCiAgICAgICBwY2ggPSAyMSwgICAgICAgICAKICAgICAgIHB0LmNleCA9IDEsICAgICAgIAogICAgICAgcHQuYmcgPSBjKCJyZWQiLCAiYmx1ZSIpLCAKICAgICAgIGJ0eSA9ICJuIiAgICAgICAgICMgCikKCmBgYAoKCmBgYHtyfQojIFdhdmUgMSBubyBpc29sYXRlcwoKc29jZGF0YV93MSA8LSBpZ3JhcGg6OmdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeCgKICBzb2NkYXRhJG5ldHNbMSwsXSwgCiAgbW9kZSA9IGMoImRpcmVjdGVkIiksCiAgd2VpZ2h0ZWQgPSBOVUxMLAogIGRpYWcgPSBGQUxTRQopCgojIFJlbW92ZSBpc29sYXRlcwpzb2NkYXRhX3cxX25vX2lzb2xhdGVzIDwtIGRlbGV0ZV92ZXJ0aWNlcyhzb2NkYXRhX3cxLCBpZ3JhcGg6OmRlZ3JlZShzb2NkYXRhX3cxKSA9PSAwKQoKcGxvdChzb2NkYXRhX3cxX25vX2lzb2xhdGVzLAogICAgICAgICAgICAgICBtYWluID0gIkZpZ3VyZSAzOiBOZXR3b3JrIFZpc3VhbGl6YXRpb24gLSBXYXZlIDEgLSBObyBpc29sYXRlcyIsCiAgICAgdmVydGV4LmNvbG9yID0gaWZlbHNlKGRmX2VnbyRnZW5kZXJkaWNoID09ICJmZW1hbGUiLCAicmVkIiwgImJsdWUiKSwgCiAgICAgdmVydGV4LmxhYmVsID0gTkEsCiAgICAgdmVydGV4LnNpemUgPSA1LCAgICAKICAgICBlZGdlLndpZHRoID0gMC4yLAogICAgIGVkZ2UuYXJyb3cuc2l6ZSA9IDAuMikKCmxlZ2VuZCgidG9wcmlnaHQiLAogICAgICAgbGVnZW5kID0gYygiRmVtYWxlIiwgIk1hbGUiKSwKICAgICAgIGNvbCA9IGMoInJlZCIsICJibHVlIiksCiAgICAgICBwY2ggPSAyMSwgICAgICAgICAKICAgICAgIHB0LmNleCA9IDEsICAgICAgIAogICAgICAgcHQuYmcgPSBjKCJyZWQiLCAiYmx1ZSIpLCAKICAgICAgIGJ0eSA9ICJuIiAgICAgICAgICMgCikKCmBgYAoKYGBge3J9CiMgV2F2ZSAyIG5vIGlzb2xhdGVzCgpzb2NkYXRhX3cyIDwtIGlncmFwaDo6Z3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KAogIHNvY2RhdGEkbmV0c1syLCxdLCAKICBtb2RlID0gYygiZGlyZWN0ZWQiKSwKICB3ZWlnaHRlZCA9IE5VTEwsCiAgZGlhZyA9IEZBTFNFCikKCnNvY2RhdGFfdzJfbm9faXNvbGF0ZXMgPC0gZGVsZXRlX3ZlcnRpY2VzKHNvY2RhdGFfdzIsIGlncmFwaDo6ZGVncmVlKHNvY2RhdGFfdzIpID09IDApCgpwbG90KHNvY2RhdGFfdzJfbm9faXNvbGF0ZXMsCiAgICAgICAgICAgICAgIG1haW4gPSAiRmlndXJlIDQ6IE5ldHdvcmsgVmlzdWFsaXphdGlvbiAtIFdhdmUgMiAtIE5vIGlzb2xhdGVzIiwKICAgICB2ZXJ0ZXguY29sb3IgPSBpZmVsc2UoZGZfZWdvJGdlbmRlcmRpY2ggPT0gImZlbWFsZSIsICJyZWQiLCAiYmx1ZSIpLCAKICAgICB2ZXJ0ZXgubGFiZWwgPSBOQSwKICAgICB2ZXJ0ZXguc2l6ZSA9IDUsIAogICAgIGVkZ2Uud2lkdGggPSAwLjIsCiAgICAgZWRnZS5hcnJvdy5zaXplID0gMC4yKQoKbGVnZW5kKCJ0b3ByaWdodCIsCiAgICAgICBsZWdlbmQgPSBjKCJGZW1hbGUiLCAiTWFsZSIpLAogICAgICAgY29sID0gYygicmVkIiwgImJsdWUiKSwKICAgICAgIHBjaCA9IDIxLCAgICAgICAgIAogICAgICAgcHQuY2V4ID0gMSwgICAgICAgCiAgICAgICBwdC5iZyA9IGMoInJlZCIsICJibHVlIiksIAogICAgICAgYnR5ID0gIm4iICAgICAgICAgIyAKKQoKYGBgCg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("FinalDataDescriptives_LB.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

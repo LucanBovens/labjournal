@@ -1,0 +1,312 @@
+---
+title: "Result descriptives"
+output: html_document
+date: "2024-10-31"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+```{=html}
+<style>
+div {
+text-align: justify}
+</style>
+```
+  
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+----
+
+# Results descriptives
+
+To begin the results section, I first present additional descriptive statistics on the network. Then, I will present some network visualizations to test H1b and H2. Afterwards, some specific network statistics are used to test H2 more accurately. 
+  
+----
+  
+## Prep
+
+Cleaning the workspace
+
+```{r}
+rm(list=ls())
+```
+
+Defining the functions
+
+```{r}
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    totalname <- paste(location, file, ".rda", sep = "")
+    save(x, file = totalname)
+}
+
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+```
+
+Loading packages
+
+```{r}
+packages <- c("tidyverse", "scholar", "openalexR", "rvest", "jsonlite", "RSiena", "RSelenium", "rvest", "lavaan", "xml2", "kableExtra", "devtools", "igraph", "network", "sna", "ggraph", "visNetwork", "threejs", "networkD3", "RsienaTwoStep", "dplyr")
+
+
+fpackage.check(packages)
+```
+
+```{r}
+# make yourself known to openAlex
+options(openalexR.mailto = "lucan.bovens@home.nl")
+```
+
+```{r}
+# Load final prepared data
+df_ego <- fload("./data/processed/df_ego_final.rda")
+socdata <- fload("./data/processed/socdata_final.rda")
+dfworks <- fload("./data/processed/df_works_final.rda")
+```
+
+```{r}
+final_scholar_ids <- df_ego$au_id  # Get final scholar IDs from df_ego
+socdata$nets <- socdata$nets[, final_scholar_ids, final_scholar_ids, drop = FALSE]
+dim(socdata$nets)  # Should be 2 (waves) 164, 164)
+```
+
+## Network descriptive statistics
+
+In Wave 1, the network consists of 164 scholars, represented as nodes. The total amount of ties, or edges, in the network is 91. A dyad census reveals that these ties consists of 12 mutual ties, better known as reciprocated ties. These reciprocated ties indicate that both scholars have asked each other to collaborate. Additionally, there are 67 asymmetric dyads, where only one node has a directed tie to another, meaning that these ties are not reciprocated. The edge density is 0.003, which indicates a very sparse network. Only 0.3% of all possible ties are present in the network, suggesting that most nodes are not directed to each other. The triad census shows that there are no complete triads. The high count of empty triads (709166) indicates that the networks consists mostly of isolates. Finally, the transitivity effect is considered. Transitivity means that individuals are likely to connect with the connections of people they are already connected to, resulting in a triadic closure. An example that is often given is 'becoming friends with the friend of a friend'. In other words, if two scholars have collaborated with a researcher, they themselves may be more likely to work together. The transitivity index for wave 1 is 0.156, meaning there is a 15.6% probability that two such scholars will collaborate. \
+  For Wave 2, the total amount of ties is 209, which is a big increase compared to the first wave. There are 20 reciprocated ties and 169 asymmetric ties. The edge density has increased to 0.007, meaning that 0.7% of all possible ties are present. There is now one complete triad, though the network is still largely composed of isolates. The transitivity index for Wave 2 is 0.192, indicating a 19.2% probability of collaboration between scholars who share a common collaborator.
+
+```{r}
+# wave 1
+networkwave1 <- igraph::graph_from_adjacency_matrix(
+  socdata$nets[1,,],
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL,
+  add.rownames = NULL)
+
+nwave1 <- simplify(networkwave1)
+
+# wave 2
+networkwave2 <- igraph::graph_from_adjacency_matrix(
+  socdata$nets[2,,],
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL,
+  add.rownames = NULL)
+
+nwave2 <- simplify(networkwave2)
+```
+
+### Wave 1
+
+```{r}
+# Nodes
+vcount(networkwave1)
+
+# Edges
+ecount(networkwave1)
+
+#Dyad census
+igraph::dyad_census(networkwave1)
+
+# Triad census
+igraph::triad_census(networkwave1)
+
+#Edge density
+igraph::edge_density(networkwave1)
+```
+
+### Wave 2
+
+```{r}
+# Nodes
+vcount(networkwave2)
+
+# Edges
+ecount(networkwave2)
+
+#Dyad census
+igraph::dyad_census(networkwave2)
+
+# Triad census
+igraph::triad_census(networkwave2)
+
+#Edge density
+igraph::edge_density(networkwave2)
+```
+
+### Transitivity wave 1
+
+```{r}
+igraph::transitivity(networkwave1)
+```
+
+### Transitivity wave 2
+
+```{r}
+igraph::transitivity(networkwave2)
+```
+
+
+## Plots based on prestige index
+
+The four visualizations below make it possible to test both H1b, which states "Clusters of scholars with high prestige occur within collaboration networks," and H2, which states "Highly prestigious scholars occupy central positions within collaboration networks". From both networks in Wave 1, it does not necessarily seem that scholars with similar prestige tend to stick together. We observe a mix of different colors within the network, indicating a mix in different levels of prestige. Especially in the visualization with isolates excluded, we find that scholars with a higher level of prestige (red) seem to be scattered around the network, without any obvious clustering. For both networks in Wave 2, we observe mostly the same. As can be seen in the visualization without isolates, it seems that the scholars with the highest level of prestige are again scattered around the network, with some not even connected with other highly prestigious scholars. As such, I believe H1b has to be rejected. \
+   At the same time, in both waves without isolates, we observe that highly prestigious scholars seem to be surrounded by scholars with lower levels of prestige. Looking at the direction of the arrows, it appears that scholars with higher prestige levels tend to receive significantly more ties from those with lower prestige, rather than lower-prestige scholars sending ties to each other. Additionally, scholars with higher levels of prestige seem to receive more ties opposed to them sending out ties. These findings are especially evident in Wave 2, where we observe scholars with higher levels of prestige to receive lots of ties and being surrounded by plenty of scholars with lower levels of prestige. This provides preliminary support for Hypothesis 2. \
+
+### Wave 1 based on prestige
+
+```{r}
+
+# Assign prestige index as node size 
+V(networkwave1)$prestige <- df_ego$prestige_index
+options(repr.plot.width = 12, repr.plot.height = 8)
+
+
+ggraph(networkwave1, layout = "fr") + 
+  geom_edge_link(color = "grey", width = 0.2, 
+                 arrow = arrow(type = "closed", length = unit(3, "mm"))) + 
+  geom_node_point(aes(size = prestige, color = prestige)) +
+  scale_size_continuous(range = c(2, 6)) +  
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_void() + 
+  labs(title = "Collaboration Network - Wave 1",
+       color = "Prestige Index", size = "Prestige Index") +
+  theme(plot.title = element_text(size = 16, hjust = 0.5))
+
+
+```
+
+### Wave 2 based on prestige
+
+```{r}
+
+V(networkwave2)$prestige <- df_ego$prestige_index
+
+ggraph(networkwave2, layout = "fr") + 
+  geom_edge_link(color = "grey", width = 0.2, 
+                 arrow = arrow(type = "closed", length = unit(3, "mm"))) + 
+  geom_node_point(aes(size = prestige, color = prestige)) +
+  scale_size_continuous(range = c(2, 6)) +  
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_void() + 
+  labs(title = "Collaboration Network - Wave 2",
+       color = "Prestige Index", size = "Prestige Index") +
+  theme(plot.title = element_text(size = 16, hjust = 0.5))
+
+```
+
+### Wave 1 based on prestige, no isolates
+
+```{r}
+networkwave1_no_iso <- delete_vertices(networkwave1, igraph::degree(networkwave1) == 0)
+
+ggraph(networkwave1_no_iso, layout = "fr") + 
+  geom_edge_link(color = "grey", width = 0.2, 
+                 arrow = arrow(type = "closed", length = unit(3, "mm"))) + 
+  geom_node_point(aes(size = prestige, color = prestige)) +
+  scale_size_continuous(range = c(2, 6)) +  
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_void() + 
+  labs(title = "Collaboration Network - Wave 1 (No Isolates)",
+       color = "Prestige Index", size = "Prestige Index") +
+  theme(plot.title = element_text(size = 16, hjust = 0.5))
+
+```
+
+### Wave 2 based on prestige, no isolates
+
+```{r}
+
+networkwave2_no_iso <- delete_vertices(networkwave1, igraph::degree(networkwave1) == 0)
+
+ggraph(networkwave2_no_iso, layout = "fr") + 
+  geom_edge_link(color = "grey", width = 0.2, 
+                 arrow = arrow(type = "closed", length = unit(3, "mm"))) + 
+  geom_node_point(aes(size = prestige, color = prestige)) +
+  scale_size_continuous(range = c(2, 6)) +  
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_void() + 
+  labs(title = "Collaboration Network - Wave 2 (No Isolates)",
+       color = "Prestige Index", size = "Prestige Index") +
+  theme(plot.title = element_text(size = 16, hjust = 0.5))
+
+```
+
+## Network statistics
+
+To further test the second hypothesis, I used degree centrality as the centrality measure. Degree centrality examines the number of direct ties of a node; in this directed network, it specifically reflects the number of indegrees, the received ties, a scholar has. For Wave 1, the Spearman's correlation coefficient of 0.49 suggest a moderate positive relationship between in-degree centrality and prestige. The p-value, which is below the 0.05 threshold, shows that the effect is significant. This indicates that as scholars have higher prestige, they tend to have more in-degrees as well. For wave 2, the Spearman's coefficient is even higher at 0.58, meaning there is a strong positive relationship between in-degree and prestige. The association has thus increased over time. The p-value remains the same, showing that prestige indeed is associated with receiving more ties, and thus occupying central positions in the network. Thus, Hypothesis 2 is supported. The other hypotheses will be tested in the next section.
+
+### Degree centrality
+
+```{r}
+# Wave 1 (indegree)
+
+degrees_nw1 <- igraph::degree(networkwave1, 
+       mode = c("in"),
+       normalized = FALSE)
+
+degrees_nw1 <- (degrees_nw1-min(degrees_nw1))/(max(degrees_nw1)-min(degrees_nw1)) #normalised degree centrality
+
+cor.test(degrees_nw1, df_ego$prestige_index, method = "spearman")
+
+```
+
+```{r}
+
+# Wave 2 (indegree)
+
+degrees_nw2 <- igraph::degree(networkwave2, 
+       mode = c("in"),
+       normalized = FALSE)
+
+degrees_nw2 <- (degrees_nw2-min(degrees_nw2))/(max(degrees_nw2)-min(degrees_nw2))
+
+cor.test(degrees_nw2, df_ego$prestige_index, method = "spearman")
+
+```
+
+```{r}
+View(df_ego)
+```

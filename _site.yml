@@ -50,18 +50,6 @@ navbar:
           href: testbestand8oktoberrsienatest.html  
         - text: "RSiena own data"
           href: Testbestand7oktober.html
-      - text: "Week 6"
-        menu:  # Nested menu for Week 6
-        - text: "Empty"
-          href: Week5_RSienaTutorial.html
-        - text: "Empty"
-          href: Week5_RSienaExample.html
-        - text: "Empty"
-          href: testbestand8oktoberrsienatest.html  
-        - text: "Empty"
-          href: Testbestand7oktober.html  
-      - text: "Misc"
-        href: Week1_AppendixA.html         
     - text: "Concept Report"
       menu:
       - text: "Introduction"
@@ -71,25 +59,32 @@ navbar:
       - text: "Data"
         href: ConceptData_LB.html
       - text: "Results"
-        href: ConceptResults_LB.html
-      - text: "Conclusion"
-        href: ConceptConclusion_LB.html
-      - text: "Appendix"
-        href: ConceptAppendix_LB.html
     - text: "Final Report"
       menu:
       - text: "Introduction"
-        href: lab1.html
+        href: FinalIntroduction_LB.html
       - text: "Theory"
-        href: Week1_AppendixA.html
+        href: FinalTheory_LB.html
       - text: "Data"
-        href: Week1_AppendixA.html
+        menu:  # Nested menu for Data
+        - text: "Methods"
+          href: FinalDataMethods_LB.html
+        - text: "Data preparation"
+          href: FinalDataPreparation_LB.html
+        - text: "Data descriptives"
+          href: FinalDataDescriptives_LB.html  
       - text: "Results"
-        href: Week1_AppendixA.html
+        menu:  # Nested menu for Results
+        - text: "Results descriptives"
+          href: FinalResultsDescriptives_LB.html
+        - text: "RSiena models"
+          href: FinalRSienaModels_LB.html
+        - text: "RSiena goodness of fit"
+          href: FinalRSienaGOF_LB.html  
       - text: "Conclusion"
-        href: Week1_AppendixA.html
-      - text: "Appendix"
-        href: Week1_AppendixA.html   
+        href: FinalConclusion_LB.html
+      - text: "References"
+        href: FinalReferences_LB.html   
         # here, other .Rmds can be added
 
   right:

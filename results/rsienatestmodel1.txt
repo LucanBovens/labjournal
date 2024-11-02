@@ -6,7 +6,7 @@ Filename is ./results/rsienatestmodel1.txt.
 
 This file contains primary output for SIENA project <<./results/rsienatestmodel1>>.
 
-Date and time: 09/10/2024 16:41:56 
+Date and time: 31/10/2024 22:36:56 
 
 RSiena version 1.4.19 (03 09 2024)
 
@@ -16,12 +16,12 @@ Data input.
 ===========
 
 2 observations,
-101 actors,
+171 actors,
 1 dependent network variables,
 0 dependent bipartite variables,
 0 dependent discrete behavior variables,
 0 dependent continuous behavior variables,
-3 constant actor covariates,
+4 constant actor covariates,
 0 exogenous changing actor covariates,
 0 constant dyadic covariates,
 0 exogenous changing dyadic covariates,
@@ -42,23 +42,38 @@ Nodes
  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
- 91  92  93  94  95  96  97  98  99 100 101
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 
+151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 
+166 167 168 169 170 171
 out-degrees
-  0   3   0   1   0   0   3   7   1   2   2   1   0   0  16 
-  3   5  13   8   4   4   4   8   2   0   0   0   0   0   2 
-  0   0   1   0   0   0   1   0   0   1   2   2   2   2   0 
-  8   0   0   0   0   0   0   0   0   3   0   0   0   0   0 
-  0   1   1   0   0   0   0   0   0   1   0   0   0   0   0 
-  0   0   0   0   0   0   0   0   0   1   1   0   1   0   0 
-  0   0   5   0   2   0   0   0   0   0   0
+  0   0   0   0   0   2   0   1   1   0   0   0   0   0   0 
+  0   0   1   0   2   0   0   0   0   0   0   0   0   0   0 
+  0   1   0   0   0   0   0   0   0   2   0   0   0   0   0 
+  0   0   0   1   0   0   1   0   0   0   1   2   2   1   3 
+  2   3   3   5   2   2   1   0   4   0   2   0   0   0   0 
+  0   0   0   0   0   0   0   0   1   0   0   1   2   0   2 
+  1   0   0   0   2   1   0   0   0   3   0   0   2   4   2 
+  1   0   0   0   0   1   0   1   0   1   0   2   0   3   0 
+  3   0   2   0   0   0   0   2   0   0   0   0   0   0   2 
+  0   0   1   0   0   0   0   0   0   0   0   0   2   0   0 
+  0   0   0   0   0   0   0   0   0   0   0   0   1   0   0 
+  0   0   0   1   0   2
 in-degrees
-  0   3   0   1   0   0   3   7   1   2   2   1   0   0  16 
-  3   5  13   8   4   4   4   8   2   0   0   0   0   0   2 
-  0   0   1   0   0   0   1   0   0   1   2   2   2   2   0 
-  8   0   0   0   0   0   0   0   0   3   0   0   0   0   0 
-  0   1   1   0   0   0   0   0   0   1   0   0   0   0   0 
-  0   0   0   0   0   0   0   0   0   1   1   0   1   0   0 
-  0   0   5   0   2   0   0   0   0   0   0
+  0   1   0   0   0   3   0   3   0   0   0   0   1   0   0 
+  0   0   0   0   3   1   0   0   0   0   0   0   0   0   0 
+  0   0   0   2   0   0   0   0   0   0   0   1   0   0   1 
+  0   0   0   2   0   1   0   0   2   3   0   0   1   0   0 
+  1   7   2   1   7   2   2   1   0   4   0   0   0   0   0 
+  0   1   0   0   0   0   0   0   0   0   0   0   1   0   0 
+  1   0   0   0   2   0   0   0   0   6   0   0   1   3   1 
+  1   0   0   0   1   0   0   1   0   2   0   0   0   0   0 
+  0   0   1   0   0   0   0   5   0   0   0   0   0   0   1 
+  0   0   0   0   2   0   1   0   0   0   0   0   5   0   1 
+  0   0   0   0   0   2   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0
 
 No missing data for observation 1.
 
@@ -70,23 +85,38 @@ Nodes
  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60 
  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75 
  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90 
- 91  92  93  94  95  96  97  98  99 100 101
+ 91  92  93  94  95  96  97  98  99 100 101 102 103 104 105 
+106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 
+121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 
+136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 
+151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 
+166 167 168 169 170 171
 out-degrees
-  0   2   1   1   1   8   3   9   5   5   2   3   3   0  15 
-  4   7  14  15   8   6   7   3   2   0   2   2   4   2   1 
-  2   2   2   0   4   3   4   3   3   1   1   1   2   4   3 
- 15   0   2   1   0   1   0   1   1   7   0   0   0   2   0 
-  0   1   0   0   2   0   0   0   4   4   1   2   0   0   0 
-  0   0   0   1   0   0   2   1   0   2   3   1   3   2   0 
-  0   0   6   0   0   1   0   0   0   0   0
+  2   1   1   2   0   2   0   1   0   0   0   0   1   0   2 
+  0   0   2   0   1   2   2   0   0   1   4   0   2   1   0 
+  0   1   1   2   0   0   0   2   3   2   2   1   0   0   0 
+  2   2   0   0   3   0   2   7   0   2   4   4   2   2   2 
+  1   0   2   2   0   3   1   1   3   0   2   0   2   2   3 
+  2   1   2   2   3   1   4   3   5   2   3   1   1   1   1 
+  2   3   3   0   1   0   0   0   0   3   0   0   2   2   2 
+  1   2   1   0   1   1   0   4   0   0   2   1   1   3   2 
+  3   2   1   0   0   3   0   2   1   4   0   0   3   2   2 
+  0   0   1   2   1   1   2   1   0   2   0   1   2   0   1 
+  3   0   0   2   0   2   0   0   1   0   1   0   1   1   0 
+  0   0   0   0   0   0
 in-degrees
-  0   2   1   1   1   8   3   9   5   5   2   3   3   0  15 
-  4   7  14  15   8   6   7   3   2   0   2   2   4   2   1 
-  2   2   2   0   4   3   4   3   3   1   1   1   2   4   3 
- 15   0   2   1   0   1   0   1   1   7   0   0   0   2   0 
-  0   1   0   0   2   0   0   0   4   4   1   2   0   0   0 
-  0   0   0   1   0   0   2   1   0   2   3   1   3   2   0 
-  0   0   6   0   0   1   0   0   0   0   0
+  0   1   0   0   1   7   1   5   0   0   0   0   5   1   3 
+  0   0   0   0  13   5   0   0   0   1   2   1   0   0   0 
+  2   2   0   1   0   0   0   0   0   1   1   7   0   1   0 
+  0   0   0   2   1   0   0   1   1   4   4   3   1   2   1 
+  1  11   2   3  10   9   3   4   3   2   0   0   0   0   0 
+  0   0   0   0   0   0   0   1   0   1   0   0   0   0   0 
+  1   1   0   0   2   0   0   1   0   7   0   3   0   3   2 
+  1   3   0   0   3   0   1   3   0   1   0   2   0   0   0 
+  4   1   2   0   0   0   0   8   0   1   0   0   0   0   1 
+  0   1   3   0   3   0   1   1   0   0   0   0  13   0   0 
+  0   0   0   1   0   7   0   0   0   0   0   0   0   0   0 
+  0   0   0   0   0   0
 
 No missing data for observation 2.
 
@@ -97,36 +127,40 @@ No missing data for observation 2.
 Reading constant actor covariates.
 ----------------------------------
 
-3 variables, named:
+4 variables, named:
 adjusted_career_age 
-prestige_h_index 
+prestige_index  
 h_index         
+genderdich      
 
-A total of 3 non-changing individual covariates.
+A total of 4 non-changing individual covariates.
 
 Number of missing cases:
 adjusted_career_age 0 	( 0.0 %)
-prestige_h_index 0 	( 0.0 %)
+prestige_index  0 	( 0.0 %)
 h_index         0 	( 0.0 %)
+genderdich      6 	( 3.5 %)
 
 Information about covariates:
               minimum  maximum	  mean  centered 
-adjusted_career_age      1.0    36.0     12.683    Y 
-prestige_h_index      0.0     2.6      1.092    Y 
-h_index         0.0    51.0      9.178    Y 
+adjusted_career_age      1.0    49.0     15.468    Y 
+prestige_index      0.0     5.0      0.954    Y 
+h_index         0.0   139.0     14.211    Y 
+genderdich      0.0     1.0      0.448    Y 
 The mean values are subtracted from the covariates.
 
 
 
 The mean structural dissimilarity value subtracted in the
-balance calculations is         0.0231.
+balance calculations is         0.0062.
 
 For the similarity variable calculated from each actor covariate,
 the mean is subtracted.
 These means are:
-Similarity adjusted_career_age      :       0.6596 
-Similarity prestige_h_index         :       0.7786 
-Similarity h_index                  :       0.8138 
+Similarity adjusted_career_age      :       0.7114 
+Similarity prestige_index           :       0.8501 
+Similarity h_index                  :       0.8784 
+Similarity genderdich               :       0.5023 
 
 
 
@@ -140,36 +174,30 @@ Change in networks:
 -------------------
 
 For the following statistics, missing values (if any) are not counted.
-Both  observed networks are symmetric.
-Therefore, it is assumed that this is an analysis of an non-directed relation.
 
 Network density indicators:
 observation time              1      2
-density                    0.012  0.023
-average degree             1.228  2.337
-number of ties                62    118
+density                    0.003  0.007
+average degree             0.532  1.240
+number of ties                91    212
 missing fraction           0.000  0.000
 
-The average degree is 1.782 
+The average degree is 0.886 
 
 
-Edge changes between subsequent observations:
+Tie changes between subsequent observations:
  periods        0 =>  0   0 =>  1   1 =>  0   1 =>  1   Distance Jaccard   Missing
-  1 ==>   2      4908        80        24        38       208     0.268         0 (0%)
-
-The distances reported in the output file for conditional estimation
- for the network variable refer to the total symmetric adjacency matrix,
- and therefore are double the distance reported above.)
+  1 ==>   2     28816       163        42        49       205     0.193         0 (0%)
 
 Directed dyad Counts:
  observation    total    mutual    asymm.     null
-     1.         10100      124         0      9976
-     2.         10100      236         0      9864
+     1.         29070       24       134     28912
+     2.         29070       40       344     28686
 
 Standard values for initial parameter values
 -------------------------------------------------
 
-basic rate parameter net                4.1632 
-degree (density)                                  -1.4815 
+basic rate parameter net                2.4129 
+outdegree (density)                               -1.5694 
 
 Initialisation of project <<./results/rsienatestmodel1>> executed succesfully.

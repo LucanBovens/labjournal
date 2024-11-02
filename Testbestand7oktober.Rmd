@@ -592,6 +592,3 @@ anstest3 <- siena07(myAlgorithm, data = siena_data, effects = myeff_test2, retur
 anstest3
 ```
 
-```{r}
-```
-

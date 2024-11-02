@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lucan Bovens" />
+
+<meta name="date" content="2024-11-01" />
+
+<title>Final data and methods</title>
+
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 1</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="lab1.html">Example plage</a>
+        </li>
+        <li>
+          <a href="Week1_LB.html">Research Questions</a>
+        </li>
+        <li>
+          <a href="Week1_TutorialA.html">Tutorial</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 2</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week2_LB.html">Introduction</a>
+        </li>
+        <li>
+          <a href="Week2AssignmentClass.html">In-class assignment: Matrixes and measures</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 3</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction (revised)</a>
+        </li>
+        <li>
+          <a href="Week3AssignmentClass.html">Web-scraping &amp; OpenAlex</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 4</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week3_LB.html">Introduction &amp; theory? (revised)</a>
+        </li>
+        <li>
+          <a href="Week4AssignmentClass.html">In-class assignment: chapter 9</a>
+        </li>
+        <li>
+          <a href="Week4Visualization.html">Visualization</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Week 5</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="Week5_RSienaTutorial.html">RSiena Tutorial</a>
+        </li>
+        <li>
+          <a href="Week5_RSienaExample.html">RSiena Example (in-class)</a>
+        </li>
+        <li>
+          <a href="testbestand8oktoberrsienatest.html">RSiena test (SNASS: error)</a>
+        </li>
+        <li>
+          <a href="Testbestand7oktober.html">RSiena own data</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Concept Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="ConceptIntroduction_LB.html">Introduction</a>
+    </li>
+    <li>
+      <a href="ConceptTheory_LB.html">Theory</a>
+    </li>
+    <li>
+      <a href="ConceptData_LB.html">Data</a>
+    </li>
+    <li class="dropdown-header">Results</li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final Report
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="FinalIntroduction_LB.html">Introduction</a>
+    </li>
+    <li>
+      <a href="FinalTheory_LB.html">Theory</a>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Data</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="FinalDataMethods_LB.html">Methods</a>
+        </li>
+        <li>
+          <a href="FinalDataPreparation_LB.html">Data preparation</a>
+        </li>
+        <li>
+          <a href="FinalDataDescriptives_LB.html">Data descriptives</a>
+        </li>
+      </ul>
+    </li>
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Results</a>
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="FinalResultsDescriptives_LB.html">Results descriptives</a>
+        </li>
+        <li>
+          <a href="FinalRSienaModels_LB.html">RSiena models</a>
+        </li>
+        <li>
+          <a href="FinalRSienaGOF_LB.html">RSiena goodness of fit</a>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <a href="FinalConclusion_LB.html">Conclusion</a>
+    </li>
+    <li>
+      <a href="FinalReferences_LB.html">References</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lucanbovens.github.io/labjournal/">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Final data and methods</h1>
+<h4 class="author">Lucan Bovens</h4>
+<h4 class="date">2024-11-01</h4>
+
+</div>
+
+
+<style>
+div {
+text-align: justify}
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<p>Last compiled on November, 2024</p>
+<p><br></p>
+<hr />
+<div id="data" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Data</h1>
+<p>The data used originates from collaboration data of researchers from
+the sociology departments of three Dutch universities. This selection is
+part of a larger dataset examining collaborations between researchers of
+sociology and political science departments across universities where
+these fields are present. This broader dataset, which is the first step
+of the collection for this paper, was collected through web scraping.
+Based on the staff lists on the university websites, the names,
+departments and positions were collected per researcher. Researchers’
+Google Scholar IDs were then added to the dataset. This data was
+collected for two different years, specifically 2022 and 2024, allowing
+for the observation of changes over time.<br />
+  The next step involved the use of OpenAlex, an online catalog that
+tracks authors and their published articles. OpenAlex also records
+co-authors for each publication, making it possible, through web
+scraping, to identify which authors collaborate. The authors’ works were
+then integrated into the existing dataset, resulting in a dataset
+comprising both personal information of the authors and their published
+works.<br />
+  Finally, I chose to include only sociologists from the Radboud
+University, the University of Groningen, and Utrecht University. This
+choice was made for three reasons: the first was to have a sufficiently
+large sample for the analyses, and the second was due to the fact that,
+in the Netherlands, collaboration often occurs between the same
+departments across different universities, meaning that isolated cases
+are less likely. The final reason was that sociologists share the same
+academic context regardless of university; they generally publish in the
+same journals and hold the same standards, which I expect leads to
+comparable prestige across departments. In contrast, comparing different
+departments might introduce more discrepancies in terms of context and
+perception of prestige.<br />
+  As such, the final dataset consists of a sample of xxx sociologists.
+From the University of Groningen, there are xxx in wave 1 and xxx in
+wave 2, for Radboud University xxx in wave 1 and xxx in wave 2, and for
+Utrecht University xxx in wave 1 and xxx in wave 2. These waves are
+based on the publication years of the articles rather than the data
+collection timeline. The first wave covers 2015-2018, and the second
+wave spans 2019-2023, with each wave representing a four-year period. As
+mentioned, the data makes it possible to determine whether authors have
+collaborated on a publication. These waves essentially represent two
+collaboration networks, where a tie represents authors who have
+published together. The networks are directed using a “first-author”
+approach, allowing for analysis of who sends and receives ties. The
+“first” form assumes that the first author listed on a paper initiates a
+tie to the other authors.<br />
+  Before discussing the variables used, I would like to address the
+ethics surrounding web scraping and the principle of Open Science. As
+this study may reveal “hidden” dynamics within a social network that are
+not typically captured with standard data, this raises questions
+regarding ethical aspects. All web-scraped data is publicly available
+online for anyone to access. No private information was collected or
+used in the data analysis. To ensure transparency and replicability of
+the study, the method for data collection is documented in both this lab
+journal and my GitHub repository.<br />
+</p>
+<div id="dependent-variable" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Dependent
+variable</h2>
+<p>  Since the aim of this study is to investigate whether prestige
+matters in choosing whom to work together with, it is this formation of
+collaboration ties between scholars that is the dependent variable. This
+variable is then represented by an adjacency matrix for both waves, with
+the first wave representing the publication network of 2015-2018 and the
+second wave of 2019-2023. For the adjacency matrices, a score of 1
+indicates a tie between two scholars, meaning they have collaborated on
+a publication, while a 0 means they have not collaborated. Since it is
+expected that the first author initiated the collaboration to work on
+the paper, the networks are directed accordingly, as discussed above. It
+is expected that these ties, once established, are not removed, since
+that would mean the paper had to be withdrawn after publication.<br />
+</p>
+</div>
+<div id="independent-variable" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Independent
+variable</h2>
+<p>  The independent variable in this paper is the prestige of an
+author. As mentioned earlier, prestige is a complex concept, which can
+encompass many aspects. It is also potentially subjective, with some
+valuing certain elements or traits over others. However, some objective
+ways to measure prestige do exist, with the h-index being especially
+notable. The h-index is a metric used to represent both the impact and
+productivity of an author. It measures prestige more accurately than the
+total number of publications, as the latter does not indicate impact.
+Additionally, the h-index “weeds out” the possible influence of a select
+few highly-cited articles. The h-index namely measures an author’s
+prestige by calculating the number of publications that have been cited
+at least as many times as the total number of their publications. As
+explained by the creator of the h-index, ” A scientist has index h if h
+of his or her Np papers have at least h citations each and the other (Np
+- h) papers have ≤h citations each.” (Hirsch, source xx).<br />
+  OpenAlex keeps track of the h-index for all authors, and as such, I
+webscraped the h-index of all scholars in the dataset. One limitation of
+the h-index, however, is that it does not consider a scholar’s career
+length. Following an approach by Alonso, Cabrerizo, Herrera-Viedma &amp;
+Herrera (2009), I created a new prestige index by dividing the h-index
+by the logarithm of the scholar’s career age of each author. The career
+age data was gathered using a method by Koen Lucas and career age was
+then calculated by subtracting the year of a scholar’s first publication
+from 2024. For scholars with a career age of 0, I changed this to 1 to
+avoid dividing by zero. By dividing the h-index by career age, an author
+with more years in academia does not necessarily have a much higher
+h-index than scholars who had not yet had a lengthy career. The
+logarithmic scaling then smoots the effect of career length. As such,
+junior scholars are not punished by their short career lengths, while
+senior scholars are not disproportionately punished for having longer
+career lengths.<br />
+</p>
+</div>
+<div id="control-variable" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Control variable</h2>
+<p>  Next to prestige, it is possible that other factors play a role in
+determining who to work with, and one of the biggest such factors is
+gender. Therefore, I have added gender as a control variable. For this,
+I used a gender scraper based on the Dutch Nederlandse Voornamenbank
+(the Dutch names database, MeertensInstituut, n.d.). This gender scraper
+was developed by Niels Vullings. The gender scraper gave the percentage
+chance that a name is either male or female. For simplicity’s sake, I
+created a dichotomized variable, where each name with a 50% or greater
+likelihood of being female was assigned as female, and less than 50% was
+assigned as male.<br />
+</p>
+</div>
+<div id="rstudio" class="section level2" number="1.4">
+<h2><span class="header-section-number">1.4</span> RStudio</h2>
+<p>  [Description of which packages are used and for what purpose]
+needed?<br />
+</p>
+</div>
+<div id="analytical-strategy" class="section level2" number="1.5">
+<h2><span class="header-section-number">1.5</span> Analytical
+strategy</h2>
+<p>  To answer the research questions and test the hypotheses, I will
+perform two kinds of analysis. The first is a more descriptive approach
+and will be used to get an overview of the network’s structural
+characteristics. The second analysis has a more analytical nature, which
+will be used to get a better understanding of which dynamics may lead to
+collaboration among scholars. As such, with this two-folded approach I
+will be able to answer both the descriptive as well as the explanatory
+research questions.<br />
+  Hypotheses 2 and 3 will be analyzed with the use of network
+visualization. In these visualizations, the nodes represent the
+scholars, while the edges represent whether a co-authorship tie exists.
+The direction of the edges, following the assumption made above,
+indicates which scholar has initiated the collaboration. While the
+visualization of a network does not yet provide concrete figures about
+what effects exist, mapping the network does make it possible to see the
+structure of the network and thus allows the identifying of clusters and
+the possible existence of hubs around certain scholars. Some key network
+statistics, such as density, degree, transitivity, and a clustering
+coefficient, will be used to apply some figures to the plots.
+Furthermore, I will look at both a dyad census and a triad census for
+the network. Finally, it is possible to check for changes over time. As
+such, I will compare the network statistics of wave 1 and wave 2 to
+check whether a change in the degree of, for example, clustering has
+taken place over time, which can signal an evolving role of
+prestige.<br />
+  For hypotheses 1 and 4, regarding the influence of prestige on tie
+formation, I will use RSiena models, using the R package with the same
+name. RSiena simulates network evolution through a Stochastic Actor
+Oriented Model (SAOM). Through this SAOM, it is assumed that actors make
+several mini-steps actors to form ties, where each time just one
+randomly selected actor is allowed to make such a mini-step. This one
+actor then ‘decides’ whether they would like to maintain, create or
+abandon just one tie at a time, and evaluates the network. Afterwards,
+the next randomly selected actor goes through the same process. These
+decisions are then influenced by both the variables added to the model,
+such as prestige and gender, as well as through several structural
+network variables, such as transitivity, degree, and reciprocity.
+Finally, by simulating multiple of these mini-steps, which is needed due
+to the non-deterministic sequential nature of the mini-steps, it is
+estimated how the variables in the model affect how ties form within the
+network. Xxx hier nog iets over attractiveness en evaluation function?
+xxx<br />
+  As mentioned, several structural network effects, will be added to the
+models as well. These structural effects can be seen as independent
+variables, functioning as network statistics and refer to the tendencies
+of the actors within the network to form specific types of ties, such as
+closing triads. These structural effects occur regardless of individual
+attributes.<br />
+</p>
+</div>
+<div id="model-estimation" class="section level2" number="1.6">
+<h2><span class="header-section-number">1.6</span> Model estimation</h2>
+<p>  AANPASSEN!! The RSiena analysis will actually consist of multiple
+models. At first, the analysis will start with a null model. This null
+model will only include the density and reciprocity structural effects,
+as this is a standard setting within RSiena. Model 1 will contain the
+necessary structural effects for the analysis, such as xxx and xxx.
+Then, Model 2 contains the covariate effect of prestige (plus network
+statistic?). In Model 3 the covariate effect of gender will be added, to
+serve as a control variable. Model 4 then functions as the full model,
+in which all covariate effects and necessary structural effects are
+added. Finally, goodness of fit tests will be applied to the models to
+check whether the xxx.<br />
+ <br />
+ </p>
+<hr />
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWwgZGF0YSBhbmQgbWV0aG9kcyIKb3V0cHV0OiBodG1sX2RvY3VtZW50CmRhdGU6ICIyMDI0LTExLTAxIgpiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliCmF1dGhvcjogIkx1Y2FuIEJvdmVucyIKLS0tCgpgYGB7PWh0bWx9CjxzdHlsZT4KZGl2IHsKdGV4dC1hbGlnbjoganVzdGlmeX0KPC9zdHlsZT4KYGBgCgpgYGB7ciwgZ2xvYmFsc2V0dGluZ3MsIGVjaG89RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQpsaWJyYXJ5KGtuaXRyKQoKa25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkKb3B0aW9ucyh3aWR0aCA9IDEwMCkKcmdsOjpzZXR1cEtuaXRyKCkKCgoKY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0KCmBgYAoKYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpCiNrbGlwcHk6OmtsaXBweShjb2xvciA9ICdkYXJrcmVkJykKI2tsaXBweTo6a2xpcHB5KHRvb2x0aXBfbWVzc2FnZSA9ICdDbGljayB0byBjb3B5JywgdG9vbHRpcF9zdWNjZXNzID0gJ0RvbmUnKQpgYGAKCkxhc3QgY29tcGlsZWQgb24gYHIgZm9ybWF0KFN5cy50aW1lKCksICclQiwgJVknKWAKCjxicj4KCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCmBgYAoKLS0tLQoKIyBEYXRhCgpUaGUgZGF0YSB1c2VkIG9yaWdpbmF0ZXMgZnJvbSBjb2xsYWJvcmF0aW9uIGRhdGEgb2YgcmVzZWFyY2hlcnMgZnJvbSB0aGUgc29jaW9sb2d5IGRlcGFydG1lbnRzIG9mIHRocmVlIER1dGNoIHVuaXZlcnNpdGllcy4gVGhpcyBzZWxlY3Rpb24gaXMgcGFydCBvZiBhIGxhcmdlciBkYXRhc2V0IGV4YW1pbmluZyBjb2xsYWJvcmF0aW9ucyBiZXR3ZWVuIHJlc2VhcmNoZXJzIG9mIHNvY2lvbG9neSBhbmQgcG9saXRpY2FsIHNjaWVuY2UgZGVwYXJ0bWVudHMgYWNyb3NzIHVuaXZlcnNpdGllcyB3aGVyZSB0aGVzZSBmaWVsZHMgYXJlIHByZXNlbnQuIFRoaXMgYnJvYWRlciBkYXRhc2V0LCB3aGljaCBpcyB0aGUgZmlyc3Qgc3RlcCBvZiB0aGUgY29sbGVjdGlvbiBmb3IgdGhpcyBwYXBlciwgd2FzIGNvbGxlY3RlZCB0aHJvdWdoIHdlYiBzY3JhcGluZy4gQmFzZWQgb24gdGhlIHN0YWZmIGxpc3RzIG9uIHRoZSB1bml2ZXJzaXR5IHdlYnNpdGVzLCB0aGUgbmFtZXMsIGRlcGFydG1lbnRzIGFuZCBwb3NpdGlvbnMgd2VyZSBjb2xsZWN0ZWQgcGVyIHJlc2VhcmNoZXIuIFJlc2VhcmNoZXJzJyBHb29nbGUgU2Nob2xhciBJRHMgd2VyZSB0aGVuIGFkZGVkIHRvIHRoZSBkYXRhc2V0LiBUaGlzIGRhdGEgd2FzIGNvbGxlY3RlZCBmb3IgdHdvIGRpZmZlcmVudCB5ZWFycywgc3BlY2lmaWNhbGx5IDIwMjIgYW5kIDIwMjQsIGFsbG93aW5nIGZvciB0aGUgb2JzZXJ2YXRpb24gb2YgY2hhbmdlcyBvdmVyIHRpbWUuIFwK4oCDICAgVGhlIG5leHQgc3RlcCBpbnZvbHZlZCB0aGUgdXNlIG9mIE9wZW5BbGV4LCBhbiBvbmxpbmUgY2F0YWxvZyB0aGF0IHRyYWNrcyBhdXRob3JzIGFuZCB0aGVpciBwdWJsaXNoZWQgYXJ0aWNsZXMuIE9wZW5BbGV4IGFsc28gcmVjb3JkcyBjby1hdXRob3JzIGZvciBlYWNoIHB1YmxpY2F0aW9uLCBtYWtpbmcgaXQgcG9zc2libGUsIHRocm91Z2ggd2ViIHNjcmFwaW5nLCB0byBpZGVudGlmeSB3aGljaCBhdXRob3JzIGNvbGxhYm9yYXRlLiBUaGUgYXV0aG9yc+KAmSB3b3JrcyB3ZXJlIHRoZW4gaW50ZWdyYXRlZCBpbnRvIHRoZSBleGlzdGluZyBkYXRhc2V0LCByZXN1bHRpbmcgaW4gYSBkYXRhc2V0IGNvbXByaXNpbmcgYm90aCBwZXJzb25hbCBpbmZvcm1hdGlvbiBvZiB0aGUgYXV0aG9ycyBhbmQgdGhlaXIgcHVibGlzaGVkIHdvcmtzLiBcCuKAgyAgIEZpbmFsbHksIEkgY2hvc2UgdG8gaW5jbHVkZSBvbmx5IHNvY2lvbG9naXN0cyBmcm9tIHRoZSBSYWRib3VkIFVuaXZlcnNpdHksIHRoZSBVbml2ZXJzaXR5IG9mIEdyb25pbmdlbiwgYW5kIFV0cmVjaHQgVW5pdmVyc2l0eS4gVGhpcyBjaG9pY2Ugd2FzIG1hZGUgZm9yIHRocmVlIHJlYXNvbnM6IHRoZSBmaXJzdCB3YXMgdG8gaGF2ZSBhIHN1ZmZpY2llbnRseSBsYXJnZSBzYW1wbGUgZm9yIHRoZSBhbmFseXNlcywgYW5kIHRoZSBzZWNvbmQgd2FzIGR1ZSB0byB0aGUgZmFjdCB0aGF0LCBpbiB0aGUgTmV0aGVybGFuZHMsIGNvbGxhYm9yYXRpb24gb2Z0ZW4gb2NjdXJzIGJldHdlZW4gdGhlIHNhbWUgZGVwYXJ0bWVudHMgYWNyb3NzIGRpZmZlcmVudCB1bml2ZXJzaXRpZXMsIG1lYW5pbmcgdGhhdCBpc29sYXRlZCBjYXNlcyBhcmUgbGVzcyBsaWtlbHkuIFRoZSBmaW5hbCByZWFzb24gd2FzIHRoYXQgc29jaW9sb2dpc3RzIHNoYXJlIHRoZSBzYW1lIGFjYWRlbWljIGNvbnRleHQgcmVnYXJkbGVzcyBvZiB1bml2ZXJzaXR5OyB0aGV5IGdlbmVyYWxseSBwdWJsaXNoIGluIHRoZSBzYW1lIGpvdXJuYWxzIGFuZCBob2xkIHRoZSBzYW1lIHN0YW5kYXJkcywgd2hpY2ggSSBleHBlY3QgbGVhZHMgdG8gY29tcGFyYWJsZSBwcmVzdGlnZSBhY3Jvc3MgZGVwYXJ0bWVudHMuIEluIGNvbnRyYXN0LCBjb21wYXJpbmcgZGlmZmVyZW50IGRlcGFydG1lbnRzIG1pZ2h0IGludHJvZHVjZSBtb3JlIGRpc2NyZXBhbmNpZXMgaW4gdGVybXMgb2YgY29udGV4dCBhbmQgcGVyY2VwdGlvbiBvZiBwcmVzdGlnZS4gXArigIMgICBBcyBzdWNoLCB0aGUgZmluYWwgZGF0YXNldCBjb25zaXN0cyBvZiBhIHNhbXBsZSBvZiB4eHggc29jaW9sb2dpc3RzLiBGcm9tIHRoZSBVbml2ZXJzaXR5IG9mIEdyb25pbmdlbiwgdGhlcmUgYXJlIHh4eCBpbiB3YXZlIDEgYW5kIHh4eCBpbiB3YXZlIDIsIGZvciBSYWRib3VkIFVuaXZlcnNpdHkgeHh4IGluIHdhdmUgMSBhbmQgeHh4IGluIHdhdmUgMiwgYW5kIGZvciBVdHJlY2h0IFVuaXZlcnNpdHkgeHh4IGluIHdhdmUgMSBhbmQgeHh4IGluIHdhdmUgMi4gVGhlc2Ugd2F2ZXMgYXJlIGJhc2VkIG9uIHRoZSBwdWJsaWNhdGlvbiB5ZWFycyBvZiB0aGUgYXJ0aWNsZXMgcmF0aGVyIHRoYW4gdGhlIGRhdGEgY29sbGVjdGlvbiB0aW1lbGluZS4gVGhlIGZpcnN0IHdhdmUgY292ZXJzIDIwMTUtMjAxOCwgYW5kIHRoZSBzZWNvbmQgd2F2ZSBzcGFucyAyMDE5LTIwMjMsIHdpdGggZWFjaCB3YXZlIHJlcHJlc2VudGluZyBhIGZvdXIteWVhciBwZXJpb2QuIEFzIG1lbnRpb25lZCwgdGhlIGRhdGEgbWFrZXMgaXQgcG9zc2libGUgdG8gZGV0ZXJtaW5lIHdoZXRoZXIgYXV0aG9ycyBoYXZlIGNvbGxhYm9yYXRlZCBvbiBhIHB1YmxpY2F0aW9uLiBUaGVzZSB3YXZlcyBlc3NlbnRpYWxseSByZXByZXNlbnQgdHdvIGNvbGxhYm9yYXRpb24gbmV0d29ya3MsIHdoZXJlIGEgdGllIHJlcHJlc2VudHMgYXV0aG9ycyB3aG8gaGF2ZSBwdWJsaXNoZWQgdG9nZXRoZXIuIFRoZSBuZXR3b3JrcyBhcmUgZGlyZWN0ZWQgdXNpbmcgYSAiZmlyc3QtYXV0aG9yIiBhcHByb2FjaCwgYWxsb3dpbmcgZm9yIGFuYWx5c2lzIG9mIHdobyBzZW5kcyBhbmQgcmVjZWl2ZXMgdGllcy4gVGhlICJmaXJzdCIgZm9ybSBhc3N1bWVzIHRoYXQgdGhlIGZpcnN0IGF1dGhvciBsaXN0ZWQgb24gYSBwYXBlciBpbml0aWF0ZXMgYSB0aWUgdG8gdGhlIG90aGVyIGF1dGhvcnMuIFwK4oCDICAgQmVmb3JlIGRpc2N1c3NpbmcgdGhlIHZhcmlhYmxlcyB1c2VkLCBJIHdvdWxkIGxpa2UgdG8gYWRkcmVzcyB0aGUgZXRoaWNzIHN1cnJvdW5kaW5nIHdlYiBzY3JhcGluZyBhbmQgdGhlIHByaW5jaXBsZSBvZiBPcGVuIFNjaWVuY2UuIEFzIHRoaXMgc3R1ZHkgbWF5IHJldmVhbCAiaGlkZGVuIiBkeW5hbWljcyB3aXRoaW4gYSBzb2NpYWwgbmV0d29yayB0aGF0IGFyZSBub3QgdHlwaWNhbGx5IGNhcHR1cmVkIHdpdGggc3RhbmRhcmQgZGF0YSwgdGhpcyByYWlzZXMgcXVlc3Rpb25zIHJlZ2FyZGluZyBldGhpY2FsIGFzcGVjdHMuIEFsbCB3ZWItc2NyYXBlZCBkYXRhIGlzIHB1YmxpY2x5IGF2YWlsYWJsZSBvbmxpbmUgZm9yIGFueW9uZSB0byBhY2Nlc3MuIE5vIHByaXZhdGUgaW5mb3JtYXRpb24gd2FzIGNvbGxlY3RlZCBvciB1c2VkIGluIHRoZSBkYXRhIGFuYWx5c2lzLiBUbyBlbnN1cmUgdHJhbnNwYXJlbmN5IGFuZCByZXBsaWNhYmlsaXR5IG9mIHRoZSBzdHVkeSwgdGhlIG1ldGhvZCBmb3IgZGF0YSBjb2xsZWN0aW9uIGlzIGRvY3VtZW50ZWQgaW4gYm90aCB0aGlzIGxhYiBqb3VybmFsIGFuZCBteSBHaXRIdWIgcmVwb3NpdG9yeS4gXAoKIyMgRGVwZW5kZW50IHZhcmlhYmxlCuKAgyAgIFNpbmNlIHRoZSBhaW0gb2YgdGhpcyBzdHVkeSBpcyB0byBpbnZlc3RpZ2F0ZSB3aGV0aGVyIHByZXN0aWdlIG1hdHRlcnMgaW4gY2hvb3Npbmcgd2hvbSB0byB3b3JrIHRvZ2V0aGVyIHdpdGgsIGl0IGlzIHRoaXMgZm9ybWF0aW9uIG9mIGNvbGxhYm9yYXRpb24gdGllcyBiZXR3ZWVuIHNjaG9sYXJzIHRoYXQgaXMgdGhlIGRlcGVuZGVudCB2YXJpYWJsZS4gVGhpcyB2YXJpYWJsZSBpcyB0aGVuIHJlcHJlc2VudGVkIGJ5IGFuIGFkamFjZW5jeSBtYXRyaXggZm9yIGJvdGggd2F2ZXMsIHdpdGggdGhlIGZpcnN0IHdhdmUgcmVwcmVzZW50aW5nIHRoZSBwdWJsaWNhdGlvbiBuZXR3b3JrIG9mIDIwMTUtMjAxOCBhbmQgdGhlIHNlY29uZCB3YXZlIG9mIDIwMTktMjAyMy4gRm9yIHRoZSBhZGphY2VuY3kgbWF0cmljZXMsIGEgc2NvcmUgb2YgMSBpbmRpY2F0ZXMgYSB0aWUgYmV0d2VlbiB0d28gc2Nob2xhcnMsIG1lYW5pbmcgdGhleSBoYXZlIGNvbGxhYm9yYXRlZCBvbiBhIHB1YmxpY2F0aW9uLCB3aGlsZSBhIDAgbWVhbnMgdGhleSBoYXZlIG5vdCBjb2xsYWJvcmF0ZWQuIFNpbmNlIGl0IGlzIGV4cGVjdGVkIHRoYXQgdGhlIGZpcnN0IGF1dGhvciBpbml0aWF0ZWQgdGhlIGNvbGxhYm9yYXRpb24gdG8gd29yayBvbiB0aGUgcGFwZXIsIHRoZSBuZXR3b3JrcyBhcmUgZGlyZWN0ZWQgYWNjb3JkaW5nbHksIGFzIGRpc2N1c3NlZCBhYm92ZS4gSXQgaXMgZXhwZWN0ZWQgdGhhdCB0aGVzZSB0aWVzLCBvbmNlIGVzdGFibGlzaGVkLCBhcmUgbm90IHJlbW92ZWQsIHNpbmNlIHRoYXQgd291bGQgbWVhbiB0aGUgcGFwZXIgaGFkIHRvIGJlIHdpdGhkcmF3biBhZnRlciBwdWJsaWNhdGlvbi4gXAoKIyMgSW5kZXBlbmRlbnQgdmFyaWFibGUK4oCDICAgVGhlIGluZGVwZW5kZW50IHZhcmlhYmxlIGluIHRoaXMgcGFwZXIgaXMgdGhlIHByZXN0aWdlIG9mIGFuIGF1dGhvci4gQXMgbWVudGlvbmVkIGVhcmxpZXIsIHByZXN0aWdlIGlzIGEgY29tcGxleCBjb25jZXB0LCB3aGljaCBjYW4gZW5jb21wYXNzIG1hbnkgYXNwZWN0cy4gSXQgaXMgYWxzbyBwb3RlbnRpYWxseSBzdWJqZWN0aXZlLCB3aXRoIHNvbWUgdmFsdWluZyBjZXJ0YWluIGVsZW1lbnRzIG9yIHRyYWl0cyBvdmVyIG90aGVycy4gSG93ZXZlciwgc29tZSBvYmplY3RpdmUgd2F5cyB0byBtZWFzdXJlIHByZXN0aWdlIGRvIGV4aXN0LCB3aXRoIHRoZSBoLWluZGV4IGJlaW5nIGVzcGVjaWFsbHkgbm90YWJsZS4gVGhlIGgtaW5kZXggaXMgYSBtZXRyaWMgdXNlZCB0byByZXByZXNlbnQgYm90aCB0aGUgaW1wYWN0IGFuZCBwcm9kdWN0aXZpdHkgb2YgYW4gYXV0aG9yLiBJdCBtZWFzdXJlcyBwcmVzdGlnZSBtb3JlIGFjY3VyYXRlbHkgdGhhbiB0aGUgdG90YWwgbnVtYmVyIG9mIHB1YmxpY2F0aW9ucywgYXMgdGhlIGxhdHRlciBkb2VzIG5vdCBpbmRpY2F0ZSBpbXBhY3QuIEFkZGl0aW9uYWxseSwgdGhlIGgtaW5kZXgg4oCcd2VlZHMgb3V04oCdIHRoZSBwb3NzaWJsZSBpbmZsdWVuY2Ugb2YgYSBzZWxlY3QgZmV3IGhpZ2hseS1jaXRlZCBhcnRpY2xlcy4gVGhlIGgtaW5kZXggbmFtZWx5IG1lYXN1cmVzIGFuIGF1dGhvcuKAmXMgcHJlc3RpZ2UgYnkgY2FsY3VsYXRpbmcgdGhlIG51bWJlciBvZiBwdWJsaWNhdGlvbnMgdGhhdCBoYXZlIGJlZW4gY2l0ZWQgYXQgbGVhc3QgYXMgbWFueSB0aW1lcyBhcyB0aGUgdG90YWwgbnVtYmVyIG9mIHRoZWlyIHB1YmxpY2F0aW9ucy4gQXMgZXhwbGFpbmVkIGJ5IHRoZSBjcmVhdG9yIG9mIHRoZSBoLWluZGV4LCAiIEEgc2NpZW50aXN0IGhhcyBpbmRleCBoIGlmIGggb2YgaGlzIG9yIGhlciBOcCBwYXBlcnMgaGF2ZSBhdCBsZWFzdCBoIGNpdGF0aW9ucyBlYWNoIGFuZCB0aGUgb3RoZXIgKE5wIC0gaCkgcGFwZXJzIGhhdmUg4omkaCBjaXRhdGlvbnMgZWFjaC4iIChIaXJzY2gsIHNvdXJjZSB4eCkuIFwK4oCDICAgT3BlbkFsZXgga2VlcHMgdHJhY2sgb2YgdGhlIGgtaW5kZXggZm9yIGFsbCBhdXRob3JzLCBhbmQgYXMgc3VjaCwgSSB3ZWJzY3JhcGVkIHRoZSBoLWluZGV4IG9mIGFsbCBzY2hvbGFycyBpbiB0aGUgZGF0YXNldC4gT25lIGxpbWl0YXRpb24gb2YgdGhlIGgtaW5kZXgsIGhvd2V2ZXIsIGlzIHRoYXQgaXQgZG9lcyBub3QgY29uc2lkZXIgYSBzY2hvbGFy4oCZcyBjYXJlZXIgbGVuZ3RoLiBGb2xsb3dpbmcgYW4gYXBwcm9hY2ggYnkgQWxvbnNvLCBDYWJyZXJpem8sIEhlcnJlcmEtVmllZG1hICYgSGVycmVyYSAoMjAwOSksIEkgY3JlYXRlZCBhIG5ldyBwcmVzdGlnZSBpbmRleCBieSBkaXZpZGluZyB0aGUgaC1pbmRleCBieSB0aGUgbG9nYXJpdGhtIG9mIHRoZSBzY2hvbGFyJ3MgY2FyZWVyIGFnZSBvZiBlYWNoIGF1dGhvci4gVGhlIGNhcmVlciBhZ2UgZGF0YSB3YXMgZ2F0aGVyZWQgdXNpbmcgYSBtZXRob2QgYnkgS29lbiBMdWNhcyBhbmQgY2FyZWVyIGFnZSB3YXMgdGhlbiBjYWxjdWxhdGVkIGJ5IHN1YnRyYWN0aW5nIHRoZSB5ZWFyIG9mIGEgc2Nob2xhcuKAmXMgZmlyc3QgcHVibGljYXRpb24gZnJvbSAyMDI0LiBGb3Igc2Nob2xhcnMgd2l0aCBhIGNhcmVlciBhZ2Ugb2YgMCwgSSBjaGFuZ2VkIHRoaXMgdG8gMSB0byBhdm9pZCBkaXZpZGluZyBieSB6ZXJvLiBCeSBkaXZpZGluZyB0aGUgaC1pbmRleCBieSBjYXJlZXIgYWdlLCBhbiBhdXRob3Igd2l0aCBtb3JlIHllYXJzIGluIGFjYWRlbWlhIGRvZXMgbm90IG5lY2Vzc2FyaWx5IGhhdmUgYSBtdWNoIGhpZ2hlciBoLWluZGV4IHRoYW4gc2Nob2xhcnMgd2hvIGhhZCBub3QgeWV0IGhhZCBhIGxlbmd0aHkgY2FyZWVyLiBUaGUgbG9nYXJpdGhtaWMgc2NhbGluZyB0aGVuIHNtb290cyB0aGUgZWZmZWN0IG9mIGNhcmVlciBsZW5ndGguIEFzIHN1Y2gsIGp1bmlvciBzY2hvbGFycyBhcmUgbm90IHB1bmlzaGVkIGJ5IHRoZWlyIHNob3J0IGNhcmVlciBsZW5ndGhzLCB3aGlsZSBzZW5pb3Igc2Nob2xhcnMgYXJlIG5vdCBkaXNwcm9wb3J0aW9uYXRlbHkgcHVuaXNoZWQgZm9yIGhhdmluZyBsb25nZXIgY2FyZWVyIGxlbmd0aHMuICBcCgojIyBDb250cm9sIHZhcmlhYmxlCuKAgyAgIE5leHQgdG8gcHJlc3RpZ2UsIGl0IGlzIHBvc3NpYmxlIHRoYXQgb3RoZXIgZmFjdG9ycyBwbGF5IGEgcm9sZSBpbiBkZXRlcm1pbmluZyB3aG8gdG8gd29yayB3aXRoLCBhbmQgb25lIG9mIHRoZSBiaWdnZXN0IHN1Y2ggZmFjdG9ycyBpcyBnZW5kZXIuIFRoZXJlZm9yZSwgSSBoYXZlIGFkZGVkIGdlbmRlciBhcyBhIGNvbnRyb2wgdmFyaWFibGUuIEZvciB0aGlzLCBJIHVzZWQgYSBnZW5kZXIgc2NyYXBlciBiYXNlZCBvbiB0aGUgRHV0Y2ggTmVkZXJsYW5kc2UgVm9vcm5hbWVuYmFuayAodGhlIER1dGNoIG5hbWVzIGRhdGFiYXNlLCBNZWVydGVuc0luc3RpdHV1dCwgbi5kLikuIFRoaXMgZ2VuZGVyIHNjcmFwZXIgd2FzIGRldmVsb3BlZCBieSBOaWVscyBWdWxsaW5ncy4gVGhlIGdlbmRlciBzY3JhcGVyIGdhdmUgdGhlIHBlcmNlbnRhZ2UgY2hhbmNlIHRoYXQgYSBuYW1lIGlzIGVpdGhlciBtYWxlIG9yIGZlbWFsZS4gRm9yIHNpbXBsaWNpdHnigJlzIHNha2UsIEkgY3JlYXRlZCBhIGRpY2hvdG9taXplZCB2YXJpYWJsZSwgd2hlcmUgZWFjaCBuYW1lIHdpdGggYSA1MCUgb3IgZ3JlYXRlciBsaWtlbGlob29kIG9mIGJlaW5nIGZlbWFsZSB3YXMgYXNzaWduZWQgYXMgZmVtYWxlLCBhbmQgbGVzcyB0aGFuIDUwJSB3YXMgYXNzaWduZWQgYXMgbWFsZS4gXAoKIyMgUlN0dWRpbwrigIMgICBbRGVzY3JpcHRpb24gb2Ygd2hpY2ggcGFja2FnZXMgYXJlIHVzZWQgYW5kIGZvciB3aGF0IHB1cnBvc2VdIG5lZWRlZD8gXAoKIyMgQW5hbHl0aWNhbCBzdHJhdGVneQrigIMgICBUbyBhbnN3ZXIgdGhlIHJlc2VhcmNoIHF1ZXN0aW9ucyBhbmQgdGVzdCB0aGUgaHlwb3RoZXNlcywgSSB3aWxsIHBlcmZvcm0gdHdvIGtpbmRzIG9mIGFuYWx5c2lzLiBUaGUgZmlyc3QgaXMgYSBtb3JlIGRlc2NyaXB0aXZlIGFwcHJvYWNoIGFuZCB3aWxsIGJlIHVzZWQgdG8gZ2V0IGFuIG92ZXJ2aWV3IG9mIHRoZSBuZXR3b3Jr4oCZcyBzdHJ1Y3R1cmFsIGNoYXJhY3RlcmlzdGljcy4gVGhlIHNlY29uZCBhbmFseXNpcyBoYXMgYSBtb3JlIGFuYWx5dGljYWwgbmF0dXJlLCB3aGljaCB3aWxsIGJlIHVzZWQgdG8gZ2V0IGEgYmV0dGVyIHVuZGVyc3RhbmRpbmcgb2Ygd2hpY2ggZHluYW1pY3MgbWF5IGxlYWQgdG8gY29sbGFib3JhdGlvbiBhbW9uZyBzY2hvbGFycy4gQXMgc3VjaCwgd2l0aCB0aGlzIHR3by1mb2xkZWQgYXBwcm9hY2ggSSB3aWxsIGJlIGFibGUgdG8gYW5zd2VyIGJvdGggdGhlIGRlc2NyaXB0aXZlIGFzIHdlbGwgYXMgdGhlIGV4cGxhbmF0b3J5IHJlc2VhcmNoIHF1ZXN0aW9ucy4gXArigIMgICBIeXBvdGhlc2VzIDIgYW5kIDMgd2lsbCBiZSBhbmFseXplZCB3aXRoIHRoZSB1c2Ugb2YgbmV0d29yayB2aXN1YWxpemF0aW9uLiBJbiB0aGVzZSB2aXN1YWxpemF0aW9ucywgdGhlIG5vZGVzIHJlcHJlc2VudCB0aGUgc2Nob2xhcnMsIHdoaWxlIHRoZSBlZGdlcyByZXByZXNlbnQgd2hldGhlciBhIGNvLWF1dGhvcnNoaXAgdGllIGV4aXN0cy4gVGhlIGRpcmVjdGlvbiBvZiB0aGUgZWRnZXMsIGZvbGxvd2luZyB0aGUgYXNzdW1wdGlvbiBtYWRlIGFib3ZlLCBpbmRpY2F0ZXMgd2hpY2ggc2Nob2xhciBoYXMgaW5pdGlhdGVkIHRoZSBjb2xsYWJvcmF0aW9uLiBXaGlsZSB0aGUgdmlzdWFsaXphdGlvbiBvZiBhIG5ldHdvcmsgZG9lcyBub3QgeWV0IHByb3ZpZGUgY29uY3JldGUgZmlndXJlcyBhYm91dCB3aGF0IGVmZmVjdHMgZXhpc3QsIG1hcHBpbmcgdGhlIG5ldHdvcmsgZG9lcyBtYWtlIGl0IHBvc3NpYmxlIHRvIHNlZSB0aGUgc3RydWN0dXJlIG9mIHRoZSBuZXR3b3JrIGFuZCB0aHVzIGFsbG93cyB0aGUgaWRlbnRpZnlpbmcgb2YgY2x1c3RlcnMgYW5kIHRoZSBwb3NzaWJsZSBleGlzdGVuY2Ugb2YgaHVicyBhcm91bmQgY2VydGFpbiBzY2hvbGFycy4gU29tZSBrZXkgbmV0d29yayBzdGF0aXN0aWNzLCBzdWNoIGFzIGRlbnNpdHksIGRlZ3JlZSwgdHJhbnNpdGl2aXR5LCBhbmQgYSBjbHVzdGVyaW5nIGNvZWZmaWNpZW50LCB3aWxsIGJlIHVzZWQgdG8gYXBwbHkgc29tZSBmaWd1cmVzIHRvIHRoZSBwbG90cy4gRnVydGhlcm1vcmUsIEkgd2lsbCBsb29rIGF0IGJvdGggYSBkeWFkIGNlbnN1cyBhbmQgYSB0cmlhZCBjZW5zdXMgZm9yIHRoZSBuZXR3b3JrLiBGaW5hbGx5LCBpdCBpcyBwb3NzaWJsZSB0byBjaGVjayBmb3IgY2hhbmdlcyBvdmVyIHRpbWUuIEFzIHN1Y2gsIEkgd2lsbCBjb21wYXJlIHRoZSBuZXR3b3JrIHN0YXRpc3RpY3Mgb2Ygd2F2ZSAxIGFuZCB3YXZlIDIgdG8gY2hlY2sgd2hldGhlciBhIGNoYW5nZSBpbiB0aGUgZGVncmVlIG9mLCBmb3IgZXhhbXBsZSwgY2x1c3RlcmluZyBoYXMgdGFrZW4gcGxhY2Ugb3ZlciB0aW1lLCB3aGljaCBjYW4gc2lnbmFsIGFuIGV2b2x2aW5nIHJvbGUgb2YgcHJlc3RpZ2UuIFwK4oCDIEZvciBoeXBvdGhlc2VzIDEgYW5kIDQsIHJlZ2FyZGluZyB0aGUgaW5mbHVlbmNlIG9mIHByZXN0aWdlIG9uIHRpZSBmb3JtYXRpb24sIEkgd2lsbCB1c2UgUlNpZW5hIG1vZGVscywgdXNpbmcgdGhlIFIgcGFja2FnZSB3aXRoIHRoZSBzYW1lIG5hbWUuIFJTaWVuYSBzaW11bGF0ZXMgbmV0d29yayBldm9sdXRpb24gdGhyb3VnaCBhIFN0b2NoYXN0aWMgQWN0b3IgT3JpZW50ZWQgTW9kZWwgKFNBT00pLiBUaHJvdWdoIHRoaXMgU0FPTSwgaXQgaXMgYXNzdW1lZCB0aGF0IGFjdG9ycyBtYWtlIHNldmVyYWwgbWluaS1zdGVwcyBhY3RvcnMgdG8gZm9ybSB0aWVzLCB3aGVyZSBlYWNoIHRpbWUganVzdCBvbmUgcmFuZG9tbHkgc2VsZWN0ZWQgYWN0b3IgaXMgYWxsb3dlZCB0byBtYWtlIHN1Y2ggYSBtaW5pLXN0ZXAuIFRoaXMgb25lIGFjdG9yIHRoZW4g4oCYZGVjaWRlc+KAmSB3aGV0aGVyIHRoZXkgd291bGQgbGlrZSB0byBtYWludGFpbiwgY3JlYXRlIG9yIGFiYW5kb24ganVzdCBvbmUgdGllIGF0IGEgdGltZSwgYW5kIGV2YWx1YXRlcyB0aGUgbmV0d29yay4gQWZ0ZXJ3YXJkcywgdGhlIG5leHQgcmFuZG9tbHkgc2VsZWN0ZWQgYWN0b3IgZ29lcyB0aHJvdWdoIHRoZSBzYW1lIHByb2Nlc3MuIFRoZXNlIGRlY2lzaW9ucyBhcmUgdGhlbiBpbmZsdWVuY2VkIGJ5IGJvdGggdGhlIHZhcmlhYmxlcyBhZGRlZCB0byB0aGUgbW9kZWwsIHN1Y2ggYXMgcHJlc3RpZ2UgYW5kIGdlbmRlciwgYXMgd2VsbCBhcyB0aHJvdWdoIHNldmVyYWwgc3RydWN0dXJhbCBuZXR3b3JrIHZhcmlhYmxlcywgc3VjaCBhcyB0cmFuc2l0aXZpdHksIGRlZ3JlZSwgYW5kIHJlY2lwcm9jaXR5LiBGaW5hbGx5LCBieSBzaW11bGF0aW5nIG11bHRpcGxlIG9mIHRoZXNlIG1pbmktc3RlcHMsIHdoaWNoIGlzIG5lZWRlZCBkdWUgdG8gdGhlIG5vbi1kZXRlcm1pbmlzdGljIHNlcXVlbnRpYWwgbmF0dXJlIG9mIHRoZSBtaW5pLXN0ZXBzLCBpdCBpcyBlc3RpbWF0ZWQgaG93IHRoZSB2YXJpYWJsZXMgaW4gdGhlIG1vZGVsIGFmZmVjdCBob3cgdGllcyBmb3JtIHdpdGhpbiB0aGUgbmV0d29yay4gWHh4IGhpZXIgbm9nIGlldHMgb3ZlciBhdHRyYWN0aXZlbmVzcyBlbiBldmFsdWF0aW9uIGZ1bmN0aW9uPyB4eHggXArigIMgICBBcyBtZW50aW9uZWQsIHNldmVyYWwgc3RydWN0dXJhbCBuZXR3b3JrIGVmZmVjdHMsIHdpbGwgYmUgYWRkZWQgdG8gdGhlIG1vZGVscyBhcyB3ZWxsLiBUaGVzZSBzdHJ1Y3R1cmFsIGVmZmVjdHMgY2FuIGJlIHNlZW4gYXMgaW5kZXBlbmRlbnQgdmFyaWFibGVzLCBmdW5jdGlvbmluZyBhcyBuZXR3b3JrIHN0YXRpc3RpY3MgYW5kIHJlZmVyIHRvIHRoZSB0ZW5kZW5jaWVzIG9mIHRoZSBhY3RvcnMgd2l0aGluIHRoZSBuZXR3b3JrIHRvIGZvcm0gc3BlY2lmaWMgdHlwZXMgb2YgdGllcywgc3VjaCBhcyBjbG9zaW5nIHRyaWFkcy4gVGhlc2Ugc3RydWN0dXJhbCBlZmZlY3RzIG9jY3VyIHJlZ2FyZGxlc3Mgb2YgaW5kaXZpZHVhbCBhdHRyaWJ1dGVzLiAgXAoKIyMgTW9kZWwgZXN0aW1hdGlvbgrigIMgICAgQUFOUEFTU0VOISEgVGhlIFJTaWVuYSBhbmFseXNpcyB3aWxsIGFjdHVhbGx5IGNvbnNpc3Qgb2YgbXVsdGlwbGUgbW9kZWxzLiBBdCBmaXJzdCwgdGhlIGFuYWx5c2lzIHdpbGwgc3RhcnQgd2l0aCBhIG51bGwgbW9kZWwuIFRoaXMgbnVsbCBtb2RlbCB3aWxsIG9ubHkgaW5jbHVkZSB0aGUgZGVuc2l0eSBhbmQgcmVjaXByb2NpdHkgc3RydWN0dXJhbCBlZmZlY3RzLCBhcyB0aGlzIGlzIGEgc3RhbmRhcmQgc2V0dGluZyB3aXRoaW4gUlNpZW5hLiBNb2RlbCAxIHdpbGwgY29udGFpbiB0aGUgbmVjZXNzYXJ5IHN0cnVjdHVyYWwgZWZmZWN0cyBmb3IgdGhlIGFuYWx5c2lzLCBzdWNoIGFzIHh4eCBhbmQgeHh4LiBUaGVuLCBNb2RlbCAyIGNvbnRhaW5zIHRoZSBjb3ZhcmlhdGUgZWZmZWN0IG9mIHByZXN0aWdlIChwbHVzIG5ldHdvcmsgc3RhdGlzdGljPykuIEluIE1vZGVsIDMgdGhlIGNvdmFyaWF0ZSBlZmZlY3Qgb2YgZ2VuZGVyIHdpbGwgYmUgYWRkZWQsIHRvIHNlcnZlIGFzIGEgY29udHJvbCB2YXJpYWJsZS4gTW9kZWwgNCB0aGVuIGZ1bmN0aW9ucyBhcyB0aGUgZnVsbCBtb2RlbCwgaW4gd2hpY2ggYWxsIGNvdmFyaWF0ZSBlZmZlY3RzIGFuZCBuZWNlc3Nhcnkgc3RydWN0dXJhbCBlZmZlY3RzIGFyZSBhZGRlZC4gRmluYWxseSwgZ29vZG5lc3Mgb2YgZml0IHRlc3RzIHdpbGwgYmUgYXBwbGllZCB0byB0aGUgbW9kZWxzIHRvIGNoZWNrIHdoZXRoZXIgdGhlIHh4eC4gXArigIMgICAK4oCDCgotLS0tLS0tLS0tLS0tCgoK</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("FinalDataMethods_LB.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

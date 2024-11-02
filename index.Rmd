@@ -89,17 +89,6 @@ Use the top menu to navigate through the journal.
 
 ----
 
-# Test sidebar
-
-This is to test the sidebar function.
-
-## Test sidebar thingy
-
-If all went well, the 'test sidebar' should have its own 'test sidebar thingy' now
-
-## Test sidebar thingy 2
-
-If all went well, the 'test sidebar' should have its own 'test sidebar thingy 2' now
 
 ----
 

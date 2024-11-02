@@ -1,0 +1,364 @@
+---
+title: "Final RSiena models"
+output: html_document
+date: "2024-10-31"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+```{=html}
+<style>
+div {
+text-align: justify}
+</style>
+```
+  
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+----
+
+# RSiena models
+
+I use the RSiena package in R to test hypotheses 1A and hypotheses 3. These hypotheses focus on the effect prestige has on the structure of the collaboration network, and thus needs RSiena to test.
+  
+----
+  
+## Prep
+
+Cleaning the workspace
+
+```{r}
+rm(list=ls())
+```
+
+Defining the functions
+
+```{r}
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    totalname <- paste(location, file, ".rda", sep = "")
+    save(x, file = totalname)
+}
+
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+```
+
+Loading packages
+
+```{r}
+packages <- c("tidyverse", "scholar", "openalexR", "rvest", "jsonlite", "RSiena", "RSelenium", "rvest", "lavaan", "xml2", "kableExtra", "devtools", "igraph", "network", "sna", "ggraph", "visNetwork", "threejs", "networkD3", "RsienaTwoStep", "dplyr")
+
+
+fpackage.check(packages)
+```
+
+```{r}
+# make yourself known to openAlex
+options(openalexR.mailto = "lucan.bovens@home.nl")
+```
+
+```{r}
+# Load final prepared data
+df_ego <- fload("./data/processed/df_ego_final.rda")
+socdata <- fload("./data/processed/socdata_final.rda")
+dfworks <- fload("./data/processed/df_works_final.rda")
+```
+
+```{r}
+final_scholar_ids <- df_ego$au_id  # Get final scholar IDs from df_ego
+socdata$nets <- socdata$nets[, final_scholar_ids, final_scholar_ids, drop = FALSE]
+dim(socdata$nets)  # Should be 2 (waves) 164, 164)
+```
+
+```{r}
+df_network <- socdata$nets
+length(df_network)
+dim(df_network) [1]
+```
+
+```{r}
+wave1RS <- df_network[1,,]
+wave2RS <- df_network[2,,]
+
+# diagonal = zero
+diag(wave1RS) <- 0
+diag(wave2RS) <- 0
+
+# binary ties
+wave1RS[wave1RS > 1] <- 1
+wave2RS[wave2RS > 2] <- 1
+
+# put networks in array --> right format for Rsiena
+net_soc_array <- array(data = c(wave1RS, wave2RS), dim = c(dim(wave1RS), 2))
+dim(net_soc_array)
+```
+
+```{r}
+net <- sienaDependent(net_soc_array)
+print(net)
+```
+
+```{r}
+
+prestige_index <- as.numeric(df_ego$prestige_index)
+prestige_index <- coCovar(prestige_index)
+
+genderdich <- coCovar(as.numeric(df_ego$genderdich == "female"))
+
+```
+
+```{r}
+siena_data <- sienaDataCreate(net, prestige_index, genderdich)
+```
+
+```{r}
+myeff <- getEffects(siena_data)
+effectsDocumentation((myeff))
+```
+
+```{r}
+print01Report(siena_data, modelname = "./results/RSienaModel1_print")
+```
+
+## Jaccard-index
+
+Below is a report which shows the descriptives of the variables included in the RSiena models, as well as the Jaccard Index. This Jaccard Index is an index for both the change in networks as well as the stability over time. The index ranges from 0 to 1, where 0 indicates there is no overlap between the waves, and 1 indicates complete overlap. Jaccard values of .3 and higher are considered suitable for RSiena networks (Riley et al. xxx). Values lower than .2 indicate that there might be some difficulties in estimation of the models, while lower than .1 is seriously problematic. The Jaccard Index of this model is .195. Thus, the results should be viewed with some caution, as there may be some estimation problems for the model.
+
+![](results/RSienaModel1_print.txt){#id .class width=100% height=200px}
+
+## Null model
+
+For the RSiena Models, I first estimated a null model. This null model includes only standard network effects and a rate parameter. The rate parameter of 2.53 suggests that, on average, each node in the network considers two to three potential changes. The outdegree (density) effect estimates the general tendency of scholars to form ties. In the context of this study, it means the tendency to collaborate. The significant negative effect (b = -2.6276, SE = 0.0879) suggests there is, in general, a low tendency to form ties. The estimate for reciprocity estimates the tendency for directed relationships to get reciprocated. The effect is significant and positive (b = 2.4120, SE = 0.2774), showing that nodes in this network are indeed likely to prefer mutual relationships.
+
+```{r}
+myeff0 <- getEffects(siena_data)
+```
+
+```{r}
+#myAlgorithm0 <- sienaAlgorithmCreate(projname = "null_model")
+#(ans0 <- siena07(myAlgorithm0, data = siena_data, effects = myeff0, returnDeps = TRUE))
+```
+
+```{r}
+#Save lowest model maximum convergence ratio
+
+#fsave(ans0, "ans0")
+```
+
+```{r}
+ans0 <- fload("./data/processed/ans0.rda")
+summary(ans0)
+```
+
+## Model 1
+
+In Model 1, several structural network effects were added. The effect of outdegree remains significantly negative, whereas the effect of reciprocity remains significantly positive. I added an effect for transitive triples, which estimates the amount of transitive relationships that are in the network. As this effect is significantly positive (b = 1.2339, SE = 0.2119), it suggests a tendency for triadic closure. A parameter for indegree-popularity was also added, which estimates whether scholars with more incoming ties are likely to attract even more ties. This effect is significantly positive (b = 0.1861, SE = 0.0290), showing that popular scholars indeed tend to attract even more collaborators. Additionally, a negative outdegree-activity effect (b = -0.2683, SE = 0.1258) suggests that scholars who are active in starting ties have a tendency, over time, to form less ties. Finally, the network-isolate effect was added. This estimates whether isolated nodes tend to remain isolated. This effect is significantly positive (b = 4.0161, SE = 0.8205), suggesting that isolates do tend to remain isolated.
+
+```{r}
+
+#First model only structural
+myeff1 <- getEffects(siena_data)
+myeff1 <- includeEffects(myeff1, isolateNet) # First -> control for isolates in the network
+myeff1 <- includeEffects(myeff1, inPop) # Scholars tend to tie with other scholars who have more indegrees
+myeff1 <- includeEffects(myeff1, outAct) # Control for more active nodes based on outdegrees     
+myeff1 <- includeEffects(myeff1, transTrip) # Control for relationships of triadic nature
+myeff1 <- includeEffects(myeff1, recip) # Added to control for reciprocity
+
+```
+
+```{r}
+#myAlgorithm1 <- sienaAlgorithmCreate(projname = "firstmodel_model")
+#(ans1 <- siena07(myAlgorithm0, data = siena_data, effects = myeff1, returnDeps = TRUE))
+```
+
+```{r}
+#Save lowest model maximum convergence ratio
+
+#fsave(ans1, "ans1")
+```
+
+```{r}
+ans1 <- fload("./data/processed/ans1.rda")
+summary(ans1)
+```
+
+## Model 2
+
+In Model 2, prestige as main independent variable was added. This was added to check whether hypothesis 1 holds, which states that scholars tend to collaborate with other scholars who have a similar prestige. The effect focuses on the absolute difference of the prestige index score. This prestige parameter has a positive estimate, but is not significant (b = 0.0280, SE = 0.0150). The positive estimate would suggest a small preference for scholars with a different level of prestige, but since the effect is not statistically significant, an effect of homophily in prestige does not seem to occur. Prestige similarity does not play a significant role in forming collaborative ties in the network. As such, the first hypothesis is rejected.
+
+```{r}
+#Second model, adding prestige but without control. To check h1a, whether similarity matters (homophily)
+
+myeff2 <- getEffects(siena_data)
+myeff2 <- includeEffects(myeff2, isolateNet) # First -> control for isolates in the network
+myeff2 <- includeEffects(myeff2, inPop) # Scholars tend to tie with other scholars who have more indegrees
+myeff2 <- includeEffects(myeff2, outAct) # Control for more active nodes based on outdegrees     
+myeff2 <- includeEffects(myeff2, transTrip) # Control for relationships of triadic nature
+myeff2 <- includeEffects(myeff2, recip) # Added to control for reciprocity
+
+myeff2 <- includeEffects(myeff2, absDiffX, interaction1 = "prestige_index") #Absolute difference of prestige others, to check homophily
+
+```
+
+```{r}
+#myAlgorithm2 <- sienaAlgorithmCreate(projname = "second_model")
+#(ans2 <- siena07(myAlgorithm0, data = siena_data, effects = myeff2, returnDeps = TRUE))
+```
+
+```{r}
+#Save lowest model maximum convergence ratio
+
+#fsave(ans2, "ans2")
+```
+
+```{r}
+ans2 <- fload("./data/processed/ans2.rda")
+summary(ans2)
+```
+
+## Model 3
+
+In Model 3, gender was added as a control variable. The effect of gender would indicate that nodes are more likely to send ties to nodes of the same gender. The effect of prestige remains unchanged, with only a small difference in the standard error (b = 0.0280, SE = 0.0148), further confirming that H1 is not supported. The effect of gender (b = 0.0334, SE = 0.1406) suggests a weak tendency for scholars to collaborate with those of the same gender, but the effect is very small and not significant. As such, gender similarity seems to not play a role in collaboration networks.
+
+```{r}
+
+#Third model, prestige but with gender as control added. If effect prestige not significant, then not more likely to collaborate with similar prestige compared to difference in prestige (e.g. prestige does not seem to matter)
+
+myeff3 <- getEffects(siena_data)
+myeff3 <- includeEffects(myeff3, isolateNet) # First -> control for isolates in the network
+myeff3 <- includeEffects(myeff3, inPop) # Scholars tend to tie with other scholars who have more indegrees
+myeff3 <- includeEffects(myeff3, outAct) # Control for more active nodes based on outdegrees     
+myeff3 <- includeEffects(myeff3, transTrip) # Control for relationships of triadic nature
+myeff3 <- includeEffects(myeff3, recip) # Added to control for reciprocity
+
+myeff3 <- includeEffects(myeff3, absDiffX, interaction1 = "prestige_index") #Absolute difference of prestige others, to check homophily
+myeff3 <- includeEffects(myeff3, sameX, interaction1 = "genderdich") # More likely to send ties to same gender
+```
+
+```{r}
+#myAlgorithm3 <- sienaAlgorithmCreate(projname = "third_model")
+#(ans3 <- siena07(myAlgorithm0, data = siena_data, effects = myeff3, returnDeps = TRUE))
+```
+
+```{r}
+#Save lowest model maximum convergence ratio
+
+#fsave(ans3, "ans3")
+```
+
+```{r}
+ans3 <- fload("./data/processed/ans3.rda")
+summary(ans3)
+```
+
+## Model 4
+
+Model 4 adds prestige again, but this time as alter prestige (altX), to check whether H4 would hold. Hypothesis 4 states that scholars are more likely to initiate ties with highly prestigious scholars. Note that gender is excluded from this model. The alter prestige effect is significantly positive (b = 0.0480, SE = 0.0113), suggesting that scholars are somewhat more likely to send ties to scholars with a high prestige. As such, it seems that hypothesis 4, for now, finds support. 
+
+```{r}
+
+#Fourth model, prestige but as altX. To check if H3 holds, whether more likely to send ties to scholars with high prestige
+
+myeff4 <- getEffects(siena_data)
+myeff4 <- includeEffects(myeff4, isolateNet) # First -> control for isolates in the network
+myeff4 <- includeEffects(myeff4, inPop) # Scholars tend to tie with other scholars who have more indegrees
+myeff4 <- includeEffects(myeff4, outAct) # Control for more active nodes based on outdegrees     
+myeff4 <- includeEffects(myeff4, transTrip) # Control for relationships of triadic nature
+myeff4 <- includeEffects(myeff4, recip) # Added to control for reciprocity
+
+myeff4 <- includeEffects(myeff4, altX, interaction1 = "prestige_index") #Difference of other higher
+```
+
+```{r}
+#myAlgorithm4 <- sienaAlgorithmCreate(projname = "fourth_model")
+#(ans4 <- siena07(myAlgorithm0, data = siena_data, effects = myeff4, returnDeps = TRUE))
+```
+
+```{r}
+#Save lowest model maximum convergence ratio
+
+#fsave(ans4, "ans4")
+```
+
+```{r}
+ans4 <- fload("./data/processed/ans4.rda")
+summary(ans4)
+```
+
+## Model 5
+
+Finally, model 5 yet again adds gender as a control variable, to assess whether H3 still holds. As was the case in model 3, gender did not have a significant effect (b = 0.0075, SE = 0.1382), yet again suggesting that gender homophily does not play a role. Importantly, the alter prestige effect remains mostly the same (b = 0.0483, SE = 0.0115), suggesting that scholars are indeed more likely to prefer to collaborate with highly prestigious scholars. As such, hypothesis 4 is accepted. 
+
+```{r}
+
+#Fifth model, prestige but as altX. To check if H3 holds, whether more likely to send ties to scholars with high prestige. Control gender added
+
+myeff5 <- getEffects(siena_data)
+myeff5 <- includeEffects(myeff5, isolateNet) # First -> control for isolates in the network
+myeff5 <- includeEffects(myeff5, inPop) # Scholars tend to tie with other scholars who have more indegrees
+myeff5 <- includeEffects(myeff5, outAct) # Control for more active nodes based on outdegrees     
+myeff5 <- includeEffects(myeff5, transTrip) # Control for relationships of triadic nature
+myeff5 <- includeEffects(myeff5, recip) # Added to control for reciprocity
+
+myeff5 <- includeEffects(myeff5, altX, interaction1 = "prestige_index") #Difference of other higher
+myeff5 <- includeEffects(myeff5, sameX, interaction1 = "genderdich") # More likely to send ties to same gender
+
+```
+
+```{r}
+#myAlgorithm5 <- sienaAlgorithmCreate(projname = "fifth_model")
+#(ans5 <- siena07(myAlgorithm0, data = siena_data, effects = myeff5, returnDeps = TRUE))
+```
+
+```{r}
+#Save lowest model maximum convergence ratio
+
+#fsave(ans5, "ans5")
+```
+
+```{r}
+ans5 <- fload("./data/processed/ans5.rda")
+summary(ans5)
+```
+
+

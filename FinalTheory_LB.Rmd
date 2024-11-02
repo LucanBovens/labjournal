@@ -1,0 +1,65 @@
+---
+title: "Final theory"
+output: html_document
+date: "2024-11-01"
+bibliography: references.bib
+author: "Lucan Bovens"
+---
+
+```{=html}
+<style>
+div {
+text-align: justify}
+</style>
+```
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+----
+
+# Theory
+
+The academic world consists of many highly qualified individuals, and it is difficult to reach the top of the academic world. Since academia remains largely a meritocracy, prestige plays a crucial role in obtaining higher positions and building a valuable network. Although prestige is not visible at first and can transcend other, more visible, person characteristics, it is commonly known within the academic which scholars have the most prestige. This prestige is usually determined by factors such as the number of citations or the number of co-authorship ties. Most often it is the scholars who hold the highest academic title and who have had the longest career age. For simplicity, I will refer to these high-prestige individuals as 'senior scholars' and to those with lower prestige as 'junior scholars.' With these distinctions in mind, I expect prestige to be a key determinant in whether scholars tend to work together. \
+    One of the key mechanisms that can potentially play a role in forming the structure of scientific collaboration networks is the concept of homophily. Homophily is the concept that refers to the preference of individuals to form relationships with others that are similar to them (McPherson, Smith-Lovin & Cook, 2001; Wang & Zhu, 2014). In the academic context then, it could mean that scholars are more likely, or rather more interested, to work with other scholars who have a similar level of prestige, while being more reluctant or refusing to work with others who have a different level of prestige. Evans, Lambiotte and Panzarasa (2011 xx) have found that researchers indeed prefer to collaborate with researchers who have a similar level of prestige. In this case, it would most likely be the scholars with the highest levels of prestige who tend to work together, as they would want to maintain their status, which is also known as a _birds of a feather_ effect (Hancean xxx). Previous research by Jeppesen, Vaarts Andersen, Lauto and Valentin (2014) refers to this as the _rich club effect_, meaning that prominent individuals direct their ties towards each other. Resulting from that, clusters of scholars with high levels of prestige would occur within the network, since they would prefer to work with each other. As such, the first hypotheses I propose are: \
+
+  *H1: Scholars with similar prestige are more likely to collaborate than scholars with a difference in prestige.*\ 
+
+  *H2: Clusters of scholars with high prestige occur within collaboration networks.*\ 
+
+    Collaboration dynamics can also be entirely different. Collaboration networks tend to follow a hierarchical structure, with scholars of a higher prestige potentially serving as mentors to scholars with lower prestige. Horta, Feng and Santos (2022) argue that collaboration between researchers with different levels of prestige offers benefits to junior and senior scholars alike, as well as to the university and the whole scientific field. As such, lower-prestige scholars would prefer to work with scholars of a higher prestige, so that they themselves can get a higher prestige as well, or so that the process of writing the paper goes more smoothly (xxx zie bronnen st, zoals li et al, perc 2010). This then follows the concept of a scale-free network, where it would mean that scholars with a high prestige hold important central position within the network. In a scale-free network then, these highly prestigious scholars function as hubs with the most connections. This leads to a second hypothesis: \
+
+  *H3: Highly prestigious scholars occupy central positions within collaboration networks.*\ 
+
+    The above hypotheses are conflicting, which makes it clear that the exact mechanisms of prestige can work differently. This makes the concept of prestige as a determinant for network structures very complex, as there may be conflicting preferences in the above scenarios; scholars with a lower prestige aim to work with scholars with a higher prestige, while scholars with a higher prestige prefer to work only with other higher-prestige scholars. It may  be the case that senior scholars themselves recognize that they are expected to help out scholars with lower prestige, and as such are willing to guide other's careers as well when asked. This would mean that senior scholars are often approached to collaborate on a paper. This has been found in previous studies as well, with Sekara et al. (2018) finding that senior scholars are indeed more likely to collaborate with junior scholars, so that the latter can have a solid start for their career. Bornmann et al. (2020) also find that scholars with a higher h-index are seen as more prestigious and are thus more likely to be asked to collaborate. Hancean and Perc also find that scholars prefer to collaborate with other scholars they perceive to be prestigious. As such, the scenario I then find most likely is that (junior) scholars prefer to collaborate with scholars who have a higher prestige. Resulting from this, I propose the following hypothesis: \
+
+  *H4: Scholars are more likely to initiate ties with scholars who have a high level of prestige.*\ 
+
+  The above theoretical framework has shown that prestige is a complex concept in the forming of academic collaboration networks. There are multiple dynamics that can potentially be at play in forming a social network in the context of prestige. Understanding how these dynamics work is then crucial in finding out how these networks form. The next section will outline the specific network data needed to test the above hypotheses. \
+
+-------------
