@@ -2,7 +2,7 @@
 title: "Lucan's Lab journal"
 author: "by: Lucan Bovens"
 bibliography: references.bib
-date: "`r Sys.Date()`"
+date: "2024-11-03"
 font-family: Times New Roman
 
 
@@ -53,7 +53,7 @@ But please note, we are not here to make a beautiful website, our intention is j
 # My Lab Journal
 Last compiled on `r format(Sys.time(), '%B, %Y')`  
 
-*Describe lab journal here. Welcome to my Lab Journal! In this Lab Journal, I ... for the course Social Networks given at the Radboud University. This website consists of xxx and xxx. Please see below how to navigate the website.*
+*Welcome to my Lab Journal! In this Lab Journal, I will track my work for the Social Networks course given at the Radboud University. This website consists ofthe weekly content discussed during the lectures, as well as the final report to finish the course. Please see below how to navigate the website.*
 
 <br>
 
@@ -61,7 +61,7 @@ Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 ## How to navigate
 
-This website has been hosted using Github. To navigate this website, please see the top menu. In the top menu, it is possible to find the different 'chapters' of this Lab Journal. It consists of weekly chapters added to the lab journal, which can be found under the 'my journal' tab. Under the 'concept report' tab, you can (in the future) find my concept report. The same goes for the 'final report' tab, where I will publish my final report on network analysis. This lab journal is for the end product of the course Social Networks. Most is based on the book Social Network Analysis For Social Scientists [@SNASS].
+This website has been hosted using Github. To navigate this website, use the top menu. In the top menu, it is possible to find the different 'chapters' of this Lab Journal. It consists of weekly chapters added to the lab journal, which can be found under the 'my journal' tab. Under the 'concept report' tab, you can find some part of my concept report. The 'final report' tab is the most important tab, as you can find my final report on network analysis there. This lab journal is for the end product of the course Social Networks. Most is based on the book Social Network Analysis For Social Scientists (Tolsma & Hofstra, 2022).
 
 
 :::
@@ -77,23 +77,5 @@ This website has been hosted using Github. To navigate this website, please see 
 :::
 ::::
 ---
-
-## How to use
-
-
-
-
-<br>
-
-Use the top menu to navigate through the journal.
-
-----
-
-
-----
-
-# References
-
-
 
 

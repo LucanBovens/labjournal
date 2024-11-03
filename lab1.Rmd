@@ -1,5 +1,5 @@
 ---
-title: "Journal 1"
+title: "Lucan's Lab Journal"
 #bibliography: references.bib
 author: "Lucan Bovens"
 ---
@@ -32,9 +32,8 @@ Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 ----
   
-This is the example page of my `r colorize("lab journal", "red")`. On this example page I try out different *fonts*, text sizes, `r colorize ("colours", "blue")` , et cetera. 
-This example page will (and has to) be removed for the final version of my lab journal.
-  
+This is the example page of my `r colorize("lab journal", "red")`. On this example page I try out different *fonts*, text sizes, `r colorize ("colours", "blue")` , et cetera. This page serves as the very first page added to this lab journal, and thus deserves to stay.
+
 
 ----
 

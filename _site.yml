@@ -14,7 +14,7 @@ navbar:
       menu:
       - text: "Week 1"
         menu:  # Nested menu for Week 1
-        - text: "Example plage"
+        - text: "Example page"
           href: lab1.html
         - text: "Research Questions"
           href: Week1_LB.html
@@ -58,7 +58,6 @@ navbar:
         href: ConceptTheory_LB.html
       - text: "Data"
         href: ConceptData_LB.html
-      - text: "Results"
     - text: "Final Report"
       menu:
       - text: "Introduction"
