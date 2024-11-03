@@ -1,7 +1,7 @@
 ---
 title: "Final RSiena GOF"
 output: html_document
-date: "2024-10-31"
+date: "2024-11-03"
 bibliography: references.bib
 author: "Lucan Bovens"
 ---
@@ -172,9 +172,5 @@ GOFM5 <- sienaGOF(ans5, IndegreeDistribution, verbose = FALSE, join = TRUE, varN
 
 plot(GOFM5, main = "GOF indegrees model 5")
 
-```
-
-```{r}
-?sienaGOF
 ```
 

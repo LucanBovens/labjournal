@@ -1,7 +1,7 @@
 ---
 title: "Final data and methods"
 output: html_document
-date: "2024-11-01"
+date: "2024-11-03"
 bibliography: references.bib
 author: "Lucan Bovens"
 ---
@@ -71,7 +71,6 @@ The data used originates from collaboration data of researchers from the sociolo
     The RSiena analysis will actually consist of multiple models. At first, the analysis will start with a null model. This null model will only include the density (outdegree) and reciprocity structural effects, as this is a standard setting within RSiena. Model 1 will contain some structural effects for the analysis, such as indegree and transitive triples. Then, Model 2 adds the covariate effect of prestige to the existing model. In Model 3 the covariate effect of gender will be added, to serve as a control variable. Model 4 replaces the prestige similarity of model 2 with alter prestige, and excludes gender again. Model 5 then adds gender as control variable again. Finally, goodness of fit tests will be applied to the five models. \
     
  
-
 -------------
 
 

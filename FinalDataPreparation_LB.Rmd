@@ -1,7 +1,7 @@
 ---
 title: "Data preparation"
 output: html_document
-date: "2024-10-31"
+date: "2024-11-03"
 bibliography: references.bib
 author: "Lucan Bovens"
 ---
@@ -354,10 +354,9 @@ df_ego <- df_ego %>%
     TRUE ~ NA_character_
   ))
 
-
 table(df_ego$genderdich)
 
-# Remove authors gender is unknown (NA value)
+# Remove authors whose gender are unknown (NA value)
 df_ego <- df_ego %>% 
   filter(!is.na(genderdich))
 
@@ -368,7 +367,7 @@ table(df_ego$genderdich)
 
 ### Career age
 
-Adding the career age to serve as a factor when creating the new prestige-index. The below syntax was developed by Koen Lucas, who I thank.
+Adding the career age to serve as a factor when creating the new prestige-index. The below syntax to scrape career age was developed by Koen Lucas, who I thank.
 
 ```{r}
 
@@ -430,7 +429,7 @@ View(df_ego)
 
 ## Missings
 
-I excluded a few missings which made no sense and which could not be used. 
+I excluded a few missings, based on scholars who had zero works but had an career age recorded. Since career age is based on the number of publications, scholars with zero publications could not have an career age.
 
 ```{r}
 df_ego <- df_ego %>%
