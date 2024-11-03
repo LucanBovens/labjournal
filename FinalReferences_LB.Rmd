@@ -43,3 +43,82 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # References
 
+Alonso, S., Cabrerizo, F., Herrera-Viedma, E., & Herrera, F. (2009). h-Index: A review 
+focused in its variants, computation and standardization for different scientific fields. _Journal of Informetrics, 3_(4), 273-289.  https://doi.org/10.1016/j.joi.2009.04.001
+
+Bornmann, L., Ganser, C., Tekles, A., & Leydesdorff, L. (2020). Does the hα-index 
+reinforce the Matthew effect in science? The introduction of agent-based 
+simulations into scientometrics. _Quantitative Science Studies, 1_(1), 331-346. https://doi.org/10.1162/qss_a_00008
+
+Cheong, F., & Corbitt, B. (2009). A Social Network Analysis of the Co-Authorship 
+Network of the Pacific Asia Conference on Information Systems from 1993 to 
+2008. _PACIS 2009 Proceedings, 23_. Retrieved from https://aisel.aisnet.org/pacis2009/23
+
+Choueiry, G. (2022). Does the Number of Authors Matter? Data from 101,580 Research 
+Papers. _Quantifying Health_. Retrieved from https://quantifyinghealth.com/number-of-authors-of-research-papers/
+
+De Miranda Grochocki, L., & Cabello, A. (2023). Research collaboration networks in 
+maturing academic environments. _Scientometrics, 128_(4), 2535-3556. https://doi.org/10.1007/s11192-023-04671-z
+
+Evans, T., Lambiotte, R., & Panzarasa, P. (2011). Community structure and patterns of 
+scientific collaboration in business and management. _Scientometrics, 89_(1), 
+381–396. https://doi.org/10.1007/s11192-011-0439-1
+
+Fanelli, D., & Larivière, V. (2016). Researchers’ Individual Publication Rate Has Not 
+Increased in a Century. _Plos One, 11_(3), e0149504. https://doi.org/10.1371/journal.pone.0149504
+
+Hâncean, M., & Perc, M. (2016). Homophily in coauthorship networks of East European 
+sociologists. _Scientific Reports, 6_(1), 36152. https://doi.org/10.1038/srep36152
+
+Hirsch, J. (2005). An index to quantify an individual's scientific research output. 
+_Proceedings of the National Academy of Sciences, 102_(46), 16569-16572. 
+https://doi.org/10.1073/pnas.0507655102
+
+Horta, H., Feng, S., & Santos, J. (2022). Homophily in higher education research: A 
+perspective based on co-authorships. _Scientometrics, 127_(1), 523-543. 
+https://doi.org/10.1007/s11192-021-04227-z
+
+Jeppesen, J., Vaarst Andersen, K., Lauto, G., & Valentin, F. (2014). _Big Egos in Big Science_. Paper presented at The DRUID Academy Conference 2014, Aalborg, 
+Denmark. Retrieved from https://www.semanticscholar.org/paper/Big-Egos-in-Big-Science-Andersen-Valentin/a384670034b9ac51a8978e7fd7037eeafaab9a92
+
+Kim, J. (2019). Scale-Free Collaboration Networks: An Author Name Disambiguation 
+Perspective. _Journal of the Association for Information Science and Technology, 70_(7), 685–700. https://doi.org/10.1002/asi.24158
+
+Li, M., Wu, J., Wang, D., Zhou, T., Di, Z., & Fan, Y. (2007). Evolving model of weighted 
+networks inspired by scientific collaboration networks. _Physica A: Statistical Mechanics and Its Applications, 375_(1), 355–364. 
+https://doi.org/10.1016/j.physa.2006.08.023
+
+Meertens Instituut. (n.d.). _Nederlandse Voornamenbank_. Retrieved from 
+https://nvb.meertens.knaw.nl/. 
+
+McPherson, M., Smith-Lovin, L., & Cook, J. (2001). Birds of a Feather: Homophily in 
+Social Networks. _Annual Review of Sociology, 27_, 415-444. 
+https://doi.org/10.1146/annurev.soc.27.1.415
+
+Perc, M. (2010). Growth and structure of Slovenia’s scientific collaboration 
+network. _Journal of Informetrics, 4_(4), 475–482. 
+https://doi.org/10.1016/j.joi.2010.04.003
+
+Ripley, R., Snijders, T., Boda, Z., Vörös, A., & Preciado, P. (2024). _Manual for RSiena_. R 
+package version 1.4.19. Retrieved from 
+https://www.stats.ox.ac.uk/~snijders/siena/
+
+Sekara, V., Deville, P., Ahnert, S., Barabási, A., Sinatra, R., & Lehmann, S. (2018). The 
+chaperone effect in scientific publishing. _Proceedings of the National Academy of Sciences, 115_(50), 12603–12607. https://doi.org/10.1073/pnas.1800471115
+
+Shen, H., Xie, J., Li, J., & Cheng, Y. (2021). The correlation between scientific 
+collaboration and citation count at the paper level: a meta-analysis. 
+_Scientometrics,126_(4), 3443-3470. https://doi.org/10.1007/s11192-021-03888-0
+
+Thelwall, M., & Maflahi, N. (2022). Research coauthorship 1900–2020: Continuous, 
+universal, and ongoing expansion. _Quantitative Science Studies, 3_(2), 331-344. 
+https://doi.org/10.1162/qss_a_00188
+
+Tolsma, J., & Hofstra, B. (2022). _Social Network Analysis for Social Scientists_. 
+https://jtolsma.nl/SNASS/.
+
+Wang, Z., & Zhu, J. (2014). Homophily Versus Preferential Attachment: Evolutionary Mechanisms of Scientific Collaboration Networks. _International Journal of Modern Physics C, 25_(5), 1440014. 
+https://doi.org/10.1142/S0129183114400142.
+
+
+------
